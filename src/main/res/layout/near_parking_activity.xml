@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFf9f9f9">
+
+    <RelativeLayout
+        android:id="@+id/rlNearTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FF00c1a0"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btNearBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/top_back_btn" />
+
+
+        <TextView
+            android:id="@+id/tvNearTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false"
+            android:layout_marginTop="10dp"
+            android:text="停车场列表"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llParkInfoType"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@id/rlNearTopBar"
+        android:background="#F0FFFFFF"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvNearShowAll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="显示全部"
+            android:textColor="#FF00c1a0"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvNearShowFree"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="免费的"
+            android:textColor="#4d4d4d"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvNearShowPay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="收费的"
+            android:textColor="#4d4d4d"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewTypeGreenBar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@+id/llParkInfoType"
+        android:layout_marginTop="-4dp"
+        android:background="#FF00c1a0"
+        android:visibility="gone" />
+
+    <funion.app.qparking.view.PullRefreshList
+        android:id="@+id/lvParking"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/llParkInfoType"
+        android:divider="@null"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/include_title" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/near_parking_info_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/include_title"
+        android:background="@null"
+        android:cacheColorHint="#00000000"
+        android:clickable="true"
+        android:divider="@null"
+        android:focusable="true"
+        android:listSelector="#00000000"
+        android:scrollbars="none"
+        ptr:ptrAnimationStyle="rotate"
+        ptr:ptrHeaderTextColor="@color/app_text_black"
+        ptr:ptrMode="both">
+
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+</RelativeLayout>

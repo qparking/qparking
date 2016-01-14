@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#FFFFFF"
+            android:paddingBottom="5dp" >
+
+            <TextView
+                android:id="@+id/tvAuthParkName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:singleLine="true"
+                android:text="停车场名"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000"
+                android:typeface="serif" />
+
+            <ImageView
+                android:id="@+id/ivAuthParkStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvAuthParkName"
+                android:layout_below="@+id/tvAuthParkName"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/park_certify_passing" />
+
+            <TextView
+                android:id="@+id/tvAuthParkStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivAuthParkStatus"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="10dp"
+                android:text="认证进行中"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffdb29"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvAddTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="false"
+                android:layout_below="@+id/tvAuthParkName"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/tvAuthParkStatus"
+                android:text="添加时间: 20"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#929292"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvAuthParkEvaluate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvAddTime"
+                android:layout_below="@+id/tvAddTime"
+                android:layout_marginTop="5dp"
+                android:text="已赞: 0     鄙视"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#929292"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvAuthParkPayStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tvAddTime"
+                android:layout_below="@+id/tvAuthParkEvaluate"
+                android:layout_marginTop="5dp"
+                android:text="状态: 免费"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#929292"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/viewAuthParkDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/tvAuthParkStatus"
+                android:layout_centerHorizontal="false"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                android:background="#eeeeee" />
+
+            <TextView
+                android:id="@+id/tvAuthParkAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/viewAuthParkDivider"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:text="地址"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#929292"
+                android:textSize="16sp"
+                android:typeface="serif" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

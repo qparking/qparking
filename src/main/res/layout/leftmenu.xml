@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llMenuBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#494d50"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/rlMenuMe"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@drawable/main_menu_btn1">
+
+            <funion.app.qparking.view.RoundImageView
+                android:id="@+id/ivMenuMe"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:scaleType="center"
+                android:src="@drawable/headimage_default" />
+
+            <RelativeLayout
+                android:id="@+id/login_re"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/ivMenuMe">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="登录"
+                    android:textColor="@color/app_white" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llMenuMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/ivMenuMe"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvMenuMe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="15651021352"
+                    android:textColor="@color/app_white" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:text="余额:"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:text="X元"
+                        android:textColor="@color/app_white" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:gravity="right">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/arrow_right" />
+                </LinearLayout>
+                <!-- 该布局为图标左移20% -->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"></LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/my_order_form"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/main_menu_btn2">
+
+            <ImageView
+                android:id="@+id/ivPay"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/persion_icon" />
+
+            <TextView
+                android:id="@+id/tv_my_order_form"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/ivPay"
+                android:text="@string/my_orderform"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFEFEFE"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlReverseParking"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/main_menu_btn1">
+
+            <ImageView
+                android:id="@+id/ivReverseParking"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/menu_icon_reverseparking" />
+
+            <TextView
+                android:id="@+id/tvReverseParking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/ivReverseParking"
+                android:text="反向寻车"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFEFEFE"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlLeaseParking"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/main_menu_btn2">
+
+            <ImageView
+                android:id="@+id/ivLeaseParking"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/menu_icon_lease" />
+
+            <TextView
+                android:id="@+id/tvLeaseParking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/ivLeaseParking"
+                android:text="车位出租"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFEFEFE"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlShare"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/main_menu_btn1">
+
+            <ImageView
+                android:id="@+id/ivShare"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/menu_icon_share" />
+
+            <TextView
+                android:id="@+id/tvShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/ivShare"
+                android:text="推荐有奖"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFEFEFE"
+                android:textSize="16sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlIntegral_exchange"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/main_menu_btn2">
+
+            <ImageView
+                android:id="@+id/ivIntegral_exchange"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/menu_icon_share" />
+
+            <TextView
+                android:id="@+id/tvIntegral_exchange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/ivIntegral_exchange"
+                android:text="积分商城"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFEFEFE"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rlMenuSet"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/main_menu_btn1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/ivMenuSet"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/menu_icon_set" />
+
+                <TextView
+                    android:id="@+id/tvMenuSet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/ivMenuSet"
+                    android:text="设置"
+                    android:textColor="@color/app_font_gray1"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlSuggestion"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/main_menu_btn1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/ivSuggestion"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/menu_icon_suggestion" />
+
+                <TextView
+                    android:id="@+id/tvSuggestion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/ivSuggestion"
+                    android:text="建议"
+                    android:textColor="@color/app_font_gray1"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

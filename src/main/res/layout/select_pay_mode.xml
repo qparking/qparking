@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_white"
+    android:id="@+id/pop_ll"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/wechat_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_green"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:minHeight="60dp"
+        android:text="@string/wechat_paymode"
+        android:textSize="@dimen/text_size_30"
+        android:textColor="@color/app_white"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/gray"
+        />
+    <Button
+        android:id="@+id/alipay_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_green"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:minHeight="60dp"
+        android:text="@string/alipay"
+        android:textSize="@dimen/text_size_30"
+        android:textColor="@color/app_white"/>
+
+    <Button
+        android:id="@+id/cancle_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_green"
+        android:minHeight="60dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/cancle"
+        android:textSize="@dimen/text_size_30"
+        android:textColor="@color/app_white"
+        />
+
+
+</LinearLayout>

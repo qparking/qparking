@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llParkingDetail"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rlSearchInfo"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:background="@drawable/infowindow_content_bk" >
+
+        <ImageView
+            android:id="@+id/ivGotoSearch"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/go_icon_bk"
+            android:scaleType="center"
+            android:src="@drawable/goto_park" />
+
+        <TextView
+            android:id="@+id/tvSearchName"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/tvSearchAddress"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:singleLine="true"
+            android:text="停车场"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FF5F5F5F"
+            android:textSize="16sp"
+            android:typeface="serif" />
+
+        <TextView
+            android:id="@+id/tvSearchAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_toLeftOf="@+id/ivGotoSearch"
+            android:singleLine="true"
+            android:text="提供分享"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#FFE0E0E0"
+            android:textSize="14sp"
+            android:typeface="serif" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivSearchInfoDownArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/info_arrow_down" />
+
+</LinearLayout>

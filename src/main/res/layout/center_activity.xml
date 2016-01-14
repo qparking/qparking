@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9" >
+
+        <RelativeLayout
+            android:id="@+id/rlCenterTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FF00c1a0" >
+
+            <Button
+                android:id="@+id/btCenterBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/top_back_btn" />
+
+
+            <TextView
+                android:id="@+id/tvCenterTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="10dp"
+                android:text="个人中心"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/llUserInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlCenterTopBar"
+            android:layout_centerHorizontal="false"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/rlCenterUserName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/white_btn" >
+
+                <ImageView
+                    android:id="@+id/ivCenterAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/logon_account" />
+
+                <View
+                    android:id="@+id/viewCenterDivider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@+id/tvCenterAccount"
+                    android:layout_alignParentBottom="true"
+                    android:background="#dcdcdc" />
+
+                <TextView
+                    android:id="@+id/tvCenterAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/ivCenterAccount"
+                    android:text="用户名"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#4d4d4d" />
+
+                <ImageView
+                    android:id="@+id/ivUserArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/arrow_left" />
+
+                <TextView
+                    android:id="@+id/tvCenterUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/ivUserArrow"
+                    android:text="未填写"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#c8c8c8" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlCenterPhone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/white_btn" >
+
+                <ImageView
+                    android:id="@+id/ivCenterPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/logon_phone" />
+
+                <View
+                    android:id="@+id/viewCenterDivider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@+id/tvCenterPhone"
+                    android:layout_alignParentBottom="true"
+                    android:background="#dcdcdc" />
+
+                <TextView
+                    android:id="@+id/tvCenterPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/ivCenterPhone"
+                    android:text="手机号"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#4d4d4d" />
+
+                <ImageView
+                    android:id="@+id/ivPhoneArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/arrow_left" />
+
+                <TextView
+                    android:id="@+id/tvCenterPhoneNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/ivPhoneArrow"
+                    android:text="未绑定"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#c8c8c8" />
+
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/rlCenterPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/white_btn" >
+
+                <ImageView
+                    android:id="@+id/ivCenterPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/logon_password" />
+
+                <View
+                    android:id="@+id/viewCenterDivider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@+id/tvCenterPassword"
+                    android:layout_alignParentBottom="true"
+                    android:background="#dcdcdc" />
+
+                <TextView
+                    android:id="@+id/tvCenterPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/ivCenterPassword"
+                    android:text="更改密码"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#4d4d4d" />
+
+                <ImageView
+                    android:id="@+id/ivPasswordArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/arrow_left" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlCenterScore"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/white_btn" >
+
+                <ImageView
+                    android:id="@+id/ivCenterScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/center_score" />
+
+                <TextView
+                    android:id="@+id/tvCenterScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/ivCenterScore"
+                    android:text="我的积分"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#4d4d4d" />
+
+                <ImageView
+                    android:id="@+id/ivScoreArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/arrow_left" />
+
+                <TextView
+                    android:id="@+id/tvUserScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/ivScoreArrow"
+                    android:text="200"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#c8c8c8" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/llCarInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llUserInfo"
+            android:layout_centerHorizontal="false"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/rlCenterCarNo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/white_btn" >
+
+                <ImageView
+                    android:id="@+id/ivCenterCarNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/center_carnum" />
+
+                <View
+                    android:id="@+id/viewCenterDivider4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignLeft="@+id/tvCenterCarNo"
+                    android:layout_alignParentBottom="true"
+                    android:background="#dcdcdc" />
+
+                <TextView
+                    android:id="@+id/tvCenterCarNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/ivCenterCarNo"
+                    android:text="车牌号"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#4d4d4d" />
+
+                <ImageView
+                    android:id="@+id/ivCarNoArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/arrow_left" />
+
+                <TextView
+                    android:id="@+id/tvUserCarNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/ivCarNoArrow"
+                    android:text="未绑定"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#c8c8c8" />
+
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/rlCenterParking"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/white_btn" >
+
+                <ImageView
+                    android:id="@+id/ivCenterParking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/center_added_park" />
+
+                <TextView
+                    android:id="@+id/tvCenterParking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/ivCenterParking"
+                    android:text="添加过的停车场"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#4d4d4d" />
+
+                <ImageView
+                    android:id="@+id/ivParkingArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/arrow_left" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btLogout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/llCarInfo"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/green_btn"
+            android:text="退出登录"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+        
+</RelativeLayout>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="funion.app.qparking"
+    android:versionCode="2"
+    android:versionName="1.0">
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="21" />
+
+    <!-- 读取联系人 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!-- 短信权限 -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+
+    <!-- 读取联系人权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- 扫描相关 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--  android:largeHeap="true"  申请大内存-->
+    <application
+        android:name=".QParkingApp"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Black.NoTitleBar">
+
+        <!-- 百度地图 正式版appKey -->
+        <!--
+             <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="rEFsijGx7glj2d0yL8dswZsD"/>
+        -->
+
+
+        <!-- DCCezyEkl7rdGqf3zgGSWao3 -->
+        <!-- 百度地图 测试版appKey -->
+        <!--
+              <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="FQv5WihKOXRHU8msKbj9Dji2" />
+        -->
+        <!-- 百度地图   新版appkey -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="9etr3ZvFFz7zR90P0fLVrwZK" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 声明百度服务 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+
+        <activity
+            android:name="com.umeng.socialize.view.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/Theme.UMDialog"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- 100424468，如果你使用的公用账号，则不需要修改；否则修改成你在QQ开放平台申请的 APP ID -->
+                <data android:scheme="1104668766" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 讯飞语音key -->
+        <meta-data
+            android:name="IFLYTEK_APPKEY"
+            android:value="&apos;5495135c&apos;" />
+        <meta-data
+            android:name="IFLYTEK_CHANNEL"
+            android:value="QParking" />
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5564049c67e58e24c7004a53" />
+        <!-- 友盟消息推送key -->
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="eaf4a811ced28fe21dc5010e6a5ba1a9" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" />
+
+        <!-- 提醒广播注册 -->
+        <receiver
+            android:name=".ReminderReceiver"
+            android:process=":remote"></receiver>
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".GuideActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".AddParkingActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".NavigationActivity"
+            android:configChanges="keyboardHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".EvaluateActivity"></activity>
+        <activity
+            android:name=".NearParkingActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".RouteActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".MyInfoActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".UserNameActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".PhoneActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".PasswordActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".AboutActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ScoreActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ParkInfoActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".SearchActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".OfflineMapActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".BNavigatorActivity"></activity>
+        <activity android:name=".GetBackPwdActivity"></activity>
+        <activity
+            android:name=".HoldMapActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".SetActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".PlateNumActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ParkAuthActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".personal_center.SuccessPayMoneyAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".MipcaActivityCapture"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".SelectPayActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".OrderSuccessActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".personal_center.RechargeAct"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyBillAct"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ParkingDetailActivity"
+            android:label="@string/title_activity_parking_detail"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".OrderParkingActivity"
+            android:label="@string/title_activity_order_parking"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".PayActivity"
+            android:label="@string/title_activity_pay"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".SuggestionActivity"
+            android:label="@string/title_activity_suggestion"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".SuggestionCompleteActivity"
+            android:label="@string/title_activity_suggestion_complete"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".LesseeActivity"
+            android:label="@string/title_activity_lessee"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".PersonalCenterActivity"
+            android:label="@string/title_activity_personal_center"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".RecommendActivity"
+            android:label="@string/title_activity_recommend"></activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register"></activity>
+        <activity
+            android:name=".AddPlateNumber"
+            android:label="@string/title_activity_register"></activity>
+        <activity
+            android:name=".CarLicenceManagerActivity"
+            android:label="@string/title_activity_register"></activity>
+        <activity
+            android:name=".LoginRegisterActivity"
+            android:label="注册登录" />
+        <activity
+            android:name=".MyOrderActivity"
+            android:label="我的订单" />
+        <activity
+            android:name=".PublishParkInfoActivity"
+            android:label="车位信息" />
+        <activity
+            android:name=".ParkingpriceActivity"
+            android:label="车位价格" />
+        <activity
+            android:name=".UploadParkingPictureActivity"
+android:configChanges="orientation|keyboardHidden"
+            android:label="上传停车场图片" />
+        <activity
+            android:name=".ParkIngDetailsActivity"
+            android:label="车位信息" />
+        <activity
+            android:name=".RecommendRewardActivity"
+            android:label="推荐奖励" />
+        <activity
+            android:name=".RechargeActivity"
+            android:label="充值" />
+        <activity
+            android:name=".ParkingVolumeActivity"
+            android:label="停车卷" />
+        <activity
+            android:name=".WrashCarVolumeActivity"
+            android:label="洗车卷" />
+	            <activity
+            android:name=".IntegralExChange"
+            android:label="积分商城" />
+        <activity
+            android:name=".MyReleaseCarPort"
+            android:label="个人发布的停车列表" />
+        <activity
+            android:name=".ShowPoltCarport"
+            android:label="小区内的停车列表" />
+        <activity
+            android:name=".MainAct"
+            android:label="主页" />
+        <activity
+            android:name=".NearSearchActivity"
+            android:label="搜索" />
+        <activity
+            android:name=".AddParkingLotActivity"
+            android:label="入住" />
+        <activity
+            android:name=".NavigationAct"
+            android:label="改-去停车页面" />
+        <activity
+            android:name=".AgreementActivity"
+            android:label="用户协议" />
+	            <!-- Ping++ SDK 注册 -->
+        <activity
+            android:name="com.pingplusplus.android.PaymentActivity"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 微信支付注册 -->
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:targetActivity="com.pingplusplus.android.PaymentActivity" />
+        <!-- 支付宝注册 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
+    </application>
+
+</manifest>

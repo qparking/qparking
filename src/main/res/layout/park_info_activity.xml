@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9" >
+
+        <RelativeLayout
+            android:id="@+id/rlParkInfoTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FF00c1a0" >
+
+            <Button
+                android:id="@+id/btParkInfoBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/top_back_btn" />
+
+            <TextView
+                android:id="@+id/tvParkInfoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="10dp"
+                android:text="停车信息"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+            <Button
+                android:id="@+id/btParkInfoEvaluate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/evaluate_btn" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvNoParkInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlParkInfoTopBar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48dp"
+            android:text="无停车信息"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000000" />
+
+        <LinearLayout
+            android:id="@+id/llParkInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlParkInfoTopBar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26dp"
+            android:background="#FFFFFF"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tvParkTip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:text="停车提醒"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvCountDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:layout_alignTop="@+id/tvParkTip"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/tvParkTip"
+                    android:text="倒计时"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvHourCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:layout_alignTop="@+id/tvCountDown"
+                    android:layout_toRightOf="@+id/tvCountDown"
+                    android:text="1"
+                    android:textColor="#FF0000" />
+
+                <TextView
+                    android:id="@+id/tvMinuteCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:layout_alignTop="@+id/tvHour"
+                    android:layout_toRightOf="@+id/tvHour"
+                    android:text="1"
+                    android:textColor="#FF0000" />
+
+                <TextView
+                    android:id="@+id/tvMinute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tvHourCount"
+                    android:layout_alignTop="@+id/tvMinuteCount"
+                    android:layout_toRightOf="@+id/tvMinuteCount"
+                    android:text="分钟"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/tvHour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tvHourCount"
+                    android:layout_toRightOf="@+id/tvHourCount"
+                    android:text="小时"
+                    android:textColor="#000000" />
+
+                <ImageView
+                    android:id="@+id/ivParkLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/tvPickCarTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tvParkTip"
+                    android:layout_alignParentBottom="false"
+                    android:layout_below="@+id/tvParkTip"
+                    android:layout_centerVertical="false"
+                    android:layout_marginTop="10dp"
+                    android:text="Small Text"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tvParkName"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/ivParkLogo"
+                    android:gravity="center_horizontal"
+                    android:text="Small Text"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/viewParkInfoDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#dcdcdc" />
+
+            <RelativeLayout
+                android:id="@+id/rlParkingAddress"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/white_btn" >
+
+                <ImageView
+                    android:id="@+id/ivParkAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/main_locate" />
+
+                <ImageView
+                    android:id="@+id/ivGoToPark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/arrow_left" />
+
+                <TextView
+                    android:id="@+id/tvParkAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/ivGoToPark"
+                    android:layout_toRightOf="@+id/ivParkAddress"
+                    android:text="Small Text"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+        
+</RelativeLayout>

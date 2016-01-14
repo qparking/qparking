@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- app中常用的颜色 -->
+    <color name="app_green">#FF00c1a0</color>
+    <color name="bg_gray">#F0F0F0</color>
+    <color name="app_bg">#F0F0F0</color>
+    <color name="app_white">#ffffff</color>
+    <color name="app_black">#000000</color>
+    <color name="app_orange">#ff6600</color>
+    <color name="app_gray_line">#e7e7e7</color>
+    <color name="app_text_black">#333333</color>
+    <color name="app_transparent">#00000000</color>
+    <color name="translucent_gray">#e0999999</color>
+    <color name="translucent_white">#f0ffffff</color>
+    <color name="app_text_gray1">#999999</color>
+    <color name="app_font_gray1">#808080</color>
+    <color name="app_font_gray2">#4A4A4A</color>
+    <color name="red">#FF0000</color>
+    <color name="gray">#A9A9A9</color>
+    <color name="blue">#0000FF</color>
+    <color name="ligth_bule">#1E90FF</color>
+    <color name="translucent_type">#e0000000</color>
+    <color name="btn_press_color">#15593b</color>
+    <color name="orange">#FF6100</color>
+
+    <!-- tab选项按中颜色 -->
+    <color name="choose_eara_item_press_color">#f4f4f4</color>
+    <color name="light_yellow">#FFE4C4</color>
+    <!-- 预定车位界面 -->
+    <color name="order_descripe_bg">#f0ede8</color>
+    <color name="order_descripe_font">#c3a684</color>
+    <!-- 分割线颜色 -->
+    <color name="halving_line">#E5E5E5</color>
+
+    <color name="app_title_font">#3E3E3E</color>
+    <color name="round_outpad">#20000000</color>
+
+    <!-- 二维码扫描界面颜色 -->
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+
+</resources>

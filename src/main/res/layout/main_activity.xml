@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/leftmenu" />
+
+    <RelativeLayout
+        android:id="@+id/rlMainUI"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rlMainTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FF00c1a0">
+
+            <ImageView
+                android:id="@+id/btHomeMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="9dp"
+                android:src="@drawable/main_menu" />
+
+            <ImageView
+                android:id="@+id/ivParkingList"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="9dp"
+                android:src="@drawable/main_list" />
+
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/ivVoiceSearch"
+                android:layout_toRightOf="@+id/ivSearch"
+                android:background="@color/app_white"
+                android:hint="搜索关键字"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/btHomeMenu"
+                android:background="@drawable/left_rounded_rectangle"
+                android:src="@drawable/home_search" />
+
+            <ImageView
+                android:id="@+id/ivVoiceSearch"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/ivParkingList"
+                android:background="@drawable/right_rounded_rectangle"
+                android:src="@drawable/voice_btn_icon_2" />
+        </RelativeLayout>
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/bmapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rlMainTopBar"
+
+            android:clickable="true"></com.baidu.mapapi.map.MapView>
+
+        <ImageView
+            android:id="@+id/lessee_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/arrow_down" />
+
+        <RelativeLayout
+            android:id="@+id/llDownloadOfflineMap"
+            android:layout_width="fill_parent"
+            android:layout_height="25dp"
+            android:layout_below="@+id/rlMainTopBar"
+            android:background="@color/translucent_gray"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_OfflineMapHint"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="请下载XX离线地图!"
+                android:textColor="@color/app_black" />
+
+            <TextView
+                android:id="@+id/tvOfflineMapDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/tv_OfflineMapHint"
+                android:gravity="center"
+                android:text="点击下载" />
+
+            <ImageView
+                android:id="@+id/ivOfflineMapClose"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/delete" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btMainRoad"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/rlMainTopBar"
+            android:layout_marginRight="23dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/main_road_off" />
+
+        <ImageButton
+            android:id="@+id/btAddparking"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignLeft="@id/btMainRoad"
+            android:layout_below="@id/btMainRoad"
+            android:layout_marginTop="30dp"
+            android:background="@color/translucent_white"
+            android:scaleType="center"
+            android:src="@drawable/personal_center_plate" />
+
+        <Button
+            android:id="@+id/btMainZoomIn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignLeft="@id/btMainRoad"
+            android:layout_below="@id/btMainRoad"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/main_zoomin_btn"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btMainZoomOut"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignLeft="@id/btMainZoomIn"
+            android:layout_below="@id/btMainZoomIn"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/main_zoomout_btn"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/llMainBtnBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="40dp"
+            android:background="#F0FFFFFF"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageButton
+                android:id="@+id/ibtMainLocate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/white_btn"
+                android:src="@drawable/main_locate" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:background="#3f000000" />
+
+            <ImageButton
+                android:id="@+id/ibtNear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/white_btn"
+                android:src="@drawable/main_near" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
+                android:background="#3f000000" />
+
+            <ImageButton
+                android:id="@+id/ibtGoParking"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/white_btn"
+                android:src="@drawable/main_goparking" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btMainLocation"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="130dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/location" />
+
+        <funion.app.qparking.view.MyscrollView xmlns:myapp="http://schemas.android.com/apk/res/funion.app.qparking"
+            android:id="@+id/myscroll_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:scrollbars="none"
+            android:visibility="gone"
+            myapp:height="110dp"
+            myapp:margin="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/translucent_white">
+
+                    <RelativeLayout
+                        android:id="@+id/myScorllView1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="70dp"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitStart"
+                            android:src="@drawable/free_flag" />
+
+                        <ImageView
+                            android:id="@+id/myScorllView_arrow1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/arrow_right" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="1px"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/app_black" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@+id/myScorllView1"
+                        android:orientation="horizontal"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="1dp"
+                        android:paddingRight="1dp">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"></LinearLayout>
+
+                        <ImageView
+                            android:layout_width="2dp"
+                            android:layout_height="fill_parent"
+                            android:src="@drawable/choosebar_line" />
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"></LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/translucent_white">
+
+                    <RelativeLayout
+                        android:id="@+id/myScorllView2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="70dp"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitStart"
+                            android:src="@drawable/free_flag" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@+id/myScorllView_arrow2">
+
+                            <TextView
+                                android:id="@+id/myScorllView_vacancy2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="XX"
+                                android:textColor="@color/app_green"
+                                android:textSize="26sp" />
+
+                            <TextView
+                                android:id="@+id/myScorllView_unit_price2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/myScorllView_vacancy2"
+                                android:text="XX元/小时"
+                                android:textColor="@color/app_black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/myScorllView_distance2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/myScorllView_unit_price2"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@+id/myScorllView_unit_price2"
+                                android:text="距离：XX米"
+                                android:textColor="@color/app_black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/myScorllView_address2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/myScorllView_vacancy2"
+                                android:layout_alignLeft="@+id/myScorllView_distance2"
+                                android:singleLine="true"
+                                android:text="X.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                                android:textColor="@color/app_black"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/myScorllView_arrow2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/arrow_right" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="1px"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/app_black" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@+id/myScorllView2"
+                        android:orientation="horizontal"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="1dp"
+                        android:paddingRight="1dp">
+
+                        <LinearLayout
+                            android:id="@+id/order"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/order" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="预约车位"
+                                android:textColor="@color/app_font_gray1" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="2dp"
+                            android:layout_height="fill_parent"
+                            android:src="@drawable/choosebar_line" />
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/go_parking" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="去停车"
+                                android:textColor="@color/app_font_gray1" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/translucent_white">
+
+                    <RelativeLayout
+                        android:id="@+id/myScorllView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="70dp"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitStart"
+                            android:src="@drawable/free_flag" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@+id/myScorllView_arrow">
+
+                            <TextView
+                                android:id="@+id/myScorllView_vacancy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="XX"
+                                android:textColor="@color/app_green"
+                                android:textSize="26sp" />
+
+                            <TextView
+                                android:id="@+id/myScorllView_unit_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/myScorllView_vacancy"
+                                android:text="XX元/小时"
+                                android:textColor="@color/app_black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/myScorllView_distance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/myScorllView_unit_price"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@+id/myScorllView_unit_price"
+                                android:text="距离：XX米"
+                                android:textColor="@color/app_black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/myScorllView_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/myScorllView_vacancy"
+                                android:layout_alignLeft="@+id/myScorllView_distance"
+                                android:singleLine="true"
+                                android:text="X.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                                android:textColor="@color/app_black"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/myScorllView_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/arrow_right" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="1px"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/app_black" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@+id/myScorllView"
+                        android:orientation="horizontal"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="1dp"
+                        android:paddingRight="1dp">
+
+                        <LinearLayout
+                            android:id="@+id/llOrder"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/order" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="预约车位"
+                                android:textColor="@color/app_font_gray1" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="2dp"
+                            android:layout_height="fill_parent"
+                            android:src="@drawable/choosebar_line" />
+
+                        <LinearLayout
+                            android:id="@+id/llGoParing"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/go_parking" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="去停车"
+                                android:textColor="@color/app_font_gray1" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/translucent_white">
+
+                    <RelativeLayout
+                        android:id="@+id/myScorllView4"
+                        android:layout_width="fill_parent"
+                        android:layout_height="70dp"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitStart"
+                            android:src="@drawable/free_flag" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_toLeftOf="@+id/myScorllView_arrow4">
+
+                            <TextView
+                                android:id="@+id/myScorllView_vacancy4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="XX"
+                                android:textColor="@color/app_green"
+                                android:textSize="26sp" />
+
+                            <TextView
+                                android:id="@+id/myScorllView_unit_price4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/myScorllView_vacancy4"
+                                android:text="XX元/小时"
+                                android:textColor="@color/app_black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/myScorllView_distance4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/myScorllView_unit_price4"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@+id/myScorllView_unit_price4"
+                                android:text="距离：XX米"
+                                android:textColor="@color/app_black"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/myScorllView_address4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@+id/myScorllView_vacancy4"
+                                android:layout_alignLeft="@+id/myScorllView_distance4"
+                                android:singleLine="true"
+                                android:text="X.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+                                android:textColor="@color/app_black"
+                                android:textSize="16sp" />
+                        </RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/myScorllView_arrow4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/arrow_right" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="1px"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/app_black" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@+id/myScorllView4"
+                        android:orientation="horizontal"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="1dp"
+                        android:paddingRight="1dp">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/order" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="预约车位"
+                                android:textColor="@color/app_font_gray1" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="2dp"
+                            android:layout_height="fill_parent"
+                            android:src="@drawable/choosebar_line" />
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:src="@drawable/go_parking" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="去停车"
+                                android:textColor="@color/app_font_gray1" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@color/translucent_white">
+
+                    <RelativeLayout
+                        android:id="@+id/myScorllView5"
+                        android:layout_width="fill_parent"
+                        android:layout_height="70dp"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitStart"
+                            android:src="@drawable/free_flag" />
+
+                        <ImageView
+                            android:id="@+id/myScorllView_arrow5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/arrow_right" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="1px"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/app_black" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_below="@+id/myScorllView5"
+                        android:orientation="horizontal"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="1dp"
+                        android:paddingRight="1dp">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"></LinearLayout>
+
+                        <ImageView
+                            android:layout_width="2dp"
+                            android:layout_height="fill_parent"
+                            android:src="@drawable/choosebar_line" />
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"></LinearLayout>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </funion.app.qparking.view.MyscrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

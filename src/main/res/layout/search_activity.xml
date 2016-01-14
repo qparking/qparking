@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9">
+
+    <RelativeLayout
+        android:id="@+id/rlSearchTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FF00c1a0">
+
+        <Button
+            android:id="@+id/btSearchBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/top_back_btn" />
+
+        <Button
+            android:id="@+id/btChooseCity"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/btSearchBack"
+            android:background="#FF00c1a0"
+            android:text="金华▼"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btSearchGo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/search_btn" />
+
+        <EditText
+            android:id="@+id/etSearchWord"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="false"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toLeftOf="@+id/ibtVoiceInput"
+            android:layout_toRightOf="@+id/btChooseCity"
+            android:background="#FFFFFF"
+            android:ems="10"
+            android:paddingLeft="5dp"
+            android:singleLine="true">
+
+            <requestFocus />
+        </EditText>
+
+        <ImageButton
+            android:id="@+id/ibtVoiceInput"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="false"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btSearchGo"
+            android:background="#FFFFFF"
+            android:src="@drawable/voice_btn_icon_1" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lvHistory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="false"
+        android:layout_below="@+id/rlSearchTopBar"
+        android:clickable="true"
+        android:divider="@null"></ListView>
+
+    <funion.app.qparking.view.PullRefreshList
+        android:id="@+id/lvSearchResult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="false"
+        android:layout_below="@+id/rlSearchTopBar"
+        android:divider="@null"
+        android:visibility="invisible" />
+
+</RelativeLayout>

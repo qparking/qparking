@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp">
+
+        <EditText
+            android:id="@+id/input_phone_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="120dp"
+            android:background="@drawable/shape_login"
+            android:drawableLeft="@drawable/login_img"
+            android:drawablePadding="10dp"
+            android:hint="请输入手机号"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:id="@+id/send_msg_tv"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@color/app_green"
+            android:gravity="center"
+            android:text="发送验证码"
+            android:textColor="@color/app_white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/input_password_et"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/shape_login"
+        android:drawableLeft="@drawable/password"
+        android:drawablePadding="10dp"
+        android:hint="请输入验证码"
+        android:paddingLeft="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/agree_1"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="我已阅读并接受"
+            android:textColor="@color/gray" />
+
+        <TextView
+            android:id="@+id/agreement_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="趣停车用户协议"
+            android:textColor="@color/app_green" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:background="@color/app_green"
+        android:text="下一步"
+        android:textColor="@color/app_white"
+        android:textSize="16sp" />
+</LinearLayout>
+

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9" >
+    <include layout="@layout/include_title"
+        android:id="@+id/rlCarNoTopBar"/>
+
+        <TextView
+            android:id="@+id/tvCarNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlCarNoTopBar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="车牌号"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#4d4d4d" />
+
+        <EditText
+            android:id="@+id/etModifyCarNo"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/tvCarNumber"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:hint="请填写您的车牌号"
+            android:layout_margin="10dp"
+            android:background="@android:color/white"
+            android:paddingLeft="5dp"
+            android:ems="10"
+            android:singleLine="true"
+            android:textColor="#000000" >
+
+            <requestFocus />
+        </EditText>
+
+        
+</RelativeLayout>

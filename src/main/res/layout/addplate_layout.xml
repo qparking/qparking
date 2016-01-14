@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_white"
+    android:id="@+id/addplate_main"
+    >
+    <include layout="@layout/include_title"
+        android:id="@+id/tv_title"/>
+
+    <LinearLayout
+        android:id="@+id/enter_platenum_et"
+        android:layout_below="@id/tv_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_30"
+            android:background="@color/app_green"
+            android:padding="5dp"
+            android:textColor="@color/app_white"
+            android:text="浙"
+            android:id="@+id/provice_tv" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A"
+            android:textColor="@color/app_white"
+            android:padding="5dp"
+            android:background="@color/app_green"
+            android:textSize="@dimen/text_size_30"
+            android:id="@+id/city_num_tv" />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@drawable/platenumborder"
+            android:textSize="@dimen/text_size_30"
+            android:hint="@string/enter_paltenum"
+            android:id="@+id/enter_et" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_30"
+            android:padding="5dp"
+            android:textColor="@color/app_white"
+            android:background="@drawable/select_btn"
+            android:text="@string/add_plate"
+            android:id="@+id/add_plate_num_next" />
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

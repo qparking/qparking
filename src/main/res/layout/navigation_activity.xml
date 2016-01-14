@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rlNavTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FF00c1a0">
+
+        <Button
+            android:id="@+id/btNavBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/top_back_btn" />
+
+        <Button
+            android:id="@+id/btEvaluate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/evaluate_btn"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvGoPark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false"
+            android:layout_marginTop="10dp"
+            android:text="去停车"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/navBaiduMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rlNavTopBar"
+        android:clickable="true"></com.baidu.mapapi.map.MapView>
+
+    <Button
+        android:id="@+id/btNavRoad"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/rlNavTopBar"
+        android:layout_marginRight="23dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/main_road_off"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btNavZoomIn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/btNavRoad"
+        android:layout_below="@id/btNavRoad"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/main_zoomin_btn"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btNavZoomOut"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@id/btNavZoomIn"
+        android:layout_below="@id/btNavZoomIn"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/main_zoomout_btn"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/viewTimerBack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AA000000"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/llTimerSetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="false"
+        android:layout_centerVertical="false"
+        android:layout_marginBottom="-241dp"
+        android:background="#FFFFFFFF"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="#FFFFFFFF">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/viewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/park_line_icon" />
+
+                <TextView
+                    android:id="@+id/tvLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_centerHorizontal="true"
+                    android:text="路线"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#FF808080"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/viewRemind"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivReminder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="false"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/reminder_icon" />
+
+                <TextView
+                    android:id="@+id/tvReminder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="取车提醒"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#FF808080"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <View
+                    android:id="@+id/viewVoiceNav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FF00c1a0" />
+
+                <ImageView
+                    android:id="@+id/ivVoiceNav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="false"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/voice_navigation_icon_white" />
+
+                <TextView
+                    android:id="@+id/tvVoiceNav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="false"
+                    android:layout_centerHorizontal="true"
+                    android:text="语音导航"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <funion.app.qparking.view.WheelView
+                android:id="@+id/wvDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="0.7"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+
+            <funion.app.qparking.view.WheelView
+                android:id="@+id/wvHour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+
+            <TextView
+                android:id="@+id/tvTimeDivider"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="top"
+                android:layout_marginTop="14dp"
+                android:gravity="center_vertical"
+                android:text=":"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/app_black" />
+
+            <funion.app.qparking.view.WheelView
+                android:id="@+id/wvMinite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                android:descendantFocusability="blocksDescendants"
+                android:focusable="false"
+                android:focusableInTouchMode="false" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btSetTimer"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="#FF00c1a0"
+            android:text="确 定"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

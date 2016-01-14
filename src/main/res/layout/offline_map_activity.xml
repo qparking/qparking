@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9" >
+
+        <RelativeLayout
+            android:id="@+id/rlOfflineMapTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FF00c1a0" >
+
+            <Button
+                android:id="@+id/btOfflineMapBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/top_back_btn" />
+
+            <TextView
+                android:id="@+id/tvOfflineMapTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="10dp"
+                android:text="离线地图"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/lvOfflineMap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlOfflineMapTopBar"
+            android:layout_centerHorizontal="true"
+            android:divider="@null" >
+
+        </ListView>
+        
+</RelativeLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFf9f9f9"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tvRouteIndex"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:gravity="right"
+        android:text="10."
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF000000"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvRouteContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvRouteIndex"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_toRightOf="@+id/tvRouteIndex"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF000000"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/viewUnderLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@+id/tvRouteIndex"
+        android:layout_alignRight="@+id/tvRouteContent"
+        android:layout_below="@+id/tvRouteContent"
+        android:layout_marginRight="-15dp"
+        android:layout_marginTop="15dp"
+        android:background="#FFC8C8C8" />
+
+</RelativeLayout>

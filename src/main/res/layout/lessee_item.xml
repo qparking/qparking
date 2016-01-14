@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_btn"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp" >
+
+    <TextView
+        android:id="@+id/lessee_area"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/lessee_freeParking_flag"
+        android:singleLine="true"
+        android:text="小区名"
+        android:textColor="@color/app_black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/lessee_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lessee_area"
+        android:layout_below="@+id/lessee_area"
+        android:layout_marginTop="10dp"
+        android:text="距离：xx"
+        android:textColor="@color/app_font_gray1"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/lessee_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/arrow_right" />
+
+    <TextView
+        android:id="@+id/lessee_freeParking_flag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lessee_area"
+        android:layout_marginRight="100dp"
+        android:layout_toLeftOf="@+id/lessee_arrow"
+        android:singleLine="true"
+        android:text="空闲："
+        android:textColor="@color/app_font_gray1"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/lessee_unitPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lessee_distance"
+        android:layout_alignLeft="@+id/lessee_freeParking_flag"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/lessee_arrow"
+        android:singleLine="true"
+        android:text="单价：x元/小时"
+        android:textColor="@color/app_font_gray1"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/lessee_freeParking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lessee_distance"
+        android:layout_alignLeft="@+id/lessee_freeParking_flag"
+        android:layout_marginLeft="40dp"
+        android:singleLine="true"
+        android:text="XX"
+        android:textColor="@color/app_green"
+        android:textSize="16sp" />
+
+</RelativeLayout>

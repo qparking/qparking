@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_left_margin">15dp</dimen>
+    <dimen name="activity_right_margin">15dp</dimen>
+    <dimen name="activity_top_margin">15dp</dimen>
+    <dimen name="activity_bottom_margin">15dp</dimen>
+
+    <!-- tab子项高度 -->
+    <dimen name="expand_tab_item_height">40dp</dimen>
+    <!-- tab选项高度 -->
+    <dimen name="expand_tab_height">40dp</dimen>
+
+    <dimen name="text_size_8">8sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_22">22sp</dimen>
+    <dimen name="text_size_25">25sp</dimen>
+    <dimen name="text_size_30">30sp</dimen>
+    <dimen name="text_size_35">35sp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <dimen name="slidingmenu_offset">60dp</dimen>
+    <dimen name="list_padding">10dp</dimen>
+    <dimen name="shadow_width">15dp</dimen>
+
+    <integer name="num_cols">1</integer>
+</resources>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFf9f9f9"
+    android:orientation="vertical" >
+
+    <View
+        android:id="@+id/viewLeftBar"
+        android:layout_width="2dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ivPoint"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:background="#FFC8C8C8" />
+
+    <ImageView
+        android:id="@+id/ivIndexBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/point_green" />
+
+    <ImageView
+        android:id="@+id/ivPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/viewBottomBar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="-5dp"
+        android:src="@drawable/point_gray" />
+
+    <View
+        android:id="@+id/viewBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="1.0dp"
+        android:layout_alignParentLeft="false"
+        android:layout_below="@+id/tvInfoAddress"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/ivPoint"
+        android:background="#FFC8C8C8" />
+
+    <ImageView
+        android:id="@+id/ivGo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/viewBottomBar"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="26dp"
+        android:src="@drawable/arrow_left" />
+
+    <TextView
+        android:id="@+id/tvInfoIndex"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/ivIndexBack"
+        android:layout_alignLeft="@id/ivIndexBack"
+        android:layout_alignRight="@id/ivIndexBack"
+        android:layout_alignTop="@id/ivIndexBack"
+        android:layout_marginTop="2dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="10"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#FFFFFFFF" />
+
+    <TextView
+        android:id="@+id/tvInfoParkName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/ivIndexBack"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/ivIndexBack"
+        android:singleLine="false"
+        android:text="停车场"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvInfoAddress"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvInfoParkName"
+        android:layout_below="@+id/tvInfoParkName"
+        android:layout_marginTop="5dp"
+        android:singleLine="false"
+        android:text="详细地址"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFC8C8C8"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvInfoDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivGo"
+        android:layout_marginTop="-2dp"
+        android:layout_toLeftOf="@+id/ivGo"
+        android:gravity="center_vertical"
+        android:text="100米"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#FFC8C8C8"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/ivTagUnderground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tvInfoParkName"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/tvInfoParkName"
+        android:src="@drawable/underground_tag" />
+
+</RelativeLayout>

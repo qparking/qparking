@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFf9f9f9" >
+
+        <RelativeLayout
+            android:id="@+id/rlParkingAuthTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FF00c1a0" >
+
+            <Button
+                android:id="@+id/btParkingAuthBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/top_back_btn" />
+
+
+            <TextView
+                android:id="@+id/tvParkingAuthTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="10dp"
+                android:text="停车场认证"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/llParkAuthType"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@id/rlParkingAuthTopBar"
+            android:background="#F0FFFFFF" >
+
+            <TextView
+                android:id="@+id/tvAuthAll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="全部"
+                android:textColor="#FF00c1a0"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvAuthPassed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="已通过"
+                android:textColor="#4d4d4d"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvAuthDoing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="认证中"
+                android:textColor="#4d4d4d"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvAuthFailed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="未通过"
+                android:textColor="#4d4d4d"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewAuthTypeGreenBar"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_below="@+id/llParkAuthType"
+            android:layout_marginTop="-4dp"
+            android:background="#FF00c1a0" />
+
+        <ListView
+            android:id="@+id/lvParkAuthInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="false"
+            android:layout_below="@+id/viewAuthTypeGreenBar"
+            android:background="@null"
+            android:divider="@null" >
+
+        </ListView>
+
+        <ImageView
+            android:id="@+id/ivNoAddParkTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llParkAuthType"
+            android:src="@drawable/no_add_park_tip"
+            android:visibility="invisible" />
+        
+</RelativeLayout>

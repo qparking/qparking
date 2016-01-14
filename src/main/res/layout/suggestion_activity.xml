@@ -1,0 +1,111 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/include_title" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/app_bg"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle_lightgray"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tvComplain"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:background="@color/app_green"
+                android:gravity="center"
+                android:text="投诉"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/tvShare"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="建议"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#4d4d4d" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rectangle_lightgray"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_margin="1dp"
+                android:layout_weight="3"
+                android:background="#f9f9f9"
+                android:gravity="center"
+                android:text="建议内容"
+                android:textColor="@color/app_black" />
+
+            <TextView
+                android:id="@+id/tv_select"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="7"
+                android:drawableRight="@drawable/arrow_down"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="下拉选择"
+                android:textColor="@color/app_black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rectangle_lightgray"
+            android:gravity="top"
+            android:hint="如果您的意见被我们采纳，我们会赠送您100-500的停车优惠券作为奖励！"
+            android:lineSpacingExtra="3dp"
+            android:padding="10dp" >
+        </EditText>
+
+        <Button
+            android:id="@+id/btnSuggestion"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/green_btn"
+            android:text="提交"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/app_white" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="5dp"
+            android:text="如果您有什么好的建议，\n希望早点与我们联系，\n也可以拨打我们的客服电话:0571-88888888"
+            android:textColor="@color/app_font_gray1" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFf9f9f9"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rlEvaTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FF00c1a0" >
+
+        <Button
+            android:id="@+id/btEvaBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/top_back_btn" />
+
+        <TextView
+            android:id="@+id/tvEvaTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false"
+            android:layout_marginTop="10dp"
+            android:text="评价"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvEvaParkName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlEvaTopBar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:singleLine="true"
+        android:text="停车场"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF0F0F0F"
+        android:typeface="serif" />
+
+    <LinearLayout
+        android:id="@+id/llEvaData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvEvaParkName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/tvEvaPraised"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="已赞"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFC8C8C8" />
+
+                <RelativeLayout
+                    android:id="@+id/rlEvaPraised"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1" >
+
+                    <View
+                        android:id="@+id/viewPraisedBar"
+                        android:layout_width="50dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        android:background="#FF00c1a0" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvEvaPraisedCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:text="1000"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFC8C8C8" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/tvEvaDesprised"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="鄙视"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFC8C8C8" />
+
+                <RelativeLayout
+                    android:id="@+id/rlEvaDesprised"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1" >
+
+                    <View
+                        android:id="@+id/viewDesprisedBar"
+                        android:layout_width="50dp"
+                        android:layout_height="15dp"
+                        android:layout_centerHorizontal="false"
+                        android:layout_centerVertical="true"
+                        android:background="#FF0000FF" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvEvaDesprisedCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:text="1000"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFC8C8C8" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewEvaDivider"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#FFC8C8C8" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/tvEvaFree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="免费"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFC8C8C8" />
+
+                <RelativeLayout
+                    android:id="@+id/rlEvaFree"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1" >
+
+                    <View
+                        android:id="@+id/viewFreeBar"
+                        android:layout_width="50dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        android:background="#FF00c1a0" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvEvaFreeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:text="1000"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFC8C8C8" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:id="@+id/tvEvaCharge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="收费"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFC8C8C8" />
+
+                <RelativeLayout
+                    android:id="@+id/rlEvaCharge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1" >
+
+                    <View
+                        android:id="@+id/viewChargeBar"
+                        android:layout_width="50dp"
+                        android:layout_height="15dp"
+                        android:layout_centerVertical="true"
+                        android:background="#FF0000FF" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvEvaChargeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:text="1000"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#FFC8C8C8" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvEvaluate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llEvaData"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="个人感觉这个停车场"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF0F0F0F"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/llEvaGiveEvaluate"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/tvEvaluate"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_rectangle_lightgray" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <View
+                android:id="@+id/viewEvaGivePraise"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="false"
+                android:layout_centerVertical="false"
+                android:layout_marginBottom="1px"
+                android:layout_marginLeft="1px"
+                android:layout_marginTop="1px"
+                android:background="@drawable/left_rounded_rectangle" />
+
+            <ImageView
+                android:id="@+id/ivGivePraise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="false"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="false"
+                android:src="@drawable/eva_praise_s" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <View
+                android:id="@+id/viewEvaGiveDesprise"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1px"
+                android:layout_marginRight="1px"
+                android:layout_marginTop="1px"
+                android:background="@drawable/right_rounded_rectangle" />
+
+            <ImageView
+                android:id="@+id/ivGiveDesprise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="false"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="false"
+                android:src="@drawable/eva_desprise_n" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvAddParkingInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tvEvaluate"
+        android:layout_below="@id/llEvaGiveEvaluate"
+        android:layout_marginTop="20dp"
+        android:text="顺便丰富一下此停车场的信息"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FF0F0F0F"
+        android:textSize="18sp" />
+    
+    <LinearLayout
+        android:id="@+id/llEvaPayType"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@id/tvAddParkingInfo"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_rectangle_lightgray" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <View
+                android:id="@+id/viewEvaFree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="false"
+                android:layout_centerVertical="false"
+                android:layout_marginBottom="1px"
+                android:layout_marginLeft="1px"
+                android:layout_marginTop="1px"
+                android:background="@drawable/left_rounded_rectangle" />
+
+            <TextView
+                android:id="@+id/tvEvaFreeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="false"
+                android:layout_centerHorizontal="false"
+                android:layout_centerInParent="true"
+                android:text="免费"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <View
+                android:id="@+id/viewEvaCharge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="1px"
+                android:layout_marginRight="1px"
+                android:layout_marginTop="1px"
+                android:background="@drawable/right_rounded_rectangle" />
+
+            <TextView
+                android:id="@+id/tvEvaChargeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="false"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="false"
+                android:text="收费"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#4d4d4d"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btSubmitEvaluae"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/llEvaPayType"
+        android:layout_alignRight="@+id/llEvaPayType"
+        android:layout_below="@+id/llEvaPayType"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/green_btn"
+        android:text="提交评价"
+        android:textColor="#FFFFFFFF"
+        android:textSize="18sp" />
+
+</RelativeLayout>

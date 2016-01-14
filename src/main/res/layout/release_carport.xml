@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_white">
+    <include layout="@layout/include_title"
+        android:id="@+id/title_tv"
+        />
+    <funion.app.qparking.view.PullRefreshList
+        android:id="@+id/lvReleaseParking"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_tv"
+        android:divider="@null" />
+    <TextView
+        android:id="@+id/no_release_carport"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/title_tv"
+        android:text="@string/release_carport_notyet"
+        android:textSize="@dimen/text_size_25"
+        android:textColor="@color/gray"
+        android:visibility="invisible"
+        android:gravity="center"
+        />
+
+
+</RelativeLayout>
