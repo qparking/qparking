@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.baidu.navisdk.BNaviPoint;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.baidu.navisdk.comapi.routeplan.RoutePlanParams;
-import com.umeng.message.proguard.N;
 
 import java.util.ArrayList;
 

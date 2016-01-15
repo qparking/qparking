@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 import com.google.gson.Gson;
 import com.squareup.okhttp.Callback;
@@ -149,7 +150,7 @@ public class OkHttpUtils {
         for (Param param : params) {
             builder.add(param.key, param.value);
         }
-        RequestBody body = builder.build();
+        RequestBody body = builder.build();;
         return new Request.Builder().url(urlAdress).post(body).build();
     }
 

@@ -37,6 +37,7 @@ import java.util.regex.Pattern;
 
 import funion.app.common.T;
 import funion.app.qparking.receive.ReadSmsContent;
+import funion.app.qparking.tools.ActivityTools;
 import funion.app.qparking.tools.AppTools;
 import funion.app.qparking.tools.Countdown;
 import funion.app.qparking.tools.OkHttpUtils;
@@ -203,7 +204,9 @@ public class LoginActivity extends Activity implements OnClickListener {
                 try {
                     JSONObject obj = new JSONObject(result);
                     String code = obj.getString("code");
-                    String userMsg = obj.getString("msg");
+                    String msg=obj.getString("msg");
+                    QParkingApp.ToastTip(context,TransCoding.trans(msg),-100);
+                    String userMsg = obj.getString("usermsg");
                     logining(code, userMsg);
 
                 } catch (JSONException e) {

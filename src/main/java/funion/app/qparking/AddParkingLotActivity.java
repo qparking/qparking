@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.squareup.okhttp.Request;
-import com.umeng.message.proguard.J;
 
 import org.json.JSONException;
 import org.json.JSONObject;

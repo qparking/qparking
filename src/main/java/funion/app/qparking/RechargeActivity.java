@@ -6,7 +6,10 @@ package funion.app.qparking;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,8 +21,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
+import com.pingplusplus.android.PaymentActivity;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -41,6 +44,7 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
     private int select_value;
     SharedPreferences sp;
     private static String URL ="http://qtc.luopan.net/api/createrecharge";
+    private static final int REQUEST_CODE_PAYMENT = 1;
     /**
      * 微信支付渠道
      */
@@ -51,6 +55,7 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
     private static final String CHANNEL_ALIPAY = "alipay";
     Context context;
     SelectPayModePop selectPayModePop;
+    private ProgressDialog m_dlgProgress = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,11 +129,8 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
     };
 
     private void initpay(String channel,int value) {
-//        Map<String,String> parm=new HashMap<String,String>();
-//        parm.put("sign",sp.getString("sign", null));
-//        parm.put("channel", channel);
-//        parm.put("amount", value);
-//        Log.e("show",parm.toString());
+        m_dlgProgress = ProgressDialog.show(RechargeActivity.this, null,
+                "加载中... ", true, true);
         new PaymentTask().execute(new PaymentRequest(channel, value,sp.getString("sign", null)));
 
     }
@@ -166,12 +168,12 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
                 return;
             }
             Log.e("show", data);
-//            Intent intent = new Intent();
-//            String packageName = getPackageName();
-//            ComponentName componentName = new ComponentName(packageName, packageName + ".wxapi.WXPayEntryActivity");
-//            intent.setComponent(componentName);
-//            intent.putExtra(PaymentActivity.EXTRA_CHARGE, data);
-//            startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+            Intent intent = new Intent();
+            String packageName = getPackageName();
+            ComponentName componentName = new ComponentName(packageName, packageName + ".wxapi.WXPayEntryActivity");
+            intent.setComponent(componentName);
+            intent.putExtra(PaymentActivity.EXTRA_CHARGE, data);
+            startActivityForResult(intent, REQUEST_CODE_PAYMENT);
         }
 
     }
@@ -200,6 +202,39 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
         Response response = client.newCall(request).execute();
 
         return response.body().string();
+    }
+
+    /**
+     * onActivityResult 获得支付结果，如果支付成功，服务器会收到ping++ 服务器发送的异步通知。
+     * 最终支付成功根据异步通知为准
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        m_dlgProgress.dismiss();
+        //支付页面返回处理
+        if (requestCode == REQUEST_CODE_PAYMENT) {
+            if (resultCode == Activity.RESULT_OK) {
+                String result = data.getExtras().getString("pay_result");
+                Log.e("show", result);
+                if(result.equals("success")){
+                    result=getResources().getString(R.string.success);
+                }else if(result.equals("fail")){
+                    result=getResources().getString(R.string.fail);
+                }else if(result.equals("cancel")){
+                    result=getResources().getString(R.string.cancle_pay);
+                }else if(result.equals("invalid")){
+                    result=getResources().getString(R.string.invalid);
+                }
+                /* 处理返回值
+                 * "success" - payment succeed
+                 * "fail"    - payment failed
+                 * "cancel"  - user canceld
+                 * "invalid" - payment plugin not installed
+                 */
+                String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
+                String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
+                showMsg(result, errorMsg, extraMsg);
+            }
+        }
     }
 
     class PaymentRequest {

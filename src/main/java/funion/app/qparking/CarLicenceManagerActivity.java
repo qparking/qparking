@@ -101,7 +101,6 @@ public class CarLicenceManagerActivity extends Activity implements View.OnClickL
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.e("map", result.toString());
             }
         }, params, "getuserplate");
     }

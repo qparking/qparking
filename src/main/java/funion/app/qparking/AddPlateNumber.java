@@ -103,11 +103,12 @@ TextView provice_tv_,city_num_tv_;
                 Toast.makeText(AddPlateNumber.this,getResources().getString(R.string.enter_paltenum),Toast.LENGTH_SHORT).show();
                     return;
             }
-                if(!JudgePlateNum.isPlateNum(provice_tv_.getText().toString()+city_num_tv_.getText().toString()+enter_et_.getText().toString())){
+                String platenum=provice_tv_.getText().toString()+city_num_tv_.getText().toString()+enter_et_.getText().toString();
+                if(!JudgePlateNum.isPlateNum(platenum)){
                     Toast.makeText(AddPlateNumber.this,getResources().getString(R.string.enter_true_platenum),Toast.LENGTH_SHORT).show();
                     return;
                 }
-                String platenum=provice_tv_.getText().toString()+city_num_tv_.getText().toString()+"·"+enter_et_.getText().toString();
+
                 Map<String,String> params=new HashMap<String,String>();
                 params.put("sign",sp.getString("sign",null));
                 params.put("platenum",platenum);

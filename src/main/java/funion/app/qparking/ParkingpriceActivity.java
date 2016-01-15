@@ -76,7 +76,7 @@ public class ParkingpriceActivity extends Activity implements View.OnClickListen
     private void initTitle() {
         findViewById(R.id.include_iv_left).setBackgroundResource(R.drawable.come_back);
         findViewById(R.id.include_iv_left).setOnClickListener(this);
-        ((TextView) findViewById(R.id.include_tv_title)).setText("车位价格");
+ ((TextView) findViewById(R.id.include_tv_title)).setText(getResources().getString(R.string.carport_price));
     }
 
     @Override

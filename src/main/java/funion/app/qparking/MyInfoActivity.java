@@ -11,7 +11,6 @@ import java.net.URLEncoder;
 import org.json.JSONObject;
 
 import com.umeng.analytics.MobclickAgent;
-import com.umeng.message.proguard.T;
 
 import android.app.Activity;
 import android.app.AlertDialog;

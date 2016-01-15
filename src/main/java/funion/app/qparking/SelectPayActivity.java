@@ -2,6 +2,7 @@ package funion.app.qparking;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.pingplusplus.android.PaymentActivity;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -78,6 +80,7 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
     SelectPayModePop selectPayModePop;
     private int select_value;
     private String order_no_,carplatname_;
+    private ProgressDialog m_dlgProgress = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +136,6 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
 
             @Override
             public void onResponse(String result) {
-                Log.e("map",result.toString());
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     String code = (String) jsonObject.get("code");
@@ -156,8 +158,8 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
                             payOrderBean.setPay(object.getString("pay"));
                             payOrderBean.setYouhui(object.getString("youhui"));
                             payOrderBean.setName(TransCoding.trans(object.getString("name")));
-                            payOrderBean.setRule_name(TransCoding.trans(object.getString("rule_name")));
-                            payOrderBean.setRule_content(object.getString("rule_content"));
+                            payOrderBean.setRule_name(TransCoding.trans(object.getString("ruleName")));
+                            payOrderBean.setRule_content(object.getString("ruleContent"));
                             payOrderBean.setCouponId(object.getString("couponId"));
                             payOrderBean.setInTime(TransCoding.strToDetailTime(object.getString("inTime")));
                             payOrderBean.setOutTime(TransCoding.strToDetailTime(object.getString("outTime")));
@@ -257,9 +259,7 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
             selectPayModePop.dismiss();
             switch(view.getId()){
                 case R.id.wechat_btn:
-                    Log.e("show","here");
                     initpay(CHANNEL_WECHAT, select_value, order_no_, selectplatenum, carplatname_);
-                    Log.e("show","selectplatenum:"+selectplatenum);
                     break;
                 case R.id.alipay_btn:
                     initpay(CHANNEL_ALIPAY,select_value,order_no_,selectplatenum,carplatname_);
@@ -269,6 +269,8 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
     };
 //      String order_no;//订单编号,String subject;//标题:名字+订单编号String platenum;
     private void initpay(String channel,int value,String orderno,String platenum,String subejct){
+        m_dlgProgress = ProgressDialog.show(SelectPayActivity.this, null,
+                "加载中... ", true, true);
         new PaymentTask().execute(new PaymentRequest(channel,value,sp.getString("sign",null),orderno,platenum,subejct));
     }
 
@@ -339,13 +341,12 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
                 showMsg("请求出错", "请检查URL", "URL无法获取charge");
                 return;
             }
-            Log.e("show", data+"+-+-+-+-+-");
-//            Intent intent = new Intent();
-//            String packageName = getPackageName();
-//            ComponentName componentName = new ComponentName(packageName, packageName + ".wxapi.WXPayEntryActivity");
-//            intent.setComponent(componentName);
-//            intent.putExtra(PaymentActivity.EXTRA_CHARGE, data);
-//            startActivityForResult(intent, REQUEST_CODE_PAYMENT);
+            Intent intent = new Intent();
+            String packageName = getPackageName();
+            ComponentName componentName = new ComponentName(packageName, packageName + ".wxapi.WXPayEntryActivity");
+            intent.setComponent(componentName);
+            intent.putExtra(PaymentActivity.EXTRA_CHARGE, data);
+            startActivityForResult(intent, REQUEST_CODE_PAYMENT);
         }
 
     }
@@ -360,6 +361,52 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
 
         return response.body().string();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        m_dlgProgress.dismiss();
+        //支付页面返回处理
+        if (requestCode == REQUEST_CODE_PAYMENT) {
+            if (resultCode == Activity.RESULT_OK) {
+                String result = data.getExtras().getString("pay_result");
+                Log.e("show", result);
+                if(result.equals("success")){
+                    result=getResources().getString(R.string.success);
+                    finish();
+                }else if(result.equals("fail")){
+                    result=getResources().getString(R.string.fail);
+                }else if(result.equals("cancel")){
+                    result=getResources().getString(R.string.cancle_pay);
+                }else if(result.equals("invalid")){
+                    result=getResources().getString(R.string.invalid);
+                }
+                /* 处理返回值
+                 * "success" - payment succeed
+                 * "fail"    - payment failed
+                 * "cancel"  - user canceld
+                 * "invalid" - payment plugin not installed
+                 */
+                String errorMsg = data.getExtras().getString("error_msg"); // 错误信息
+                String extraMsg = data.getExtras().getString("extra_msg"); // 错误信息
+                showMsg(result, errorMsg, extraMsg);
+            }
+        }
+    }
+    public void showMsg(String title, String msg1, String msg2) {
+        String str = title;
+        if (null !=msg1 && msg1.length() != 0) {
+            str += "\n" + msg1;
+        }
+        if (null !=msg2 && msg2.length() != 0) {
+            str += "\n" + msg2;
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(str);
+        builder.setTitle("提示");
+        builder.setPositiveButton("OK", null);
+        builder.create().show();
+    }
+
 
     class PaymentRequest {
         String channel;
