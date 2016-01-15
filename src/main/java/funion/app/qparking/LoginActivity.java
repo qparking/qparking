@@ -201,12 +201,15 @@ public class LoginActivity extends Activity implements OnClickListener {
             @Override
             public void onResponse(String result) {
                 Log.e("result", result);
+                String userMsg = null;
                 try {
                     JSONObject obj = new JSONObject(result);
                     String code = obj.getString("code");
-                    String msg=obj.getString("msg");
-                    QParkingApp.ToastTip(context,TransCoding.trans(msg),-100);
-                    String userMsg = obj.getString("usermsg");
+                    String msg = obj.getString("msg");
+                    QParkingApp.ToastTip(context, TransCoding.trans(msg), -100);
+                    if (code.equals("0")) {
+                        userMsg  = obj.getString("usermsg");
+                    }
                     logining(code, userMsg);
 
                 } catch (JSONException e) {
