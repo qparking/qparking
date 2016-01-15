@@ -26,7 +26,6 @@ public class AboutActivity extends Activity implements OnClickListener {
 
 
 
-	//关于
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

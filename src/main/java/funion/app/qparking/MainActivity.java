@@ -968,6 +968,7 @@ public class MainActivity extends Activity implements OnClickListener,
         phonenum_tv = (TextView) findViewById(R.id.tvMenuMe);
         balance = (TextView) findViewById(R.id.tvBalance);
         findViewById(R.id.rlMenuMe).setOnClickListener(this);
+        findViewById(R.id.rlIntegral_exchange).setOnClickListener(this);
         login_re_.setOnClickListener(this);
         // 定位按钮
         findViewById(R.id.btMainLocation).setOnClickListener(this);

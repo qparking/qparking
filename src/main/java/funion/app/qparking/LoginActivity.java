@@ -203,7 +203,7 @@ public class LoginActivity extends Activity implements OnClickListener {
                 try {
                     JSONObject obj = new JSONObject(result);
                     String code = obj.getString("code");
-                    String userMsg = obj.getString("usermsg");
+                    String userMsg = obj.getString("msg");
                     logining(code, userMsg);
 
                 } catch (JSONException e) {
