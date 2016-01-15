@@ -12,10 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,10 +39,8 @@ import funion.app.adapter.ABstractSpinnerAdapter;
 import funion.app.adapter.CustemSpinnerAdapter;
 import funion.app.qparking.popWindow.SelectPayModePop;
 import funion.app.qparking.popWindow.SpinnerPopWindows;
-import funion.app.qparking.tools.JudgePlateNum;
 import funion.app.qparking.tools.OkHttpUtils;
 import funion.app.qparking.tools.TransCoding;
-import funion.app.qparking.vo.PayOrderBean;
 import funion.app.qparking.vo.PlateNumBean;
 
 /**
@@ -73,7 +69,6 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
     private SpinnerPopWindows mSpinerPopWindow;
     SharedPreferences sp;
     List<PlateNumBean> list;
-    List<PayOrderBean> orderinfo;//订单属性
     String selectplatenum;
     Context context;
     private int value;
@@ -124,7 +119,6 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
     }
 
     private void getOrder() {
-        orderinfo=new ArrayList<PayOrderBean>();
         final Map<String,String> params=new HashMap<String,String>();
         params.put("sign", sp.getString("sign", null));
         params.put("platenum", selectplatenum);
@@ -141,29 +135,9 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
                     String code = (String) jsonObject.get("code");
                     String msg = (String) jsonObject.get("msg");
                     if (code.equals(0+"")) {
-                        show_re.setVisibility(View.GONE);
-                        linearLayout1.setVisibility(View.VISIBLE);
-                        show_order_ll.setVisibility(View.VISIBLE);
                         JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            PayOrderBean payOrderBean = new PayOrderBean();
                             JSONObject object = jsonArray.getJSONObject(i);
-                            payOrderBean.setId(object.getString("id"));
-                            payOrderBean.setPark_order(object.getString("park_order"));
-                            payOrderBean.setReserveId(object.getString("reserveId"));
-                            payOrderBean.setPlateNum(TransCoding.trans(object.getString("plateNum")));
-                            payOrderBean.setDuration(object.getString("duration"));
-                            payOrderBean.setPrice(object.getString("price"));
-                            payOrderBean.setYingPay(object.getString("yingPay"));
-                            payOrderBean.setPay(object.getString("pay"));
-                            payOrderBean.setYouhui(object.getString("youhui"));
-                            payOrderBean.setName(TransCoding.trans(object.getString("name")));
-                            payOrderBean.setRule_name(TransCoding.trans(object.getString("ruleName")));
-                            payOrderBean.setRule_content(object.getString("ruleContent"));
-                            payOrderBean.setCouponId(object.getString("couponId"));
-                            payOrderBean.setInTime(TransCoding.strToDetailTime(object.getString("inTime")));
-                            payOrderBean.setOutTime(TransCoding.strToDetailTime(object.getString("outTime")));
-                            orderinfo.add(payOrderBean);
                             carport_name_tv.setText(TransCoding.trans(object.getString("name")));
                             show_order_num_tv.setText(object.getString("park_order"));
                             enter_time_tv.setText(TransCoding.strToDetailTime(object.getString("inTime")));
@@ -175,6 +149,10 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
                             order_no_=object.getString("park_order");
                             carplatname_=TransCoding.trans(object.getString("name"));
                         }
+                        m_dlgProgress.dismiss();
+                        show_re.setVisibility(View.GONE);
+                        linearLayout1.setVisibility(View.VISIBLE);
+                        show_order_ll.setVisibility(View.VISIBLE);
                     } else{
                         QParkingApp.ToastTip(context, TransCoding.trans(msg), -100);
                         show_re.setVisibility(View.VISIBLE);
@@ -189,6 +167,8 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
     }
 
     private List<PlateNumBean> getData() {
+        m_dlgProgress = ProgressDialog.show(SelectPayActivity.this, null,
+                "获取数据中... ", true, true);
         list=new ArrayList<PlateNumBean>();
         Map<String,String> params=new HashMap<String,String>();
         params.put("sign", sp.getString("sign", null));
@@ -201,7 +181,6 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
             @Override
             public void onResponse(String result) {
                 try {
-                    Log.e("map",result.toString());
                     JSONObject jsonObject = new JSONObject(result);
                     int code = (int) jsonObject.get("code");
                     if (code == 0) {
@@ -239,13 +218,49 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
                 finish();
                 break;
             case R.id.btn_sure:
-                recharge(value);
+                String balance=sp.getString("balance",null);
+                double balance_=Double.valueOf(balance);
+                if(balance_>value){
+                    payByBalance();
+                }else {
+                    recharge(value);
+                }
                 break;
             case R.id.ll_plate_sel:
                 showSpinWindow();
                 break;
         }
 
+    }
+
+    private void payByBalance() {
+        Map<String,String> params=new HashMap<String,String>();
+        params.put("sign",sp.getString("sign",null));
+        params.put("order_no",order_no_);
+        params.put("amount",value+"");
+        OkHttpUtils.getInstance().post(QParkingApp.URL, new OkHttpUtils.ResultCallback() {
+            @Override
+            public void onError(Request request, Exception e) {
+
+            }
+
+            @Override
+            public void onResponse(String result) {
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    String code= (String) jsonObject.get("code");
+                    String msg=TransCoding.trans(jsonObject.getString("msg"));
+                    if(code.equals("0")){
+                        QParkingApp.ToastTip(context,msg,-100);
+                        finish();
+                    }else{
+                        QParkingApp.ToastTip(context,msg,-100);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },params,"balancepay");
     }
 
     private void recharge(int value){
@@ -305,7 +320,6 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
             PaymentRequest paymentRequest = pr[0];
             String data = null;
             String json = new Gson().toJson(paymentRequest);
-            Log.e("show","show"+json);
             try {
                 //向Your Ping++ Server SDK请求数据
                 data = postJson(URL, json);

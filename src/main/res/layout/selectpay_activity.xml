@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="gone"
             >
             <TextView
                 android:id="@+id/carport_name_tv"
@@ -209,8 +210,6 @@
 
         <RelativeLayout
             android:id="@+id/show_re"
-            android:visibility="gone"
-
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
             <ImageView
@@ -237,6 +236,7 @@
         android:layout_marginTop="5dp"
         android:background="@color/gray"
         android:layout_alignParentBottom="true"
+        android:visibility="gone"
         android:minHeight="40dp"
         >
         <LinearLayout
