@@ -1,8 +1,4 @@
-package funion.app.qparking;
-/**
- * 充值页面
- * Created by yunze on 2015/12/16.
- */
+package funion.app.qparking.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,14 +9,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.app.AlertDialog.Builder;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.pingplusplus.android.PaymentActivity;
 import com.squareup.okhttp.MediaType;
@@ -30,15 +28,16 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
+import funion.app.qparking.R;
+import funion.app.qparking.RechargeActivity;
 import funion.app.qparking.popWindow.SelectPayModePop;
-import funion.app.qparking.tools.OkHttpUtils;
 
-public class RechargeActivity extends Activity implements View.OnClickListener{
-    private ImageView im_back;
-    private TextView title_tv;
+/**
+ * Created by Administrator on 2016/1/16.
+ */
+public class RechargeFragment extends Fragment {
+    private View rechargefragment;
     private EditText input_et;
     private int value;
     private int select_value;
@@ -53,60 +52,57 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
      * 支付支付渠道
      */
     private static final String CHANNEL_ALIPAY = "alipay";
-    Context context;
     SelectPayModePop selectPayModePop;
     private ProgressDialog m_dlgProgress = null;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_recharge);
-        sp=getSharedPreferences("mMessage",MODE_PRIVATE);
-        context=this;
-        initView();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if(rechargefragment==null){
+            rechargefragment=inflater.inflate(R.layout.recharge_view,null);
+            findViewId();
+            sp=getActivity().getSharedPreferences("mMessage",getActivity().MODE_PRIVATE);
+        }
+        return rechargefragment;
     }
 
-    private void initView() {
-        input_et=(EditText)findViewById(R.id.recharge_price);
-        im_back=(ImageView)findViewById(R.id.include_iv_left);
-        title_tv=(TextView)findViewById(R.id.include_tv_title);
-        findViewById(R.id.recharge_50).setOnClickListener(this);
-        findViewById(R.id.recharge_100).setOnClickListener(this);
-        findViewById(R.id.recharge_200).setOnClickListener(this);
-        findViewById(R.id.recharge_800).setOnClickListener(this);
-        findViewById(R.id.recharge_btn).setOnClickListener(this);
+    public void findViewId(){
+        input_et=(EditText)rechargefragment.findViewById(R.id.recharge_price);
+        ((TextView)rechargefragment.findViewById(R.id.recharge_50)).setOnClickListener(onclick);
+        ((TextView)rechargefragment.findViewById(R.id.recharge_100)).setOnClickListener(onclick);
+        ((TextView)rechargefragment.findViewById(R.id.recharge_200)).setOnClickListener(onclick);
+        ((TextView)rechargefragment.findViewById(R.id.recharge_800)).setOnClickListener(onclick);
+        ((Button)rechargefragment.findViewById(R.id.recharge_btn)).setOnClickListener(onclick);
         value=1;
     }
 
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.recharge_50:
-                value=1;
-                break;
-            case R.id.recharge_100:
-                value=2;
-                break;
-            case R.id.recharge_200:
-                value=3;
-                break;
-            case R.id.recharge_800:
-                value=4;
-                break;
-            case R.id.recharge_btn:
-                recharge(value);
-                break;
+    public View.OnClickListener onclick=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch ((view.getId())){
+                case R.id.recharge_50:
+                    value=1;
+                    break;
+                case R.id.recharge_100:
+                    value=2;
+                    break;
+                case R.id.recharge_200:
+                    value=3;
+                    break;
+                case R.id.recharge_800:
+                    value=4;
+                    break;
+                case R.id.recharge_btn:
+                    recharge(value);
+                    break;
+            }
         }
-
-    }
+    };
 
     private void recharge(int value) {
-        selectPayModePop = new SelectPayModePop(context,itemsOnClick);
-        selectPayModePop.showAtLocation(RechargeActivity.this.findViewById(R.id.main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
+        selectPayModePop = new SelectPayModePop(getActivity(),itemsOnClick);
+        selectPayModePop.showAtLocation(RechargeFragment.this.rechargefragment.findViewById(R.id.main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
         select_value=value;
-
     }
-
-
     //为弹出窗口实现监听类
     private View.OnClickListener itemsOnClick = new View.OnClickListener(){
 
@@ -124,9 +120,8 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
             }
         }
     };
-
     private void initpay(String channel,int value) {
-        m_dlgProgress = ProgressDialog.show(RechargeActivity.this, null,
+        m_dlgProgress = ProgressDialog.show(getActivity(), null,
                 "加载中... ", true, true);
         new PaymentTask().execute(new PaymentRequest(channel, value,sp.getString("sign", null)));
 
@@ -144,7 +139,7 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
             PaymentRequest paymentRequest = pr[0];
             String data = null;
             String json = new Gson().toJson(paymentRequest);
-            Log.e("show",json);
+            Log.e("show", json);
             try {
                 //向Your Ping++ Server SDK请求数据
                 data = postJson(URL, json);
@@ -166,7 +161,7 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
             }
             Log.e("show", data);
             Intent intent = new Intent();
-            String packageName = getPackageName();
+            String packageName = getActivity().getPackageName();
             ComponentName componentName = new ComponentName(packageName, packageName + ".wxapi.WXPayEntryActivity");
             intent.setComponent(componentName);
             intent.putExtra(PaymentActivity.EXTRA_CHARGE, data);
@@ -182,7 +177,7 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
         if (null !=msg2 && msg2.length() != 0) {
             str += "\n" + msg2;
         }
-        AlertDialog.Builder builder = new Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(str);
         builder.setTitle("提示");
         builder.setPositiveButton("OK", null);
@@ -200,11 +195,23 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
         return response.body().string();
     }
 
+    class PaymentRequest {
+        String channel;
+        int amount;
+        String sign;
+
+        public PaymentRequest(String channel, int amount,String sign) {
+            this.channel = channel;
+            this.amount = amount;
+            this.sign=sign;
+        }
+    }
+
     /**
      * onActivityResult 获得支付结果，如果支付成功，服务器会收到ping++ 服务器发送的异步通知。
      * 最终支付成功根据异步通知为准
      */
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         m_dlgProgress.dismiss();
         //支付页面返回处理
         if (requestCode == REQUEST_CODE_PAYMENT) {
@@ -232,18 +239,4 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
             }
         }
     }
-
-    class PaymentRequest {
-        String channel;
-        int amount;
-        String sign;
-
-        public PaymentRequest(String channel, int amount,String sign) {
-            this.channel = channel;
-            this.amount = amount;
-            this.sign=sign;
-        }
-    }
-
-
 }

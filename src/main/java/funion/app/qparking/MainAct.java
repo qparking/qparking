@@ -108,6 +108,7 @@ import funion.app.qparking.tools.ActivityTools;
 import funion.app.qparking.tools.AppTools;
 import funion.app.qparking.tools.JsonParser;
 import funion.app.qparking.tools.OkHttpUtils;
+import funion.app.qparking.vo.LocationPlace;
 import funion.app.qparking.vo.MyOrderRecharge;
 import funion.app.qparking.vo.MyServiceParkingInfo;
 import funion.app.qparking.vo.TagParkingItem1;
@@ -165,6 +166,8 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     private ArrayList<TagParkingItem1> tagParkingItem1ArrayList = new ArrayList<>();
     private ArrayList<MyServiceParkingInfo> myServiceParkingInfoList = new ArrayList<>();
     private String cityName;
+    private String cityCode;
+    LocationPlace locationPlace;
     // 语音识别
     private SpeechRecognizer speechRecognizer;
     // 语音听写UI
@@ -173,7 +176,6 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     private int startY = -1;
     private int selectPosition = 0;
     private boolean isScroll = false;
-    private VelocityTracker vTracker;
     /**
      * 侧滑布局参数以及控件
      */
@@ -294,7 +296,6 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 case 10:
                     // 未下载离线地图
                     String strInfo = msg.peekData().getString("info");
-                    T.show(context, strInfo, 2000);
                     downloadOfflineMapTv1.setText(String.format("请下载%s离线地图",
                             strInfo));
                     downloadOfflineMapRl.setVisibility(View.VISIBLE);
@@ -313,6 +314,9 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Rect rect, rect1;
+                if(tagParkingItem1ArrayList.size()==0){
+                    return super.dispatchTouchEvent(ev);
+                }
                 ((TextView) findViewById(R.id.parking_title)).setText(tagParkingItem1ArrayList.get(selectPosition).getM_strName());
                 ((TextView) findViewById(R.id.address_tv)).
                         setText(AppTools.distance(tagParkingItem1ArrayList.get(selectPosition).getM_iDistance())
@@ -427,10 +431,12 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
+            //关闭下载地图
             case R.id.ivOfflineMapClose:
                 // 关闭离线下载提示
                 downloadOfflineMapRl.setVisibility(View.GONE);
                 break;
+            //下载地图
             case R.id.tvOfflineMapDownload:
                 intent = new Intent();
                 intent.setClass(context,
@@ -440,16 +446,19 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
             //是否弹出侧滑布局
             case R.id.btHomeMenu: {
                 m_bIsMainMenu = true;
-                String userId = sp.getString("userId", null);
-                if (userId != null) {
-                    login_re_.setVisibility(View.GONE);
-                    m_llMenu.setVisibility(View.VISIBLE);
-                    phonenum_tv.setText(sp.getString("username", null));
-                    balance.setText(sp.getString("balance", null));
-                } else {
-                    login_re_.setVisibility(View.VISIBLE);
-                    m_llMenu.setVisibility(View.GONE);
-                }
+//                String userId = sp.getString("userId", null);
+//                if (userId != null) {
+//                    login_re_.setVisibility(View.GONE);
+//                    m_llMenu.setVisibility(View.VISIBLE);
+//                    phonenum_tv.setText(sp.getString("username", null));
+//                    balance.setText(sp.getString("balance", null));
+//                    DisplayImageOptions options = AppTools.confirgImgInfo(R.drawable.headimage_default, R.drawable.headimage_default);
+//                    ImageLoader.getInstance().displayImage(sp.getString("avatar", ""),
+//                            ((ImageView) findViewById(R.id.ivMenuMe)), options);
+//                } else {
+//                    login_re_.setVisibility(View.VISIBLE);
+//                    m_llMenu.setVisibility(View.GONE);
+//                }
                 m_llMenuBar.setVisibility(View.VISIBLE);
                 m_hAnimate.postDelayed(m_raShowMenu, MENU_ANIM_INTERVAL);
             }
@@ -466,15 +475,22 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 }
             }
             break;
+            //我的钱包
+            case R.id.my_wallet_form:
+                ActivityTools.switchActivity(context,MyWalletActivity.class,null);
+
+                break;
             //我的订单
-            case R.id.my_order_form:
-                if (appQParking.m_strUserID.length() > 0) {
+            case R.id.my_order_form: {
+                String userId = sp.getString("userId", null);
+                if (userId != null) {
                     ActivityTools.switchActivity(context, MyOrderActivity.class, null);
                 } else {
                     T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
                     ActivityTools.switchActivity(context, LoginActivity.class, null);
                 }
                 break;
+            }
             //反向寻车
             case R.id.rlReverseParking: {
                 intent = new Intent();
@@ -514,9 +530,15 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                         SuggestionActivity.class);
                 startActivity(intent);
             }
+            break;
+            case R.id.offline_rl:
+                intent = new Intent();
+                intent.setClass(context,
+                        OfflineMapActivity.class);
+                startActivity(intent);
+                break;
             //路况
             case R.id.btMainRoad:
-                T.show(context, tagParkingItem1ArrayList.get(0).getM_strName(), 1000);
                 m_bIsRoadStateOn = !m_bIsRoadStateOn;
                 if (m_bIsRoadStateOn)
                     m_btRoadState.setBackgroundResource(R.drawable.main_road_on);
@@ -609,15 +631,10 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                     return;
                 }
                 intent = new Intent(context, NavigationActivity.class);
-//                intent = new Intent(context, NavigationAct.class);
                 appQParking.m_itemParking.m_llParking = tagParkingItem1ArrayList.get(selectPosition).getM_llParking();
                 startActivity(intent);
                 break;
             default:
-                intent = new Intent();
-                intent.setClass(context,
-                        ParkingDetailActivity.class);
-                startActivity(intent);
                 mapView.getMap().hideInfoWindow();
                 break;
         }
@@ -760,6 +777,8 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         findViewById(R.id.rlShare).setOnClickListener(this);
         findViewById(R.id.rlMenuSet).setOnClickListener(this);
         findViewById(R.id.rlSuggestion).setOnClickListener(this);
+        findViewById(R.id.offline_rl).setOnClickListener(this);
+        findViewById(R.id.my_wallet_form).setOnClickListener(this);
         login_re_.setOnClickListener(this);
 
         m_btRoadState = (Button) findViewById(R.id.btMainRoad);
@@ -884,7 +903,6 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
             // map view 销毁后不在处理新接收的位置
             if (location == null || mapView == null)
                 return;
-            T.showShort(context, "已执行这不!");
             MyLocationData locData = new MyLocationData.Builder()
                     .accuracy(0)
                             // 此处设置开发者获取到的方向信息，顺时针0-360
@@ -906,11 +924,17 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 return;
             }
             // 获得当前城市名和编号
-            String cityCode = location.getCityCode();
+            cityCode = location.getCityCode();
             cityName = location.getCity();
-            if (cityCode != null && cityName != null) {
-                CheckOfflineMap(cityCode, cityName);
-            }
+            editor.putString("city_name", cityName);
+            editor.commit();
+            locationPlace = new LocationPlace();
+            locationPlace.setPro(location.getProvince());
+            locationPlace.setCity(location.getCity());
+            locationPlace.setDis(location.getDistrict());
+//            if (cityCode != null && cityName != null) {
+//                CheckOfflineMap(cityCode, cityName);
+//            }
             // 停止定位
             myLocation.stop();
             // 提示开启GPS
@@ -988,7 +1012,6 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 if (elementUpdate == null || elementUpdate.ratio != 100) {
                     Message msg = new Message();
                     Bundle bundleData = new Bundle();
-                    T.show(context, cityName, 2000);
                     bundleData.putString("info", cityName);
                     msg.setData(bundleData);
 
@@ -1323,6 +1346,9 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                         m_llMenu.setVisibility(View.VISIBLE);
                         phonenum_tv.setText(sp.getString("username", null));
                         balance.setText(sp.getString("balance", null));
+                        DisplayImageOptions options = AppTools.confirgImgInfo(R.drawable.headimage_default, R.drawable.headimage_default);
+                        ImageLoader.getInstance().displayImage(sp.getString("avatar", ""),
+                                ((ImageView) findViewById(R.id.ivMenuMe)), options);
                     } else {
                         login_re_.setVisibility(View.VISIBLE);
                         m_llMenu.setVisibility(View.GONE);
@@ -1339,7 +1365,19 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     public void onResume() {
         MobclickAgent.onResume(this);
         mapView.onResume();
-
+        String userId = sp.getString("userId", null);
+        if (userId != null) {
+            login_re_.setVisibility(View.GONE);
+            m_llMenu.setVisibility(View.VISIBLE);
+            phonenum_tv.setText(sp.getString("username", null));
+            balance.setText(sp.getString("balance", null));
+            DisplayImageOptions options = AppTools.confirgImgInfo(R.drawable.headimage_default, R.drawable.headimage_default);
+            ImageLoader.getInstance().displayImage(sp.getString("avatar", ""),
+                    ((ImageView) findViewById(R.id.ivMenuMe)), options);
+        } else {
+            login_re_.setVisibility(View.VISIBLE);
+            m_llMenu.setVisibility(View.GONE);
+        }
         super.onResume();
     }
 

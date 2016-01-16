@@ -16,7 +16,7 @@ public class ReminderReceiver extends BroadcastReceiver
 
 		intentLauncher.putExtra("PickCar", true);
 		intentLauncher.addCategory(Intent.CATEGORY_LAUNCHER);
-		intentLauncher.setClass(context, MainActivity.class);
+		intentLauncher.setClass(context, MainAct.class);
 		
 		PendingIntent pendingIntent= PendingIntent.getActivity(context, 0, intentLauncher, flags);
 		

@@ -152,7 +152,7 @@
                     android:textColor="#c8c8c8" />
 
             </RelativeLayout>
-            
+
             <RelativeLayout
                 android:id="@+id/rlCenterPassword"
                 android:layout_width="match_parent"
@@ -247,7 +247,7 @@
             </RelativeLayout>
 
         </LinearLayout>
-        
+
         <LinearLayout
             android:id="@+id/llCarInfo"
             android:layout_width="match_parent"
@@ -312,7 +312,7 @@
                     android:textColor="#c8c8c8" />
 
             </RelativeLayout>
-            
+
             <RelativeLayout
                 android:id="@+id/rlCenterParking"
                 android:layout_width="match_parent"

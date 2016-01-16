@@ -8,7 +8,6 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 
 import funion.app.qparking.LoginActivity;
-import funion.app.qparking.MainActivity;
 
 
 public class ActivityTools {

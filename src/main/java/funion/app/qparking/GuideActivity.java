@@ -82,10 +82,9 @@ public class GuideActivity extends Activity {
 //					intentMain.setClass(GuideActivity.this, MainActivity.class);
 //					GuideActivity.this.startActivity(intentMain);
 //					GuideActivity.this.finish();
-					ActivityTools.switchActivity(context,MainActivity.class,null);
-
-
+					ActivityTools.switchActivity(context, MainAct.class, null);
 					overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+					finish();
 				}
 					break;
 				case 1: {

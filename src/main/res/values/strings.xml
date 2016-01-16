@@ -4048,6 +4048,7 @@
     <string name="add_plate_num">添加车牌</string>
     <string name="notice_sure">请确认当前停车场和金额信息准确无误~</string>
     <string name="my_orderform">我的订单</string>
+    <string name="my_wallet">我的钱包</string>
     <string name="login_first">您还未登录，请先登录</string>
     <string name="share_friend">分享好友</string>
     <string name="off_line_map">离线地图</string>
@@ -4067,6 +4068,10 @@
     <string name="enter_user_name">请输入用户名</string>
     <string name="balance">余额 ￥</string>
     <string name="integral">积分:</string>
+    <string name="account_balance">账户余额</string>
+    <string name="integral_">积分</string>
+    <string name="parking_vouchers">停车券</string>
+    <string name="washing_vouchers">洗车券</string>
     <string name="exit_success">您已退出登录</string>
     <string name="my_integral">当前我的积分</string>
     <string name="integral_explain">积分说明</string>

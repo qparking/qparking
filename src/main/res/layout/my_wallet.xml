@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg"
+    android:orientation="vertical">
+    <include layout="@layout/include_title"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/app_white"
+        android:minHeight="30dp"
+        >
+        <TextView
+            android:id="@+id/account_balance_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="@string/account_balance"
+            android:textColor="@color/red"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_18"
+            />
+        <TextView
+            android:id="@+id/integral_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.25"
+            android:text="@string/integral_"
+            android:gravity="center"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/text_size_18"
+            />
+        <TextView
+            android:id="@+id/parking_vouchers_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:text="@string/parking_vouchers"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/text_size_18"
+            />
+        <TextView
+            android:id="@+id/washing_vouchers_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:text="@string/washing_vouchers"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/text_size_18"
+            />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/cursor_im"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="matrix"
+        android:src="@drawable/tab_flag" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/wallet_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/app_bg"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+
+</LinearLayout>

@@ -104,6 +104,32 @@
                     android:layout_weight="2"></LinearLayout>
             </LinearLayout>
         </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/my_wallet_form"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/main_menu_btn1">
+
+            <ImageView
+                android:id="@+id/ivWallet"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/persion_icon" />
+
+            <TextView
+                android:id="@+id/tv_my_wallet_form"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/ivWallet"
+                android:text="@string/my_wallet"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFEFEFE"
+                android:textSize="16sp" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/my_order_form"
@@ -213,6 +239,7 @@
                 android:textColor="#FFFEFEFE"
                 android:textSize="16sp" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/rlIntegral_exchange"
             android:layout_width="match_parent"
@@ -251,10 +278,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="20dp"
                 android:background="@drawable/main_menu_btn1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
 
                 <ImageView
                     android:id="@+id/ivMenuSet"
@@ -280,10 +307,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="5dp"
                 android:background="@drawable/main_menu_btn1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:paddingRight="5dp">
 
                 <ImageView
                     android:id="@+id/ivSuggestion"
@@ -300,6 +327,35 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/ivSuggestion"
                     android:text="建议"
+                    android:textColor="@color/app_font_gray1"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/offline_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/main_menu_btn1"
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp">
+
+                <ImageView
+                    android:id="@+id/offline_iv"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/menu_icon_suggestion" />
+
+                <TextView
+                    android:id="@+id/offline_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/offline_iv"
+                    android:text="离线地图"
                     android:textColor="@color/app_font_gray1"
                     android:textSize="16sp" />
             </RelativeLayout>

@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import funion.app.common.T;
 import funion.app.qparking.BNavigatorActivity;
 import funion.app.qparking.MainAct;
-import funion.app.qparking.MainActivity;
 import funion.app.qparking.NavigationAct;
 import funion.app.qparking.NavigationActivity;
 import funion.app.qparking.NearParkingActivity;

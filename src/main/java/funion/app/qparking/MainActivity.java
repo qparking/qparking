@@ -969,6 +969,7 @@ public class MainActivity extends Activity implements OnClickListener,
         balance = (TextView) findViewById(R.id.tvBalance);
         findViewById(R.id.rlMenuMe).setOnClickListener(this);
         findViewById(R.id.rlIntegral_exchange).setOnClickListener(this);
+        findViewById(R.id.my_wallet_form).setOnClickListener(this);
         login_re_.setOnClickListener(this);
         // 定位按钮
         findViewById(R.id.btMainLocation).setOnClickListener(this);
@@ -1296,36 +1297,21 @@ public class MainActivity extends Activity implements OnClickListener,
 //                    ActivityTools.switchActivity(context, LoginActivity.class, null);
                 }
                 break;
+            //我的钱包
+            case R.id.my_wallet_form:
+                ActivityTools.switchActivity(context,MyWalletActivity.class,null);
+
+                break;
             // 付款
             case R.id.my_order_form: {
-//                QParkingApp.ToastTip(MainActivity.this, "付款", -100);
                 if (appQParking.m_strUserID.length() > 0) {
                     ActivityTools.switchActivity(context, MyOrderActivity.class, null);
                 } else {
                     Toast.makeText(context, R.string.login_first, Toast.LENGTH_SHORT).show();
                     ActivityTools.switchActivity(context, LoginActivity.class, null);
                 }
-//                Intent i = new Intent();
-////                i.setClass(context, LoginActivity.class);
-//                i.setClass(MainActivity.this,SelectPayActivity.class);
-//                startActivity(i);
             }
  break;
-            // 停车信息
-//            case R.id.rlParkingInfo: {
-//                if (m_addressCur == null) {
-//                    QParkingApp.ToastTip(MainActivity.this, "未检测到定位信息，无法实现相关功能！",
-//                            -100);
-//                    return;
-//                }
-
-//                Intent intentNewActivity = new Intent();
-//                intentNewActivity.setClass(MainActivity.this,
-//                        ParkInfoActivity.class);
-//                intentNewActivity.setClass(MainActivity.this, RecommendRewardActivity.class);
-//                startActivity(intentNewActivity);
-//            }
-//            break;
             // 反向寻车
             case R.id.rlReverseParking: {
 

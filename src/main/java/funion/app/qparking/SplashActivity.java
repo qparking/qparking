@@ -71,14 +71,14 @@ public class SplashActivity extends Activity {
                                         editor.putString("integral", jsonObject.getString("integral"));
                                         editor.commit();
                                     }
-                                    ActivityTools.switchActivity(context, MainActivity.class, null);
+                                    ActivityTools.switchActivity(context, MainAct.class, null);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
                         }, parm, "getuserinfo");
                     } else {
-                        ActivityTools.switchActivity(context, MainActivity.class, null);
+                        ActivityTools.switchActivity(context, MainAct.class, null);
                     }
                 }
                 finish();

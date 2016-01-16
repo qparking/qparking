@@ -1,8 +1,6 @@
 package funion.app.adapter;
 
 import java.util.ArrayList;
-
-import funion.app.qparking.MainActivity;
 import funion.app.qparking.ParkingDetailActivity;
 import funion.app.qparking.QParkingApp;
 import funion.app.qparking.R;

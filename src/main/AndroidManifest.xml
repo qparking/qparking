@@ -5,7 +5,7 @@
     android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="21" />
 
     <!-- 读取联系人 -->
@@ -330,6 +330,9 @@ android:configChanges="orientation|keyboardHidden"
         <activity
             android:name=".AgreementActivity"
             android:label="用户协议" />
+        <activity
+            android:name=".MyWalletActivity"
+            android:label="我的钱包" />
 	            <!-- Ping++ SDK 注册 -->
         <activity
             android:name="com.pingplusplus.android.PaymentActivity"

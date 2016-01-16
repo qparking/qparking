@@ -121,7 +121,7 @@ public class PasswordActivity extends Activity implements OnClickListener
 							Toast.makeText(context, TransCoding.trans(result_msg), Toast.LENGTH_SHORT).show();
 							editor.putString("password", edPasswordNew.getText().toString());
 							editor.commit();
-							ActivityTools.switchActivity(context,MainActivity.class,null);
+							ActivityTools.switchActivity(context,MainAct.class,null);
 							finish();
 
 						} else {
