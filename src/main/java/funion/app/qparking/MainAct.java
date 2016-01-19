@@ -430,6 +430,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     @Override
     public void onClick(View view) {
         Intent intent;
+        String userId = sp.getString("userId", null);
         switch (view.getId()) {
             //关闭下载地图
             case R.id.ivOfflineMapClose:
@@ -446,43 +447,31 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
             //是否弹出侧滑布局
             case R.id.btHomeMenu: {
                 m_bIsMainMenu = true;
-//                String userId = sp.getString("userId", null);
-//                if (userId != null) {
-//                    login_re_.setVisibility(View.GONE);
-//                    m_llMenu.setVisibility(View.VISIBLE);
-//                    phonenum_tv.setText(sp.getString("username", null));
-//                    balance.setText(sp.getString("balance", null));
-//                    DisplayImageOptions options = AppTools.confirgImgInfo(R.drawable.headimage_default, R.drawable.headimage_default);
-//                    ImageLoader.getInstance().displayImage(sp.getString("avatar", ""),
-//                            ((ImageView) findViewById(R.id.ivMenuMe)), options);
-//                } else {
-//                    login_re_.setVisibility(View.VISIBLE);
-//                    m_llMenu.setVisibility(View.GONE);
-//                }
                 m_llMenuBar.setVisibility(View.VISIBLE);
                 m_hAnimate.postDelayed(m_raShowMenu, MENU_ANIM_INTERVAL);
             }
             break;
             //登陆状态
             case R.id.rlMenuMe: {
-                String userId = sp.getString("userId", null);
                 if (userId != null) {
                     ActivityTools.switchActivity(context, PersonalCenterActivity.class, null);
                 } else {
                     intent = new Intent(context, LoginActivity.class);
                     startActivityForResult(intent, 2);
-                    //ActivityTools.switchActivity(context, LoginActivity.class, null);
                 }
             }
             break;
             //我的钱包
             case R.id.my_wallet_form:
-                ActivityTools.switchActivity(context,MyWalletActivity.class,null);
-
+                if (userId != null) {
+                    ActivityTools.switchActivity(context,MyWalletActivity.class,null);
+                } else {
+                    T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
+                    ActivityTools.switchActivity(context, LoginActivity.class, null);
+                }
                 break;
             //我的订单
             case R.id.my_order_form: {
-                String userId = sp.getString("userId", null);
                 if (userId != null) {
                     ActivityTools.switchActivity(context, MyOrderActivity.class, null);
                 } else {
@@ -492,21 +481,30 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 break;
             }
             //反向寻车
-            case R.id.rlReverseParking: {
-                intent = new Intent();
-                intent.setClass(context,
-                        MipcaActivityCapture.class);
-                startActivity(intent);
-            }
+            case R.id.rlReverseParking:
+                ActivityTools.switchActivity(context, MipcaActivityCapture.class, null);
             break;
             //车位求租
             case R.id.rlLeaseParking:
-                appQParking = (QParkingApp) getApplicationContext();
-                appQParking.m_addressAdd = m_addressCur;
-                appQParking.m_llSubmit = appQParking.m_llMe;
-                Intent intentNewActivity = new Intent();
-                intentNewActivity.setClass(context, LesseeActivity.class);
-                startActivity(intentNewActivity);
+                if(userId!=null){
+                    appQParking = (QParkingApp) getApplicationContext();
+                    appQParking.m_addressAdd = m_addressCur;
+                    appQParking.m_llSubmit = appQParking.m_llMe;
+                    ActivityTools.switchActivity(context, LesseeActivity.class, null);
+                }else{
+                    QParkingApp.ToastTip(context, getResources().getString(R.string.login_first), -100);
+                    ActivityTools.switchActivity(context, LoginActivity.class, null);
+                }
+
+                break;
+            //积分商城
+            case R.id.rlIntegral_exchange:
+                if(userId!=null){
+                    ActivityTools.switchActivity(context,IntegralExChange.class,null);
+                }else{
+                    QParkingApp.ToastTip(context, getResources().getString(R.string.login_first), -100);
+                    ActivityTools.switchActivity(context, LoginActivity.class, null);
+                }
                 break;
             // 分享
             case R.id.rlShare: {
@@ -560,7 +558,12 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 mapView.getMap().clear();
                 break;
             case R.id.ivParkingList:
-
+                if (userId != null) {
+                    ActivityTools.switchActivity(context,SelectPayActivity.class,null);
+                } else {
+                    T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
+                    ActivityTools.switchActivity(context, LoginActivity.class, null);
+                }
                 break;
             //搜索
             case R.id.etAddress:
@@ -779,6 +782,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         findViewById(R.id.rlSuggestion).setOnClickListener(this);
         findViewById(R.id.offline_rl).setOnClickListener(this);
         findViewById(R.id.my_wallet_form).setOnClickListener(this);
+        findViewById(R.id.rlIntegral_exchange).setOnClickListener(this);
         login_re_.setOnClickListener(this);
 
         m_btRoadState = (Button) findViewById(R.id.btMainRoad);

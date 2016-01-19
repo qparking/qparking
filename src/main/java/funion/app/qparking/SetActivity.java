@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,11 +31,14 @@ import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
+import funion.app.qparking.tools.ActivityTools;
+
 public class SetActivity extends Activity implements OnClickListener {
 	private Context context = SetActivity.this;
 	private Button btTemp;
 	private TextView tvVersion;
 	private RelativeLayout rlTemp, rlSetShareFriend;
+	SharedPreferences sp;
 	// 首先在您的Activity中添加如下成员变量
 	final UMSocialService mController = UMServiceFactory
 			.getUMSocialService("com.umeng.share");
@@ -44,6 +48,7 @@ public class SetActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.set_activity);
+		sp=getSharedPreferences("mMessage",MODE_PRIVATE);
 		initView();
 		sharePlatform();
 
@@ -69,6 +74,7 @@ public class SetActivity extends Activity implements OnClickListener {
 		rlTemp.setOnClickListener(this);
 		rlSetShareFriend = (RelativeLayout) findViewById(R.id.rlSetShareFriend);
 		rlSetShareFriend.setOnClickListener(this);
+		findViewById(R.id.logout_tv).setOnClickListener(this);
 
 		// 设置版本号
 		QParkingApp appQParking = (QParkingApp) getApplicationContext();
@@ -151,51 +157,6 @@ public class SetActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btSetBack:
 			finish();
-			// 第三方QQ登录
-			// mController.doOauthVerify(context, SHARE_MEDIA.QQ, new
-			// UMAuthListener() {
-			// @Override
-			// public void onStart(SHARE_MEDIA platform) {
-			// Toast.makeText(context, "授权开始", Toast.LENGTH_SHORT).show();
-			// }
-			// @Override
-			// public void onError(SocializeException e, SHARE_MEDIA platform) {
-			// Toast.makeText(context, "授权错误", Toast.LENGTH_SHORT).show();
-			// }
-			// @Override
-			// public void onComplete(Bundle value, SHARE_MEDIA platform) {
-			// Toast.makeText(context, "授权完成", Toast.LENGTH_SHORT).show();
-			// //获取相关授权信息
-			// mController.getPlatformInfo(context, SHARE_MEDIA.QQ, new
-			// UMDataListener() {
-			// @Override
-			// public void onStart() {
-			// Toast.makeText(context, "获取平台数据开始...",
-			// Toast.LENGTH_SHORT).show();
-			// }
-			// @Override
-			// public void onComplete(int status, Map<String, Object> info) {
-			// if(status == 200 && info != null){
-			// StringBuilder sb = new StringBuilder();
-			//
-			// Set<String> keys = info.keySet();
-			// Log.d("TestData----",keys+"");
-			// for(String key : keys){
-			// sb.append(key+"="+info.get(key).toString()+"\r\n");
-			// }
-			// Log.d("TestData",sb.toString());
-			// Toast.makeText(context, sb.toString(), Toast.LENGTH_LONG).show();
-			// }else{
-			// Log.d("TestData","发生错误："+status);
-			// }
-			// }
-			// });
-			// }
-			// @Override
-			// public void onCancel(SHARE_MEDIA platform) {
-			// Toast.makeText(context, "授权取消", Toast.LENGTH_SHORT).show();
-			// }
-			// } );
 			break;
 		// 界面跳转 离线地图
 		case R.id.rlSetOfflineMap: {
@@ -212,20 +173,12 @@ public class SetActivity extends Activity implements OnClickListener {
 		}
 			break;
 		case R.id.rlFeedBack: {
-			Toast.makeText(context, "当前版本已是最新版本！", Toast.LENGTH_SHORT).show();
+			ActivityTools.switchActivity(context,FeedBack.class,null);
 		}
 			break;
 		case R.id.rlSetGrade: {
 			Toast.makeText(context, "功能建设中，敬请期待...", Toast.LENGTH_SHORT).show();
-		
-//			Intent intent = new Intent(Intent.ACTION_PICK,
-//					android.provider.ContactsContract.Contacts.CONTENT_URI);
-//			startActivityForResult(intent, 1);
-//			
-//			//回到桌面
-//			Intent intent = new Intent(Intent.ACTION_MAIN);
-//			intent.addCategory(Intent.CATEGORY_HOME);
-//			startActivity(intent);
+
 		}
 			break;
 
@@ -236,6 +189,12 @@ public class SetActivity extends Activity implements OnClickListener {
 			mController.openShare((Activity) context, false);
 
 			break;
+			case R.id.logout_tv:
+				sp.edit().clear().commit();
+				Toast.makeText(context, getResources().getString(R.string.exit_success), Toast.LENGTH_SHORT).show();
+				ActivityTools.switchActivity(context, MainAct.class, null);
+				finish();
+				break;
 		}
 
 	}

@@ -154,6 +154,7 @@ public class SelectPayActivity extends Activity implements View.OnClickListener,
                         linearLayout1.setVisibility(View.VISIBLE);
                         show_order_ll.setVisibility(View.VISIBLE);
                     } else{
+                        m_dlgProgress.dismiss();
                         QParkingApp.ToastTip(context, TransCoding.trans(msg), -100);
                         show_re.setVisibility(View.VISIBLE);
                         linearLayout1.setVisibility(View.GONE);

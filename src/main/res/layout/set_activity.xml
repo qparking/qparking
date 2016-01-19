@@ -271,5 +271,18 @@
                 android:src="@drawable/arrow_left" />
         </RelativeLayout>
     </LinearLayout>
+    <TextView
+        android:id="@+id/logout_tv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/llAppInfo"
+        android:background="@color/app_green"
+        android:gravity="center"
+        android:text="退出登录"
+        android:textColor="@color/app_white"
+        android:textSize="20sp" />
 
 </RelativeLayout>

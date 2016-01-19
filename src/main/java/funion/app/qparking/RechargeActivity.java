@@ -38,7 +38,7 @@ import funion.app.qparking.tools.OkHttpUtils;
 
 public class RechargeActivity extends Activity implements View.OnClickListener{
     private ImageView im_back;
-    private TextView title_tv;
+    private TextView title_tv,show_balance;
     private EditText input_et;
     private int value;
     private int select_value;
@@ -69,6 +69,10 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
         input_et=(EditText)findViewById(R.id.recharge_price);
         im_back=(ImageView)findViewById(R.id.include_iv_left);
         title_tv=(TextView)findViewById(R.id.include_tv_title);
+        show_balance=(TextView)findViewById(R.id.show_balance_tv);
+        show_balance.setText(sp.getString("balance",null));
+        im_back.setImageResource(R.drawable.top_back_btn);
+        title_tv.setText(getResources().getString(R.string.recharge));
         findViewById(R.id.recharge_50).setOnClickListener(this);
         findViewById(R.id.recharge_100).setOnClickListener(this);
         findViewById(R.id.recharge_200).setOnClickListener(this);
@@ -94,6 +98,9 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.recharge_btn:
                 recharge(value);
+                break;
+            case R.id.include_iv_left:
+                finish();
                 break;
         }
 

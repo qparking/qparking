@@ -211,7 +211,9 @@
         <RelativeLayout
             android:id="@+id/show_re"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            >
             <ImageView
                 android:id="@+id/im_show"
                 android:layout_width="wrap_content"

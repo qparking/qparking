@@ -6,21 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.List;
+
 import funion.app.qparking.R;
+import funion.app.qparking.vo.WashCardBean;
 
 /**
  * Created by yunze on 2015/12/17.
  */
 public class ParkingVolumeAdapter extends BaseAdapter {
     private Context context;
+    private List<WashCardBean> list_;
 
-    public ParkingVolumeAdapter(Context context) {
+    public ParkingVolumeAdapter(Context context,List<WashCardBean> list) {
         this.context = context;
+        this.list_=list;
     }
 
     @Override
     public int getCount() {
-        return 5;
+        return list_.size();
     }
 
     @Override
@@ -37,5 +42,9 @@ public class ParkingVolumeAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.list_item_park_volume, null);
         return convertView;
+    }
+
+    public class ViewHolder{
+
     }
 }

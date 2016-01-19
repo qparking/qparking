@@ -54,7 +54,7 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--  android:largeHeap="true"  申请大内存-->
     <application
         android:name=".QParkingApp"
@@ -106,12 +106,12 @@
             android:noHistory="true"
             android:theme="@style/Theme.UMDialog"
             android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--<activity-->
+            <!--android:name=".wxapi.WXEntryActivity"-->
+            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+            <!--android:exported="true"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
 
         <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
         <activity
@@ -333,6 +333,9 @@ android:configChanges="orientation|keyboardHidden"
         <activity
             android:name=".MyWalletActivity"
             android:label="我的钱包" />
+        <activity
+            android:name=".FeedBack"
+            android:label="咨询反馈" />
 	            <!-- Ping++ SDK 注册 -->
         <activity
             android:name="com.pingplusplus.android.PaymentActivity"

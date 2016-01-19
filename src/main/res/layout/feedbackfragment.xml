@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/feedback_et"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/list"
+        android:hint="@string/consult"
+        android:layout_margin="5dp"
+        />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/commonquestion"
+        android:background="@color/app_white"
+        android:layout_margin="8dp"
+        android:minHeight="30dp"
+        android:gravity="center_vertical"
+        />
+    <ExpandableListView
+        android:id="@+id/commonquestion_ex"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="8dp"
+        />
+
+
+</LinearLayout>

@@ -29,8 +29,8 @@ public class ParkingVolumeActivity extends Activity implements View.OnClickListe
 
     private void initView() {
         listView = (ListView) findViewById(R.id.parking_volume_lv);
-        adapter = new ParkingVolumeAdapter(context);
-        listView.setAdapter(adapter);
+//        adapter = new ParkingVolumeAdapter(context);
+//        listView.setAdapter(adapter);
     }
 
     private void initTitle() {

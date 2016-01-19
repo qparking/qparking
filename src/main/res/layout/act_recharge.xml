@@ -7,13 +7,49 @@
     android:orientation="vertical" >
 
     <include layout="@layout/include_title" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="60dp"
+        android:background="@color/app_white"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        >
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/about_balance"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/text_size_20"
+            />
+        <TextView
+            android:id="@+id/show_balance_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/text_size_20"
+            android:layout_toRightOf="@id/textView1"
+            android:text="111"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+    
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:padding="10dp" >
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -134,8 +170,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/green_btn"
-        android:text="@string/makesure_recharge"
+        android:background="@color/red"
+        android:text="@string/recharge"
         android:textColor="#FFFFFF"
         android:textSize="18sp" />
 

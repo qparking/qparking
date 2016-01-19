@@ -55,56 +55,15 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/show_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="浙G XXXXXX"
+                android:text="12345678911"
                 android:textColor="@color/app_white"
                 android:textSize="18sp"
-                android:visibility="gone" />
+                 />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/personal_center_account" />
-
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/app_white"
-                   android:textSize="20sp"
-                   android:text="@string/balance"/>
-                <TextView
-                    android:id="@+id/balance_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:text="X.XX"
-                    android:textColor="@color/app_white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/recharge_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:text="@string/recharge"
-                    android:textColor="@color/app_white"
-                    android:textSize="20sp" />
-
-                <ImageView
-                    android:id="@+id/recharge_iv"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/arrow_right_white" />
-            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 
@@ -112,54 +71,115 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/app_white">
-
-
-        <TextView
-            android:id="@+id/integral_tv"
+        <LinearLayout
+            android:id="@+id/balance_ll"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="积分:10"
-            android:textSize="16sp" />
+            android:orientation="vertical"
+            android:layout_weight="0.25"
+            >
+            <TextView
+                android:id="@+id/balance_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="X.XX"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/balance"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/app_bg" />
+        <LinearLayout
+            android:id="@+id/integral_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.25"
+            >
+            <TextView
+                android:id="@+id/integral_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="10"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/integral"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/app_bg" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="10"
-            android:textSize="16sp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/parking_card_tv"
+        <LinearLayout
+            android:id="@+id/parking_card_ll"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="停车卷"
-            android:textSize="16sp" />
-
+            android:orientation="vertical"
+            android:layout_weight="0.25"
+            >
+            <TextView
+                android:id="@+id/parking_card_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0"
+                android:layout_marginTop="5dp"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/parking_vouchers"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/app_bg" />
-
-        <TextView
-            android:id="@+id/wash_card_tv"
+        <LinearLayout
+            android:id="@+id/wash_card_ll"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="洗车卷"
-            android:textSize="16sp" />
+            android:orientation="vertical"
+            android:layout_weight="0.25"
+            >
+            <TextView
+                android:id="@+id/wash_card_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="0"
+                android:textSize="20sp" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/washing_vouchers"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <View
@@ -361,16 +381,6 @@
                 android:src="@drawable/arrow_right" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/logout_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/app_green"
-            android:gravity="center"
-            android:text="退出登录"
-            android:textColor="@color/app_white"
-            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>

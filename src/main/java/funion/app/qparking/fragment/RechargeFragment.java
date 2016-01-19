@@ -27,11 +27,18 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
-import java.io.IOException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import funion.app.qparking.QParkingApp;
 import funion.app.qparking.R;
 import funion.app.qparking.RechargeActivity;
 import funion.app.qparking.popWindow.SelectPayModePop;
+import funion.app.qparking.tools.OkHttpUtils;
 
 /**
  * Created by Administrator on 2016/1/16.
@@ -41,9 +48,12 @@ public class RechargeFragment extends Fragment {
     private EditText input_et;
     private int value;
     private int select_value;
+    private TextView show_balance;
     SharedPreferences sp;
-    private static String URL ="http://qtc.luopan.net/api/createrecharge";
+    SharedPreferences.Editor editor;
+    private static String URL = "http://qtc.luopan.net/api/createrecharge";
     private static final int REQUEST_CODE_PAYMENT = 1;
+    private String balance;
     /**
      * 微信支付渠道
      */
@@ -57,39 +67,76 @@ public class RechargeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if(rechargefragment==null){
-            rechargefragment=inflater.inflate(R.layout.recharge_view,null);
+        if (rechargefragment == null) {
+            rechargefragment = inflater.inflate(R.layout.recharge_view, null);
+            sp = getActivity().getSharedPreferences("mMessage", getActivity().MODE_PRIVATE);
+            editor=sp.edit();
+            getUserInfo();
             findViewId();
-            sp=getActivity().getSharedPreferences("mMessage",getActivity().MODE_PRIVATE);
+
         }
         return rechargefragment;
     }
 
-    public void findViewId(){
-        input_et=(EditText)rechargefragment.findViewById(R.id.recharge_price);
-        ((TextView)rechargefragment.findViewById(R.id.recharge_50)).setOnClickListener(onclick);
-        ((TextView)rechargefragment.findViewById(R.id.recharge_100)).setOnClickListener(onclick);
-        ((TextView)rechargefragment.findViewById(R.id.recharge_200)).setOnClickListener(onclick);
-        ((TextView)rechargefragment.findViewById(R.id.recharge_800)).setOnClickListener(onclick);
-        ((Button)rechargefragment.findViewById(R.id.recharge_btn)).setOnClickListener(onclick);
-        value=1;
+    public void findViewId() {
+        input_et = (EditText) rechargefragment.findViewById(R.id.recharge_price);
+        ((TextView) rechargefragment.findViewById(R.id.show_balance)).setText(balance);
+        ((TextView) rechargefragment.findViewById(R.id.recharge_50)).setOnClickListener(onclick);
+        ((TextView) rechargefragment.findViewById(R.id.recharge_100)).setOnClickListener(onclick);
+        ((TextView) rechargefragment.findViewById(R.id.recharge_200)).setOnClickListener(onclick);
+        ((TextView) rechargefragment.findViewById(R.id.recharge_800)).setOnClickListener(onclick);
+        ((Button) rechargefragment.findViewById(R.id.recharge_btn)).setOnClickListener(onclick);
+        value = 1;
     }
 
-    public View.OnClickListener onclick=new View.OnClickListener() {
+    private void getUserInfo() {
+        Map<String,String> params=new HashMap<String,String>();
+        params.put("sign", sp.getString("sign", null));
+        OkHttpUtils.getInstance().post(QParkingApp.URL, new OkHttpUtils.ResultCallback() {
+            @Override
+            public void onError(Request request, Exception e) {
+
+            }
+
+            @Override
+            public void onResponse(String result) {
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    int code=(int)jsonObject.get("code");
+                    if(code==0){
+                        editor.putString("phone", jsonObject.getString("phone"));
+                        editor.putString("balance", jsonObject.getString("balance"));
+                        editor.putString("integral", jsonObject.getString("integral"));
+                        editor.putString("washtic", jsonObject.getString("washtic"));
+                        editor.putString("parktic", jsonObject.getString("parktic"));
+                        balance=jsonObject.getString("balance");
+                        editor.commit();
+                    }else{
+                        QParkingApp.ToastTip(getActivity(), getResources().getString(R.string.getinfo_fail),-100);
+                        getActivity().finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },params,"getuserinfo");
+    }
+
+    public View.OnClickListener onclick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch ((view.getId())){
+            switch ((view.getId())) {
                 case R.id.recharge_50:
-                    value=1;
+                    value = 1;
                     break;
                 case R.id.recharge_100:
-                    value=2;
+                    value = 2;
                     break;
                 case R.id.recharge_200:
-                    value=3;
+                    value = 3;
                     break;
                 case R.id.recharge_800:
-                    value=4;
+                    value = 4;
                     break;
                 case R.id.recharge_btn:
                     recharge(value);
@@ -99,31 +146,33 @@ public class RechargeFragment extends Fragment {
     };
 
     private void recharge(int value) {
-        selectPayModePop = new SelectPayModePop(getActivity(),itemsOnClick);
-        selectPayModePop.showAtLocation(RechargeFragment.this.rechargefragment.findViewById(R.id.main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
-        select_value=value;
+        selectPayModePop = new SelectPayModePop(getActivity(), itemsOnClick);
+        selectPayModePop.showAtLocation(RechargeFragment.this.rechargefragment.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        select_value = value;
     }
+
     //为弹出窗口实现监听类
-    private View.OnClickListener itemsOnClick = new View.OnClickListener(){
+    private View.OnClickListener itemsOnClick = new View.OnClickListener() {
 
         public void onClick(View v) {
             selectPayModePop.dismiss();
             switch (v.getId()) {
                 case R.id.wechat_btn:
-                    initpay(CHANNEL_WECHAT,select_value);
+                    initpay(CHANNEL_WECHAT, select_value);
                     break;
                 case R.id.alipay_btn:
-                    initpay(CHANNEL_ALIPAY,select_value);
+                    initpay(CHANNEL_ALIPAY, select_value);
                     break;
                 default:
                     break;
             }
         }
     };
-    private void initpay(String channel,int value) {
+
+    private void initpay(String channel, int value) {
         m_dlgProgress = ProgressDialog.show(getActivity(), null,
                 "加载中... ", true, true);
-        new PaymentTask().execute(new PaymentRequest(channel, value,sp.getString("sign", null)));
+        new PaymentTask().execute(new PaymentRequest(channel, value, sp.getString("sign", null)));
 
     }
 
@@ -155,7 +204,7 @@ public class RechargeFragment extends Fragment {
          */
         @Override
         protected void onPostExecute(String data) {
-            if(null==data){
+            if (null == data) {
                 showMsg("请求出错", "请检查URL", "URL无法获取charge");
                 return;
             }
@@ -171,10 +220,10 @@ public class RechargeFragment extends Fragment {
 
     public void showMsg(String title, String msg1, String msg2) {
         String str = title;
-        if (null !=msg1 && msg1.length() != 0) {
+        if (null != msg1 && msg1.length() != 0) {
             str += "\n" + msg1;
         }
-        if (null !=msg2 && msg2.length() != 0) {
+        if (null != msg2 && msg2.length() != 0) {
             str += "\n" + msg2;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -200,10 +249,10 @@ public class RechargeFragment extends Fragment {
         int amount;
         String sign;
 
-        public PaymentRequest(String channel, int amount,String sign) {
+        public PaymentRequest(String channel, int amount, String sign) {
             this.channel = channel;
             this.amount = amount;
-            this.sign=sign;
+            this.sign = sign;
         }
     }
 
@@ -218,14 +267,14 @@ public class RechargeFragment extends Fragment {
             if (resultCode == Activity.RESULT_OK) {
                 String result = data.getExtras().getString("pay_result");
                 Log.e("show", result);
-                if(result.equals("success")){
-                    result=getResources().getString(R.string.success);
-                }else if(result.equals("fail")){
-                    result=getResources().getString(R.string.fail);
-                }else if(result.equals("cancel")){
-                    result=getResources().getString(R.string.cancle_pay);
-                }else if(result.equals("invalid")){
-                    result=getResources().getString(R.string.invalid);
+                if (result.equals("success")) {
+                    result = getResources().getString(R.string.success);
+                } else if (result.equals("fail")) {
+                    result = getResources().getString(R.string.fail);
+                } else if (result.equals("cancel")) {
+                    result = getResources().getString(R.string.cancle_pay);
+                } else if (result.equals("invalid")) {
+                    result = getResources().getString(R.string.invalid);
                 }
                 /* 处理返回值
                  * "success" - payment succeed

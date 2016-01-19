@@ -1346,7 +1346,7 @@ public class MainActivity extends Activity implements OnClickListener,
 //                    Toast.makeText(context,R.string.login_first,Toast.LENGTH_SHORT).show();
 //                    ActivityTools.switchActivity(context, LoginActivity.class, null);
 //                }
-                ActivityTools.switchActivity(context,SelectPayActivity.class,null);
+//                ActivityTools.switchActivity(context,SelectPayActivity.class,null);
                 break;
             // 分享
             case R.id.rlShare: {

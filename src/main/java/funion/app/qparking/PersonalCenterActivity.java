@@ -16,12 +16,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.okhttp.Request;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,12 +38,16 @@ import funion.app.qparking.popWindow.UploadParkingPicturePop;
 import funion.app.qparking.tools.ActivityTools;
 import funion.app.qparking.tools.AppTools;
 import funion.app.qparking.tools.HttpUtil;
+import funion.app.qparking.tools.OkHttpUtils;
 import funion.app.qparking.tools.TransCoding;
 import funion.app.qparking.view.RoundImageView;
 
 public class PersonalCenterActivity extends Activity implements OnClickListener {
     private TextView myIntegral;
     private TextView parkingCardTv;
+    private TextView washingCardTv;
+    private TextView balance_tv;
+    private TextView show_phone;
     private UploadParkingPicturePop pop;
     SharedPreferences sp;
     Context context;
@@ -61,23 +67,62 @@ public class PersonalCenterActivity extends Activity implements OnClickListener 
         sp = getSharedPreferences("mMessage", MODE_PRIVATE);
         editor = sp.edit();
         init();
+        getUserInfo();
+    }
 
+    private void getUserInfo() {
+        Map<String,String> params=new HashMap<String,String>();
+        params.put("sign",sp.getString("sign",null));
+        OkHttpUtils.getInstance().post(QParkingApp.URL, new OkHttpUtils.ResultCallback() {
+            @Override
+            public void onError(Request request, Exception e) {
+
+            }
+
+            @Override
+            public void onResponse(String result) {
+                try {
+                    JSONObject jsonObject=new JSONObject(result);
+                    int code=(int)jsonObject.get("code");
+                    if(code==0){
+                        editor.putString("phone", jsonObject.getString("phone"));
+                        editor.putString("balance",jsonObject.getString("balance"));
+                        editor.putString("integral",jsonObject.getString("integral"));
+                        editor.putString("washtic",jsonObject.getString("washtic"));
+                        editor.putString("parktic",jsonObject.getString("parktic"));
+                        editor.commit();
+                        balance_tv.setText(jsonObject.getString("balance"));
+                        myIntegral.setText(jsonObject.getString("integral"));
+                        parkingCardTv.setText(jsonObject.getString("parktic"));
+                        washingCardTv.setText(jsonObject.getString("washtic"));
+                        show_phone.setText(jsonObject.getString("phone"));
+                    }else{
+                        QParkingApp.ToastTip(context,getResources().getString(R.string.getinfo_fail),-100);
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },params,"getuserinfo");
     }
 
     private void init() {
         myIntegral = (TextView) findViewById(R.id.integral_tv);
         parkingCardTv = (TextView) findViewById(R.id.parking_card_tv);
-        ((TextView) findViewById(R.id.balance_tv)).setText(sp.getString("balance", null));
-        myIntegral.setText(getResources().getString(R.string.integral) + sp.getString("integral", null));
+        balance_tv= (TextView) findViewById(R.id.balance_tv);
+        washingCardTv=(TextView)findViewById(R.id.wash_card_tv);
+        show_phone=(TextView)findViewById(R.id.show_phone);
         findViewById(R.id.personalCenter_message_rl).setOnClickListener(this);
         findViewById(R.id.personalCenter_myOrder_rl).setOnClickListener(this);
         findViewById(R.id.personalCenter_myPlate_rl).setOnClickListener(this);
         findViewById(R.id.personalCenter_myCoupon_rl).setOnClickListener(this);
         findViewById(R.id.personalCenter_back_iv).setOnClickListener(this);
-        findViewById(R.id.recharge_tv).setOnClickListener(this);
-        findViewById(R.id.wash_card_tv).setOnClickListener(this);
-        findViewById(R.id.logout_tv).setOnClickListener(this);
-        findViewById(R.id.recharge_iv).setOnClickListener(this);
+        findViewById(R.id.balance_ll).setOnClickListener(this);
+        findViewById(R.id.integral_ll).setOnClickListener(this);
+        findViewById(R.id.parking_card_ll).setOnClickListener(this);
+        findViewById(R.id.wash_card_ll).setOnClickListener(this);
+
         DisplayImageOptions options = AppTools.confirgImgInfo(R.drawable.headimage_default, R.drawable.headimage_default);
         ImageLoader.getInstance().displayImage(sp.getString("avatar", ""),
                 ((ImageView) findViewById(R.id.personalCenter_head_iv)), options);
@@ -100,7 +145,7 @@ public class PersonalCenterActivity extends Activity implements OnClickListener 
             }
             break;
             //洗车券
-            case R.id.wash_card_tv:
+            case R.id.wash_card_ll:
                 ActivityTools.switchActivity(context, WrashCarVolumeActivity.class, null);
                 break;
             case R.id.personalCenter_message_rl: {
@@ -125,20 +170,14 @@ public class PersonalCenterActivity extends Activity implements OnClickListener 
                 ActivityTools.switchActivity(context, PasswordActivity.class, null);
             }
             break;
-            case R.id.recharge_tv:
+            case R.id.balance_ll:
                 ActivityTools.switchActivity(context, RechargeActivity.class, null);
                 break;
-            case R.id.integral_tv:
+            case R.id.integral_ll:
                 ActivityTools.switchActivity(context, ScoreActivity.class, null);
                 break;
-            case R.id.parking_card_tv:
+            case R.id.parking_card_ll:
                 ActivityTools.switchActivity(context, ParkingVolumeActivity.class, null);
-                break;
-            case R.id.logout_tv:
-                sp.edit().clear().commit();
-                Toast.makeText(context, getResources().getString(R.string.exit_success), Toast.LENGTH_SHORT).show();
-                ActivityTools.switchActivity(context, MainAct.class, null);
-                finish();
                 break;
             case R.id.personalCenter_head_iv:
                 pop = new UploadParkingPicturePop(context, new MyOnClickListener());

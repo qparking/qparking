@@ -31,7 +31,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="9dp"
-                android:src="@drawable/main_list" />
+                android:src="@drawable/pay" />
 
             <EditText
                 android:id="@+id/etAddress"

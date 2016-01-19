@@ -77,7 +77,7 @@ public class LoginActivity extends Activity implements OnClickListener {
     private void initView() {
         findViewById(R.id.include_iv_left).setBackgroundResource(R.drawable.come_back);
         findViewById(R.id.include_iv_left).setOnClickListener(this);
-        ((TextView) findViewById(R.id.include_tv_title)).setText("登陆");
+        ((TextView) findViewById(R.id.include_tv_title)).setText("登录");
         phone = (EditText) findViewById(R.id.input_phone_et);
         sendMsg = (TextView) findViewById(R.id.send_msg_tv);
         password = (EditText) findViewById(R.id.input_password_et);
