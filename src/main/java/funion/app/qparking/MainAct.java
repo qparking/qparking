@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.location.LocationManager;
@@ -30,9 +32,11 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,13 +50,11 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.MapViewLayoutParams;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
@@ -102,16 +104,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import funion.app.adapter.LeftMenuAdapter;
 import funion.app.adapter.ParkingInfoAdapter;
 import funion.app.common.T;
 import funion.app.qparking.tools.ActivityTools;
 import funion.app.qparking.tools.AppTools;
+import funion.app.qparking.tools.HttpUtil;
 import funion.app.qparking.tools.JsonParser;
 import funion.app.qparking.tools.OkHttpUtils;
+import funion.app.qparking.vo.LeftMenuIconBean;
 import funion.app.qparking.vo.LocationPlace;
 import funion.app.qparking.vo.MyOrderRecharge;
 import funion.app.qparking.vo.MyServiceParkingInfo;
 import funion.app.qparking.vo.TagParkingItem1;
+import funion.app.qparking.vo.ToolBarBean;
 
 import static com.baidu.mapapi.map.MapStatus.*;
 
@@ -181,14 +187,24 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
      */
     private RelativeLayout login_re_;//未登录布局
     private LinearLayout m_llMenu;//已登陆布局
-    private TextView phonenum_tv, balance;
+    private TextView phonenum_tv, balance,offline_tv,tvSuggestion,tvMenuSet;
     private LinearLayout m_llMenuBar;//侧滑布局
     private RelativeLayout m_rlMainUI;
     private int m_iMainMenuLen;
+    private ListView leftmenu_lst;
     final int MENU_ANIM_LEN = 50;
     final int MENU_ANIM_INTERVAL = 20; // 菜单动画延迟
+    LeftMenuAdapter leftMenuAdapter;
+    private ImageView offline_iv,ivSuggestion,ivMenuSet;
     //动画处理handler
     private Handler m_hAnimate = new Handler();
+    List<Bitmap> leftmenulist;
+    List<Bitmap> toolbarlist;
+    List<Bitmap> barItemlist;
+    List<Bitmap> mapItemlist;
+    List<Bitmap> actionItemlist;
+    private List<LeftMenuIconBean> leftMenuIconBeanList;
+    private List<ToolBarBean> toolBarBeanList;
 
     //延迟显示菜单
     private Runnable m_raShowMenu = new Runnable() {
@@ -314,7 +330,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Rect rect, rect1;
-                if(tagParkingItem1ArrayList.size()==0){
+                if (tagParkingItem1ArrayList.size() == 0) {
                     return super.dispatchTouchEvent(ev);
                 }
                 ((TextView) findViewById(R.id.parking_title)).setText(tagParkingItem1ArrayList.get(selectPosition).getM_strName());
@@ -462,58 +478,58 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
             }
             break;
             //我的钱包
-            case R.id.my_wallet_form:
-                if (userId != null) {
-                    ActivityTools.switchActivity(context,MyWalletActivity.class,null);
-                } else {
-                    T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
-                    ActivityTools.switchActivity(context, LoginActivity.class, null);
-                }
-                break;
+//            case R.id.my_wallet_form:
+//                if (userId != null) {
+//                    ActivityTools.switchActivity(context, MyWalletActivity.class, null);
+//                } else {
+//                    T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
+//                    ActivityTools.switchActivity(context, LoginActivity.class, null);
+//                }
+//                break;
             //我的订单
-            case R.id.my_order_form: {
-                if (userId != null) {
-                    ActivityTools.switchActivity(context, MyOrderActivity.class, null);
-                } else {
-                    T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
-                    ActivityTools.switchActivity(context, LoginActivity.class, null);
-                }
-                break;
-            }
+//            case R.id.my_order_form: {
+//                if (userId != null) {
+//                    ActivityTools.switchActivity(context, MyOrderActivity.class, null);
+//                } else {
+//                    T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
+//                    ActivityTools.switchActivity(context, LoginActivity.class, null);
+//                }
+//                break;
+//            }
             //反向寻车
-            case R.id.rlReverseParking:
-                ActivityTools.switchActivity(context, MipcaActivityCapture.class, null);
-            break;
+//            case R.id.rlReverseParking:
+//                ActivityTools.switchActivity(context, MipcaActivityCapture.class, null);
+//                break;
             //车位求租
-            case R.id.rlLeaseParking:
-                if(userId!=null){
-                    appQParking = (QParkingApp) getApplicationContext();
-                    appQParking.m_addressAdd = m_addressCur;
-                    appQParking.m_llSubmit = appQParking.m_llMe;
-                    ActivityTools.switchActivity(context, LesseeActivity.class, null);
-                }else{
-                    QParkingApp.ToastTip(context, getResources().getString(R.string.login_first), -100);
-                    ActivityTools.switchActivity(context, LoginActivity.class, null);
-                }
-
-                break;
+//            case R.id.rlLeaseParking:
+//                if (userId != null) {
+//                    appQParking = (QParkingApp) getApplicationContext();
+//                    appQParking.m_addressAdd = m_addressCur;
+//                    appQParking.m_llSubmit = appQParking.m_llMe;
+//                    ActivityTools.switchActivity(context, LesseeActivity.class, null);
+//                } else {
+//                    QParkingApp.ToastTip(context, getResources().getString(R.string.login_first), -100);
+//                    ActivityTools.switchActivity(context, LoginActivity.class, null);
+//                }
+//
+//                break;
             //积分商城
-            case R.id.rlIntegral_exchange:
-                if(userId!=null){
-                    ActivityTools.switchActivity(context,IntegralExChange.class,null);
-                }else{
-                    QParkingApp.ToastTip(context, getResources().getString(R.string.login_first), -100);
-                    ActivityTools.switchActivity(context, LoginActivity.class, null);
-                }
-                break;
+//            case R.id.rlIntegral_exchange:
+//                if (userId != null) {
+//                    ActivityTools.switchActivity(context, IntegralExChange.class, null);
+//                } else {
+//                    QParkingApp.ToastTip(context, getResources().getString(R.string.login_first), -100);
+//                    ActivityTools.switchActivity(context, LoginActivity.class, null);
+//                }
+//                break;
             // 分享
-            case R.id.rlShare: {
-                appQParking = (QParkingApp) getApplicationContext();
-                intent = new Intent();
-                intent.setClass(context, RecommendActivity.class);
-                startActivity(intent);
-            }
-            break;
+//            case R.id.rlShare: {
+//                appQParking = (QParkingApp) getApplicationContext();
+//                intent = new Intent();
+//                intent.setClass(context, RecommendActivity.class);
+//                startActivity(intent);
+//            }
+//            break;
             //设置
             case R.id.rlMenuSet: {
                 intent = new Intent();
@@ -559,7 +575,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 break;
             case R.id.ivParkingList:
                 if (userId != null) {
-                    ActivityTools.switchActivity(context,SelectPayActivity.class,null);
+                    ActivityTools.switchActivity(context, SelectPayActivity.class, null);
                 } else {
                     T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
                     ActivityTools.switchActivity(context, LoginActivity.class, null);
@@ -680,9 +696,14 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         setContentView(R.layout.act_main);
 //        m_dlgProgress = ProgressDialog.show(context, null,
 //                "正在定位，请稍后..... ", true, true);
+        Intent intent=getIntent();
+        leftMenuIconBeanList=intent.getParcelableArrayListExtra("leftmenu");
+        toolBarBeanList=intent.getParcelableArrayListExtra("toolbar");
+        Log.e("map","size:"+toolBarBeanList.size()+"");
         sp = getSharedPreferences("mMessage", MODE_PRIVATE);
         editor = sp.edit();
         appQParking = (QParkingApp) getApplicationContext();
+        initIcon();
         initSDK();
         initView();
         initDate();
@@ -691,6 +712,28 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         initSearch();
         setListener();
 
+    }
+
+
+    private void initIcon() {
+        leftmenulist = bmlist("leftmenu");
+        toolbarlist = bmlist("toolbar");
+        barItemlist = bmlist("barItem");
+        mapItemlist = bmlist("mapItem");
+        actionItemlist = bmlist("actionItem");
+    }
+
+    private List<Bitmap> bmlist(String name) {
+        List<String> list = HttpUtil.getPictures(Environment.getExternalStorageDirectory() + "/" + "qparkingIcon" + "/" + name);
+        List<Bitmap> bmIconList = null;
+        if (list != null) {
+            bmIconList = new ArrayList<Bitmap>();
+            for (int i = 0; i < list.size(); i++) {
+                Bitmap bm = BitmapFactory.decodeFile(list.get(i));
+                bmIconList.add(bm);
+            }
+        }
+        return bmIconList;
     }
 
 
@@ -774,15 +817,32 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         findViewById(R.id.ivParkingList).setOnClickListener(this);
         findViewById(R.id.etAddress).setOnClickListener(this);
         //侧滑页初始化
-        findViewById(R.id.rlLeaseParking).setOnClickListener(this);
-        findViewById(R.id.my_order_form).setOnClickListener(this);
-        findViewById(R.id.rlReverseParking).setOnClickListener(this);
-        findViewById(R.id.rlShare).setOnClickListener(this);
+        offline_iv=(ImageView)findViewById(R.id.offline_iv);
+        ivSuggestion=(ImageView)findViewById(R.id.ivSuggestion);
+        ivMenuSet=(ImageView)findViewById(R.id.ivMenuSet);
+        leftmenu_lst=(ListView)findViewById(R.id.left_menu_lst);
+        offline_tv=(TextView)findViewById(R.id.offline_tv);
+        tvSuggestion=(TextView)findViewById(R.id.tvSuggestion);
+        tvMenuSet=(TextView)findViewById(R.id.tvMenuSet);
+        offline_tv.setText(toolBarBeanList.get(0).getTitle());
+        offline_iv.setImageBitmap(toolbarlist.get(0));
+        tvSuggestion.setText(toolBarBeanList.get(1).getTitle());
+        ivSuggestion.setImageBitmap(toolbarlist.get(1));
+        tvMenuSet.setText(toolBarBeanList.get(2).getTitle());
+        ivMenuSet.setImageBitmap(toolbarlist.get(2));
+        leftMenuAdapter=new LeftMenuAdapter(context,leftMenuIconBeanList,leftmenulist);
+        leftmenu_lst.setAdapter(leftMenuAdapter);
+        leftmenu_lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                QParkingApp.ToastTip(context, i + "", -100);
+            }
+        });
+//        int color=Integer.valueOf(toolBarBeanList.get(0).getColor());
+//        findViewById(R.id.bottomset_ll).setBackgroundColor(color);
         findViewById(R.id.rlMenuSet).setOnClickListener(this);
         findViewById(R.id.rlSuggestion).setOnClickListener(this);
         findViewById(R.id.offline_rl).setOnClickListener(this);
-        findViewById(R.id.my_wallet_form).setOnClickListener(this);
-        findViewById(R.id.rlIntegral_exchange).setOnClickListener(this);
         login_re_.setOnClickListener(this);
 
         m_btRoadState = (Button) findViewById(R.id.btMainRoad);

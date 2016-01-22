@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONObject;
 
@@ -24,6 +25,7 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import funion.app.qparking.tools.ActivityTools;
+import funion.app.qparking.vo.LeftMenuIconBean;
+import funion.app.qparking.vo.ToolBarBean;
+
 public class GuideActivity extends Activity {
 	private ViewPager m_vpGuide = null;
 	private ArrayList<View> arrayGuideViews;
@@ -39,12 +44,18 @@ public class GuideActivity extends Activity {
 	private ProgressDialog m_dlgProgress = null;
 	private Handler m_hNotify = null;
 		Context context;
+	private List<LeftMenuIconBean> leftMenuIconBeanList;
+	private List<ToolBarBean> toolBarBeanList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.guide_activity);
 	context=this;
+		Intent intent=getIntent();
+		leftMenuIconBeanList=intent.getParcelableArrayListExtra("leftmenu");
+		toolBarBeanList=intent.getParcelableArrayListExtra("toolbar");
+		Log.e("map","收到："+leftMenuIconBeanList.toString());
 		// 加载引导页
 		LayoutInflater inflater = getLayoutInflater();
 		arrayGuideViews = new ArrayList<View>();
@@ -82,7 +93,10 @@ public class GuideActivity extends Activity {
 //					intentMain.setClass(GuideActivity.this, MainActivity.class);
 //					GuideActivity.this.startActivity(intentMain);
 //					GuideActivity.this.finish();
-					ActivityTools.switchActivity(context, MainAct.class, null);
+					Bundle bundle=new Bundle();
+					bundle.putParcelableArrayList("leftmenu", (ArrayList<? extends Parcelable>) leftMenuIconBeanList);
+					bundle.putParcelableArrayList("toolbar", (ArrayList<? extends Parcelable>) toolBarBeanList);
+					ActivityTools.switchActivity(context, MainAct.class, bundle);
 					overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 					finish();
 				}

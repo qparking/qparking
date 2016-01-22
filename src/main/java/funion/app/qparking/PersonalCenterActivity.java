@@ -177,6 +177,7 @@ public class PersonalCenterActivity extends Activity implements OnClickListener 
                 ActivityTools.switchActivity(context, ScoreActivity.class, null);
                 break;
             case R.id.parking_card_ll:
+                //停车券
                 ActivityTools.switchActivity(context, ParkingVolumeActivity.class, null);
                 break;
             case R.id.personalCenter_head_iv:

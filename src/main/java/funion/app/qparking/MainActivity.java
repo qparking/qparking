@@ -968,8 +968,8 @@ public class MainActivity extends Activity implements OnClickListener,
         phonenum_tv = (TextView) findViewById(R.id.tvMenuMe);
         balance = (TextView) findViewById(R.id.tvBalance);
         findViewById(R.id.rlMenuMe).setOnClickListener(this);
-        findViewById(R.id.rlIntegral_exchange).setOnClickListener(this);
-        findViewById(R.id.my_wallet_form).setOnClickListener(this);
+//        findViewById(R.id.rlIntegral_exchange).setOnClickListener(this);
+//        findViewById(R.id.my_wallet_form).setOnClickListener(this);
         login_re_.setOnClickListener(this);
         // 定位按钮
         findViewById(R.id.btMainLocation).setOnClickListener(this);
@@ -985,11 +985,11 @@ public class MainActivity extends Activity implements OnClickListener,
         findViewById(R.id.btAddparking).setOnClickListener(this);
 
         // 左侧菜单
-        findViewById(R.id.my_order_form).setOnClickListener(this);
-//        findViewById(R.id.rlParkingInfo).setOnClickListener(this);
-        findViewById(R.id.rlReverseParking).setOnClickListener(this);
-        findViewById(R.id.rlLeaseParking).setOnClickListener(this);
-        findViewById(R.id.rlShare).setOnClickListener(this);
+//        findViewById(R.id.my_order_form).setOnClickListener(this);
+////        findViewById(R.id.rlParkingInfo).setOnClickListener(this);
+//        findViewById(R.id.rlReverseParking).setOnClickListener(this);
+//        findViewById(R.id.rlLeaseParking).setOnClickListener(this);
+//        findViewById(R.id.rlShare).setOnClickListener(this);
         findViewById(R.id.rlMenuSet).setOnClickListener(this);
         findViewById(R.id.rlSuggestion).setOnClickListener(this);
 
@@ -1298,47 +1298,47 @@ public class MainActivity extends Activity implements OnClickListener,
                 }
                 break;
             //我的钱包
-            case R.id.my_wallet_form:
-                ActivityTools.switchActivity(context,MyWalletActivity.class,null);
-
-                break;
+//            case R.id.my_wallet_form:
+//                ActivityTools.switchActivity(context,MyWalletActivity.class,null);
+//
+//                break;
             // 付款
-            case R.id.my_order_form: {
-                if (appQParking.m_strUserID.length() > 0) {
-                    ActivityTools.switchActivity(context, MyOrderActivity.class, null);
-                } else {
-                    Toast.makeText(context, R.string.login_first, Toast.LENGTH_SHORT).show();
-                    ActivityTools.switchActivity(context, LoginActivity.class, null);
-                }
-            }
- break;
-            // 反向寻车
-            case R.id.rlReverseParking: {
-
-                Intent intentNewActivity = new Intent();
-                intentNewActivity.setClass(MainActivity.this,
-                        MipcaActivityCapture.class);
-                startActivity(intentNewActivity);
-            }
-            break;
-            // 车位求租
-            case R.id.rlLeaseParking: {
-//                if (m_addressCur == null) {
-//                    QParkingApp.ToastTip(MainActivity.this, "未检测到定位信息，无法实现相关功能！",
-//                            -100);
-//                    return;
+//            case R.id.my_order_form: {
+//                if (appQParking.m_strUserID.length() > 0) {
+//                    ActivityTools.switchActivity(context, MyOrderActivity.class, null);
+//                } else {
+//                    Toast.makeText(context, R.string.login_first, Toast.LENGTH_SHORT).show();
+//                    ActivityTools.switchActivity(context, LoginActivity.class, null);
 //                }
-                appQParking = (QParkingApp) getApplicationContext();
-                appQParking.m_addressAdd = m_addressCur;
-                appQParking.m_llSubmit = appQParking.m_llMe;
-
-                Intent intentNewActivity = new Intent();
-                intentNewActivity.setClass(MainActivity.this, LesseeActivity.class);
-                startActivity(intentNewActivity);
-            }
-            break;
+//            }
+// break;
+            // 反向寻车
+//            case R.id.rlReverseParking: {
+//
+//                Intent intentNewActivity = new Intent();
+//                intentNewActivity.setClass(MainActivity.this,
+//                        MipcaActivityCapture.class);
+//                startActivity(intentNewActivity);
+//            }
+//            break;
+            // 车位求租
+//            case R.id.rlLeaseParking: {
+////                if (m_addressCur == null) {
+////                    QParkingApp.ToastTip(MainActivity.this, "未检测到定位信息，无法实现相关功能！",
+////                            -100);
+////                    return;
+////                }
+//                appQParking = (QParkingApp) getApplicationContext();
+//                appQParking.m_addressAdd = m_addressCur;
+//                appQParking.m_llSubmit = appQParking.m_llMe;
+//
+//                Intent intentNewActivity = new Intent();
+//                intentNewActivity.setClass(MainActivity.this, LesseeActivity.class);
+//                startActivity(intentNewActivity);
+//            }
+//            break;
             //积分商城
-            case R.id.rlIntegral_exchange:
+//            case R.id.rlIntegral_exchange:
 //                String userid=sp.getString("userId",null);
 //                if(userid!=null){
 //                    ActivityTools.switchActivity(context,IntegralExChange.class,null);
@@ -1347,14 +1347,14 @@ public class MainActivity extends Activity implements OnClickListener,
 //                    ActivityTools.switchActivity(context, LoginActivity.class, null);
 //                }
 //                ActivityTools.switchActivity(context,SelectPayActivity.class,null);
-                break;
+//                break;
             // 分享
-            case R.id.rlShare: {
-                QParkingApp appQParking = (QParkingApp) getApplicationContext();
-
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, RecommendActivity.class);
-                startActivity(intent);
+//            case R.id.rlShare: {
+//                QParkingApp appQParking = (QParkingApp) getApplicationContext();
+//
+//                Intent intent = new Intent();
+//                intent.setClass(MainActivity.this, RecommendActivity.class);
+//                startActivity(intent);
 
                 // Intent intentShare = new Intent(Intent.ACTION_SEND);
                 // intentShare.setType("text/plain");
@@ -1363,8 +1363,8 @@ public class MainActivity extends Activity implements OnClickListener,
                 // appQParking.m_strShareInfo);
                 //
                 // startActivity(Intent.createChooser(intentShare, getTitle()));
-            }
-            break;
+//            }
+//            break;
             // 设置
             case R.id.rlMenuSet: {
 

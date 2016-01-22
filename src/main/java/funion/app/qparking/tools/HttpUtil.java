@@ -9,17 +9,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 
+import com.squareup.okhttp.Request;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import funion.app.qparking.QParkingApp;
+import funion.app.qparking.vo.LeftMenuIconBean;
+import funion.app.qparking.vo.ToolBarBean;
 
 /**
  * Created by 运泽 on 2015/12/30.
@@ -184,7 +199,7 @@ public class HttpUtil {
                     }
                 }
             }
-            URL url = new URL(sb.toString());
+            URL url = new URL(path);
             conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(TIME_OUT);
             conn.setConnectTimeout(TIME_OUT);
@@ -251,4 +266,58 @@ public class HttpUtil {
 
         return filePath;
     }
+
+    public static void DownLoadImageIcon(String url,String filename,String name){
+        File file=new File(Environment.getExternalStorageDirectory()+"/"+"qparkingIcon",filename);
+        if(!file.exists()){
+            file.mkdirs();
+        }
+        try {
+            URL url1=new URL(url);
+            HttpURLConnection conn=(HttpURLConnection)url1.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
+            if(conn.getResponseCode()== HttpURLConnection.HTTP_OK){
+                InputStream is=conn.getInputStream();
+                String imgname=name+".jpg";
+                FileOutputStream fileOutputStream=new FileOutputStream(Environment.getExternalStorageDirectory()+"/"+"qparkingIcon"+"/"+filename+"/"+imgname);
+                byte[] buffer=new byte[1024];
+                int len=0;
+                while((len=is.read(buffer))!=-1){
+                    fileOutputStream.write(buffer,0,len);
+                }
+                is.close();
+                fileOutputStream.close();
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<String> getPictures(final String strPath){
+        List<String> list=new ArrayList<String>();
+        File file=new File(strPath);
+        File[] allfiles=file.listFiles();
+        if(allfiles==null){
+            return null;
+        }
+        for(int i=0;i<allfiles.length;i++){
+            final File fi=allfiles[i];
+            if(fi.isFile()){
+                int idx=fi.getPath().lastIndexOf(".");
+                if(idx<=0){
+                    continue;
+                }
+                String suffix=fi.getPath().substring(idx);
+                if(suffix.toLowerCase().equals(".jpg")){
+                    list.add(fi.getPath());
+                }
+            }
+        }
+        return list;
+    }
+
 }

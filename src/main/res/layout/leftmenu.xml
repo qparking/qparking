@@ -104,200 +104,41 @@
                     android:layout_weight="2"></LinearLayout>
             </LinearLayout>
         </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/my_wallet_form"
+        <ListView
+            android:id="@+id/left_menu_lst"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/main_menu_btn1">
-
-            <ImageView
-                android:id="@+id/ivWallet"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/persion_icon" />
-
-            <TextView
-                android:id="@+id/tv_my_wallet_form"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@+id/ivWallet"
-                android:text="@string/my_wallet"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#FFFEFEFE"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/my_order_form"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/main_menu_btn2">
-
-            <ImageView
-                android:id="@+id/ivPay"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/persion_icon" />
-
-            <TextView
-                android:id="@+id/tv_my_order_form"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@+id/ivPay"
-                android:text="@string/my_orderform"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#FFFEFEFE"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/rlReverseParking"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/main_menu_btn1">
-
-            <ImageView
-                android:id="@+id/ivReverseParking"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/menu_icon_reverseparking" />
-
-            <TextView
-                android:id="@+id/tvReverseParking"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@+id/ivReverseParking"
-                android:text="反向寻车"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#FFFEFEFE"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlLeaseParking"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/main_menu_btn2">
-
-            <ImageView
-                android:id="@+id/ivLeaseParking"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/menu_icon_lease" />
-
-            <TextView
-                android:id="@+id/tvLeaseParking"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@+id/ivLeaseParking"
-                android:text="车位出租"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#FFFEFEFE"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlShare"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/main_menu_btn1">
-
-            <ImageView
-                android:id="@+id/ivShare"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/menu_icon_share" />
-
-            <TextView
-                android:id="@+id/tvShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@+id/ivShare"
-                android:text="推荐有奖"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#FFFEFEFE"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlIntegral_exchange"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/main_menu_btn2">
-
-            <ImageView
-                android:id="@+id/ivIntegral_exchange"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/menu_icon_share" />
-
-            <TextView
-                android:id="@+id/tvIntegral_exchange"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp"
-                android:layout_toRightOf="@+id/ivIntegral_exchange"
-                android:text="积分商城"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#FFFEFEFE"
-                android:textSize="16sp" />
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            />
 
         <LinearLayout
+            android:id="@+id/bottomset_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="bottom"
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:id="@+id/rlMenuSet"
+                android:id="@+id/offline_rl"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/main_menu_btn1"
-                android:layout_marginLeft="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:layout_weight="0.33"
+                android:background="@drawable/main_menu_btn1">
 
                 <ImageView
-                    android:id="@+id/ivMenuSet"
+                    android:id="@+id/offline_iv"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/menu_icon_set" />
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/menu_icon_suggestion" />
 
                 <TextView
-                    android:id="@+id/tvMenuSet"
+                    android:id="@+id/offline_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/ivMenuSet"
-                    android:text="设置"
+                    android:layout_below="@+id/offline_iv"
+                    android:text="离线地图"
+                    android:layout_centerHorizontal="true"
                     android:textColor="@color/app_font_gray1"
                     android:textSize="16sp" />
             </RelativeLayout>
@@ -306,56 +147,51 @@
                 android:id="@+id/rlSuggestion"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="5dp"
-                android:paddingLeft="5dp"
+                android:layout_weight="0.34"
                 android:background="@drawable/main_menu_btn1"
-                android:paddingRight="5dp">
+                >
 
                 <ImageView
                     android:id="@+id/ivSuggestion"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
                     android:src="@drawable/menu_icon_suggestion" />
 
                 <TextView
                     android:id="@+id/tvSuggestion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/ivSuggestion"
-                    android:text="建议"
+                    android:layout_below="@+id/ivSuggestion"
+                    android:text="消息中心"
+                    android:layout_centerHorizontal="true"
                     android:textColor="@color/app_font_gray1"
                     android:textSize="16sp" />
             </RelativeLayout>
-
             <RelativeLayout
-                android:id="@+id/offline_rl"
+                android:id="@+id/rlMenuSet"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/main_menu_btn1"
-                android:layout_marginLeft="5dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:layout_weight="0.33">
 
                 <ImageView
-                    android:id="@+id/offline_iv"
+                    android:id="@+id/ivMenuSet"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/menu_icon_suggestion" />
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/menu_icon_set" />
 
                 <TextView
-                    android:id="@+id/offline_tv"
+                    android:id="@+id/tvMenuSet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/offline_iv"
-                    android:text="离线地图"
+                    android:layout_below="@+id/ivMenuSet"
+                    android:text="设置"
+                    android:layout_centerHorizontal="true"
                     android:textColor="@color/app_font_gray1"
                     android:textSize="16sp" />
             </RelativeLayout>

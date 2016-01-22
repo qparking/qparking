@@ -21,8 +21,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
-import android.os.Build;
-import android.os.StrictMode;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -32,10 +30,6 @@ import android.widget.Toast;
 
 import funion.app.common.CrashHandler;
 import funion.app.qparking.tools.AppTools;
-import funion.app.qparking.vo.HomeMapImg;
-import funion.app.qparking.vo.LeftMenuImg;
-import funion.app.qparking.vo.TagParkingItem1;
-import funion.app.qparking.vo.ToolbarImg;
 
 //停车场信息节点
 class TagParkingItem {
@@ -96,8 +90,6 @@ public class QParkingApp extends Application {
     String m_strDownloadUrl = "";
     String m_strShareInfo = "";
     //网络请求获取图片保存
-    public ArrayList<LeftMenuImg> leftMenuImgArrayList = new ArrayList<>();
-    public ArrayList<ToolbarImg> toolbarImgArrayList = new ArrayList<>();
     String leftBarImg = "";
     String rightBarImg = "";
     String commonmarking = "";

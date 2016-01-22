@@ -6,25 +6,55 @@ package funion.app.qparking;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.okhttp.Request;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import funion.app.adapter.ParkingVolumeAdapter;
+import funion.app.qparking.tools.OkHttpUtils;
 
 public class ParkingVolumeActivity extends Activity implements View.OnClickListener {
     private ListView listView;
     private ParkingVolumeAdapter adapter;
     private Context context = ParkingVolumeActivity.this;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_parking_volume);
+        sp=getSharedPreferences("mMessage",MODE_PRIVATE);
+        initData();
         initTitle();
         initView();
+    }
+
+    private void initData() {
+        Map<String,String> params=new HashMap<String,String>();
+        params.put("sign",sp.getString("sign",null));
+        params.put("stype","1");
+        params.put("ps","10");
+        params.put("pn","0");
+        OkHttpUtils.getInstance().post(QParkingApp.URL, new OkHttpUtils.ResultCallback() {
+            @Override
+            public void onError(Request request, Exception e) {
+
+            }
+
+            @Override
+            public void onResponse(String result) {
+                Log.e("map",result.toString());
+            }
+        },params,"getcoupon");
     }
 
     private void initView() {

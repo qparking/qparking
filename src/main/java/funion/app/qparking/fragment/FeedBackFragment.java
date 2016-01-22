@@ -14,12 +14,16 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.okhttp.Request;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import funion.app.qparking.QParkingApp;
 import funion.app.qparking.R;
+import funion.app.qparking.tools.OkHttpUtils;
 
 /**
  * Created by Administrator on 2016/1/18.
@@ -43,6 +47,17 @@ public class FeedBackFragment extends Fragment {
     }
 
     private void initData() {
+        OkHttpUtils.getInstance().post(QParkingApp.URL, new OkHttpUtils.ResultCallback() {
+            @Override
+            public void onError(Request request, Exception e) {
+
+            }
+
+            @Override
+            public void onResponse(String result) {
+
+            }
+        },null,"help");
         parenttitle=new ArrayList<String>();
         time=new ArrayList<String>();
         parenttitle.add("为什么导航的时候出错");
