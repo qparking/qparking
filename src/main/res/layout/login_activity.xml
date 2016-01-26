@@ -21,6 +21,8 @@
             android:drawableLeft="@drawable/login_img"
             android:drawablePadding="10dp"
             android:hint="请输入手机号"
+            android:inputType="number"
+            android:maxLength="11"
             android:paddingLeft="10dp" />
 
         <TextView
@@ -45,7 +47,9 @@
         android:background="@drawable/shape_login"
         android:drawableLeft="@drawable/password"
         android:drawablePadding="10dp"
+        android:inputType="number"
         android:hint="请输入验证码"
+  android:maxLength="4"
         android:paddingLeft="10dp" />
 
     <LinearLayout
@@ -55,15 +59,30 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/is_agree_ly"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/agree_1"
-            android:drawablePadding="5dp"
-            android:gravity="center_vertical"
-            android:text="我已阅读并接受"
-            android:textColor="@color/gray" />
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/agree_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/agree_1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:text="我已阅读并接受"
+                android:textColor="@color/gray" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/agreement_tv"

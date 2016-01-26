@@ -67,7 +67,8 @@ public class QParkingApp extends Application {
 
     //请求地址
     public static final String URL = "http://qtc.luopan.net/api/";
-
+    //请求地址-改
+    public static final String URL_UPDATE = "http://qtc.luopan.net/";
     // 停车场信息列表
     List<TagParkingItem> m_listParking = new ArrayList<TagParkingItem>();
     // 消息变量

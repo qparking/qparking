@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -307,12 +308,12 @@ public class LesseeActivity extends Activity implements View.OnClickListener, On
                     return;
                 }
                 sortCityPop = new SortCityPop(context, dis, onItemClickListener);
-                sortCityPop.showAsDropDown(v);
+                sortCityPop.showAsDropDown(v, 0, 0, Gravity.CENTER | Gravity.BOTTOM);
                 break;
             case R.id.sort_park_rl:
                 witchBtnPress = false;
                 sortPartPop = new SortPartPop(context, select_condition, onItemClickListener);
-                sortPartPop.showAsDropDown(v);
+                sortPartPop.showAsDropDown(v, 0, 0, Gravity.CENTER | Gravity.BOTTOM);
                 break;
         }
     }

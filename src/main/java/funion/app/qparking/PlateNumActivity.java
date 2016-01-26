@@ -3,6 +3,7 @@ package funion.app.qparking;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -33,11 +34,17 @@ public class PlateNumActivity extends Activity implements OnClickListener {
     private EditText etModifyCarNo;
     private TextView submit;
     private Context context = PlateNumActivity.this;
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+    private QParkingApp qParkingApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.carno_activity);
+        sp = getSharedPreferences("mMessage", MODE_PRIVATE);
+        editor = sp.edit();
+        qParkingApp = (QParkingApp) getApplicationContext();
         initView();
     }
 
@@ -86,7 +93,41 @@ public class PlateNumActivity extends Activity implements OnClickListener {
 
             @Override
             public void onResponse(String result) {
-
+                try {
+                    Log.e("register", result);
+                    JSONObject jsonObject = new JSONObject(result);
+                    String code = jsonObject.getString("code");
+                    String result_msg = jsonObject.getString("msg");
+                    if (code.equals("0")) {
+                        String msg = TransCoding.trans(result_msg);
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        editor.putString("sign", jsonObject.getString("sign"));
+                        editor.putString("username", getIntent().getStringExtra("mobile"));
+                        editor.putString("avatar", jsonObject.getString("avatar"));
+                        editor.putString("balance", jsonObject.getString("balance"));//余额
+                        editor.putString("integral", jsonObject.getString("integral"));//积分
+                        String plate = jsonObject.getString("plate");
+                        jsonObject = new JSONObject(plate);
+                        editor.putString("ID", jsonObject.getString("ID"));
+                        qParkingApp.m_strUserID = jsonObject.getString("ID");
+                        editor.putString("PLATETYPE", jsonObject.getString("PLATETYPE"));
+                        editor.putString("userId", jsonObject.getString("USERID"));
+                        editor.putString("PLATENUM", jsonObject.getString("PLATENUM"));//车牌号
+                        editor.putString("ISDEFAULT", jsonObject.getString("ISDEFAULT"));
+                        editor.commit();
+                        Intent intent = new Intent(context, MainAct.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        String msg = TransCoding.trans(result_msg);
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, param, "useradd");
     }

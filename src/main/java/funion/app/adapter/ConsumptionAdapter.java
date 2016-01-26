@@ -18,6 +18,7 @@ import java.util.List;
 
 import funion.app.qparking.R;
 import funion.app.qparking.tools.AppTools;
+import funion.app.qparking.tools.TransCoding;
 import funion.app.qparking.vo.MyOrderConsumption;
 
 /**
@@ -76,7 +77,7 @@ public class ConsumptionAdapter extends BaseAdapter {
         }
         ImageLoader.getInstance().displayImage(list.get(position).getAvatar(), viewHolder.parkingImg, options);
         viewHolder.parkingName.setText(list.get(position).getPlateNum());
-        viewHolder.consumptionTime.setText(AppTools.getTimeformat(list.get(position).getTime()));
+        viewHolder.consumptionTime.setText(TransCoding.strToDate(list.get(position).getTime()));
         viewHolder.consumptionMoney.setText("¥:" + list.get(position).getPay() + "元");
         viewHolder.payMethod.setText(payMethod(list.get(position).getChannel()));
         return convertView;

@@ -14,6 +14,9 @@ import android.widget.TextView;
 public class ScoreActivity extends Activity implements OnClickListener
 {
 	SharedPreferences sp;
+	private TextView title;
+	private ImageView left_im;
+
 	@Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -21,11 +24,13 @@ public class ScoreActivity extends Activity implements OnClickListener
         setContentView(R.layout.score_activity);
         sp=getSharedPreferences("mMessage",MODE_PRIVATE);
         TextView	tvScore	= (TextView)findViewById(R.id.tvScoreAmont);
-        tvScore.setText(sp.getString("integral",null));
-        //链接按钮消息
-        Button	btTemp;
-        btTemp	= (Button)findViewById(R.id.btScoreBack);
-        btTemp.setOnClickListener(this);
+        tvScore.setText(sp.getString("integral", null));
+		title=(TextView)findViewById(R.id.include_tv_title);
+		left_im=(ImageView)findViewById(R.id.include_iv_left);
+		title.setText(getResources().getString(R.string.integral_));
+		left_im.setBackgroundResource(R.drawable.top_back_btn);
+		findViewById(R.id.include_back_left_ll).setOnClickListener(this);
+
     }
 
 	@Override
@@ -47,7 +52,7 @@ public class ScoreActivity extends Activity implements OnClickListener
 		// TODO Auto-generated method stub
 		switch(v.getId())
 		{
-			case R.id.btScoreBack:
+			case R.id.include_back_left_ll:
 				finish();
 				break;
 		}	

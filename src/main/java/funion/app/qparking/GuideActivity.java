@@ -97,8 +97,9 @@ public class GuideActivity extends Activity {
 					bundle.putParcelableArrayList("leftmenu", (ArrayList<? extends Parcelable>) leftMenuIconBeanList);
 					bundle.putParcelableArrayList("toolbar", (ArrayList<? extends Parcelable>) toolBarBeanList);
 					ActivityTools.switchActivity(context, MainAct.class, bundle);
-					overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
 					finish();
+	overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 				}
 					break;
 				case 1: {

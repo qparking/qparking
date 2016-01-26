@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/leftmenu" />
 
     <RelativeLayout
         android:id="@+id/rlMainUI"
@@ -75,10 +74,19 @@
 
 
         <ImageView
-            android:id="@+id/lessee_arrow"
+            android:id="@+id/imageview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:src="@drawable/arrow_down"
+            android:visibility="invisible"
+            />
+        <ImageView
+            android:id="@+id/lessee_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/imageview"
             android:src="@drawable/arrow_down" />
 
         <RelativeLayout
@@ -212,7 +220,7 @@
                     android:clickable="true">
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/number_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -224,9 +232,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/textView2"
+                        android:layout_below="@+id/number_tv"
                         android:layout_centerHorizontal="true"
-                        android:text="未知"
+                        android:text="空位"
                         android:textColor="@color/bg_gray"
                         android:textSize="12sp" />
 
@@ -304,12 +312,13 @@
                         android:src="@drawable/call" />
                 </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@color/bg_gray">
 
                     <TextView
+                        android:id="@+id/parking_title_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="20dp"
@@ -323,11 +332,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/parking_title_tv"
                         android:gravity="center"
                         android:text="入住"
                         android:textColor="@color/app_orange"
                         android:textSize="12sp" />
-                </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/update_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center"
+                        android:text="停车场纠错"
+                        android:textColor="@color/app_orange"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

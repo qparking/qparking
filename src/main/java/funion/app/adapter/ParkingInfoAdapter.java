@@ -2,11 +2,13 @@ package funion.app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.mapapi.utils.DistanceUtil;
@@ -15,6 +17,7 @@ import com.baidu.navisdk.BaiduNaviManager;
 import com.baidu.navisdk.comapi.routeplan.RoutePlanParams;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import funion.app.common.T;
 import funion.app.qparking.BNavigatorActivity;
@@ -34,11 +37,13 @@ import funion.app.qparking.vo.TagParkingItem1;
 public class ParkingInfoAdapter extends PagerAdapter {
     private Context context;
     private ArrayList<TagParkingItem1> list;
+    private List<Bitmap> actionItemlist;
 
 
-    public ParkingInfoAdapter(Context context, ArrayList<TagParkingItem1> list) {
+    public ParkingInfoAdapter(Context context, ArrayList<TagParkingItem1> list,List<Bitmap>icon) {
         this.context = context;
         this.list = list;
+        this.actionItemlist=icon;
     }
 
     public ParkingInfoAdapter(Context context) {
@@ -64,10 +69,14 @@ public class ParkingInfoAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         View v = LayoutInflater.from(context).inflate(R.layout.pager_parking_info, null, false);
+        ImageView lefticon=(ImageView)v.findViewById(R.id.lefticon);
+        ImageView righticon=(ImageView)v.findViewById(R.id.righticon);
         TextView parkingTitle = (TextView) v.findViewById(R.id.parking_title);
         parkingTitle.setText(list.get(position).getM_strName());
         TextView distance = (TextView) v.findViewById(R.id.address_tv);
         TextView freeTimeTv = (TextView) v.findViewById(R.id.free_num_tv);
+        lefticon.setImageBitmap(actionItemlist.get(1));
+        righticon.setImageBitmap(actionItemlist.get(0));
         freeTimeTv.setText(list.get(position).getM_iFreeNum() == -1 ? "未知" : (list.get(position).getM_iFreeNum() + ""));
         distance.setText(list.get(position).getM_iDistance() + "m " + "|" + list.get(position).getM_strAddress());
         v.findViewById(R.id.rush_parking_rl).setOnClickListener(new View.OnClickListener() {

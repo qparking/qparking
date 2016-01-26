@@ -1,120 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F9F9" >
-
-    <RelativeLayout
-        android:id="@+id/rlScoreTopBar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#FF00c1a0" >
-
-        <Button
-            android:id="@+id/btScoreBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/top_back_btn" />
-
-        <TextView
-            android:id="@+id/tvScoreTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="false"
-            android:layout_marginTop="10dp"
-            android:text="我的积分"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </RelativeLayout>
-
+    android:background="@color/app_white"
+    android:orientation="vertical">
+    <include layout="@layout/include_title"/>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rlScoreTopBar"
-        android:orientation="vertical" >
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.4" >
-
-            <TextView
-                android:id="@+id/tvMySocre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                android:text="@string/my_integral"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#4d4d4d" />
-
-            <TextView
-                android:id="@+id/tvScoreAmont"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvMySocre"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:text="200"
-                android:textColor="#ffce00"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/ivScorePig"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_alignParentLeft="false"
-                android:layout_below="@+id/tvScoreAmont"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/score_pig" />
-
-            <funion.app.qparking.view.DashedView
-                android:id="@+id/viewDottedLine"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="0.5"
+            >
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_weight="1" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" >
-
-            <TextView
-                android:id="@+id/tvScoreUsage"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_gravity="bottom"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/integral"
+                    />
+                <TextView
+                    android:id="@+id/tvScoreAmont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="88"
+                    android:textSize="@dimen/text_size_80"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/integral_explain"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#4d4d4d" />
-
-            <TextView
-                android:id="@+id/tvScoreUsageTip"
-                android:layout_width="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_20"
+                />
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/dottedline"/>
+            <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvScoreUsage"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/integral_explain_text"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#afafaf" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                >
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="1"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/text_size_20"
+                    android:gravity="center"
+                    android:background="@drawable/round"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/textView1"
+                    android:text="@string/integral_explain_text"
+                    android:textSize="@dimen/text_size_16"
+                    android:textColor="@color/red"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                >
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="2"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/text_size_20"
+                    android:gravity="center"
+                    android:background="@drawable/round"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/textView2"
+                    android:text="@string/integral_exchange"
+                    android:textSize="@dimen/text_size_16"
+                    android:textColor="@color/red"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                >
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="3"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/text_size_20"
+                    android:gravity="center"
+                    android:background="@drawable/round"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/textView3"
+                    android:text="@string/integral_deduction"
+                    android:textSize="@dimen/text_size_16"
+                    android:textColor="@color/red"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
 
-        </RelativeLayout>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

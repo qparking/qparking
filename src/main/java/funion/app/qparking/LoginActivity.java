@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.okhttp.Request;
@@ -58,6 +59,8 @@ public class LoginActivity extends Activity implements OnClickListener {
     SharedPreferences.Editor editor;
     private String phoneCode = "";
     private SmsContent content;
+    private boolean isAgree = true;
+    private ImageView agree;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +84,11 @@ public class LoginActivity extends Activity implements OnClickListener {
         phone = (EditText) findViewById(R.id.input_phone_et);
         sendMsg = (TextView) findViewById(R.id.send_msg_tv);
         password = (EditText) findViewById(R.id.input_password_et);
+        agree = (ImageView) findViewById(R.id.agree_iv);
         findViewById(R.id.agreement_tv).setOnClickListener(this);
         findViewById(R.id.submit_btn).setOnClickListener(this);
         findViewById(R.id.agreement_tv).setOnClickListener(this);
+        findViewById(R.id.is_agree_ly).setOnClickListener(this);
         sendMsg.setOnClickListener(this);
     }
 
@@ -102,7 +107,7 @@ public class LoginActivity extends Activity implements OnClickListener {
                     T.showShort(context, "手机格式不正确，请重新输入");
                     return;
                 }
-                new Countdown(sendMsg, 60, "秒", false);
+                new Countdown(sendMsg, 60, "秒", false, context);
                 requestSecurityCode();
                 break;
             case R.id.submit_btn:
@@ -122,32 +127,55 @@ public class LoginActivity extends Activity implements OnClickListener {
                     T.showShort(context, "验证码不正确，请重新输入");
                     return;
                 }
-                T.showShort(context, "phoneCode:" + phoneCode + "password:" + password.getText().toString().trim());
+                if (!isAgree) {
+                    T.showShort(context, "您没有接受我们的协议");
+                    return;
+                }
+//                T.showShort(context, "phoneCode:" + phoneCode + "password:" + password.getText().toString().trim());
                 sendLogin();
                 break;
             case R.id.agreement_tv:
                 Intent intent = new Intent(context, AgreementActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.is_agree_ly:
+                if (!isAgree) {
+                    agree.setBackgroundResource(R.drawable.agree_1);
+                    isAgree = true;
+                } else {
+                    agree.setBackgroundResource(R.drawable.agree_0);
+                    isAgree = false;
+                }
+                break;
         }
     }
 
-    private void logining(String code, String result) {
-        switch (code) {
-            case "0":
-                login(result);
-                finish();
-                break;
-            case "1":
-                register();
-                break;
-            case "2":
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("验证码不正确，请重新输入..");
-                builder.setPositiveButton("确定", null).show();
-                break;
+    private void logging(String result) {
+        try {
+            JSONObject obj = new JSONObject(result);
+            String code = obj.getString("code");
+            switch (code) {
+                case "0":
+                    Log.e("code", code);
+                    String userMsg = obj.getString("usermsg");
+                    login(userMsg);
+                    break;
+                case "1":
+                    Log.e("code", code);
+                    register();
+                    break;
+                case "2":
+                    Log.e("code", code);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("验证码不正确，请重新输入..");
+                    builder.setPositiveButton("确定", null).show();
+                    break;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
+
 
     private void login(String result) {
         try {
@@ -160,16 +188,17 @@ public class LoginActivity extends Activity implements OnClickListener {
             editor.putString("avatar", obj.getString("avatar"));
             editor.putString("balance", obj.getString("balance"));//余额
             editor.putString("integral", obj.getString("integral"));//积分
-            String plate = obj.getString("plate");
-            obj = new JSONObject(plate);
-            editor.putString("ID", obj.getString("ID"));
-            qParkingApp.m_strUserID = obj.getString("ID");
-            editor.putString("PLATETYPE", obj.getString("PLATETYPE"));
-            editor.putString("userId", obj.getString("USERID"));
-            editor.putString("PLATENUM", obj.getString("PLATENUM"));//车牌号
-            editor.putString("ISDEFAULT", obj.getString("ISDEFAULT"));
+//            String plate = obj.getString("plate");
+//            obj = new JSONObject(plate);
+//            editor.putString("ID", obj.getString("ID"));
+//            qParkingApp.m_strUserID = obj.getString("ID");
+//            editor.putString("PLATETYPE", obj.getString("PLATETYPE"));
+//            editor.putString("userId", obj.getString("USERID"));
+//            editor.putString("PLATENUM", obj.getString("PLATENUM"));//车牌号
+//            editor.putString("ISDEFAULT", obj.getString("ISDEFAULT"));
             editor.commit();
             setResult(RESULT_OK);
+            finish();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -210,7 +239,7 @@ public class LoginActivity extends Activity implements OnClickListener {
                     if (code.equals("0")) {
                         userMsg  = obj.getString("usermsg");
                     }
-                    logining(code, userMsg);
+                    login(userMsg);
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -11,6 +11,7 @@ import java.util.List;
 
 import funion.app.qparking.R;
 import funion.app.qparking.tools.AppTools;
+import funion.app.qparking.tools.TransCoding;
 import funion.app.qparking.vo.MyOrderBooking;
 
 /**
@@ -57,7 +58,7 @@ public class OrderAdapter extends BaseAdapter {
         }
         viewHolder.parkName.setText(list.get(position).getParkName());
         viewHolder.cost.setText(list.get(position).getCost());
-        viewHolder.orderTime.setText(AppTools.getTimeformat(list.get(position).getReserve_time()));
+        viewHolder.orderTime.setText(TransCoding.strToDate(list.get(position).getReserve_time()));
         viewHolder.licencePlate.setText(list.get(position).getPlateNum());
         return convertView;
     }

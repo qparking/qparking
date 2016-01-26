@@ -4,12 +4,11 @@
     android:layout_height="match_parent"
     android:background="@color/app_white"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="停车券界面"
-        android:gravity="center"
-        android:textColor="@color/app_black"
+    <ListView
+        android:id="@+id/parking_volume_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
         />
 
 </LinearLayout>

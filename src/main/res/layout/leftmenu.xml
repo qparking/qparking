@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
+                android:visibility="gone"
                 android:layout_toRightOf="@+id/ivMenuMe">
 
                 <TextView
@@ -49,6 +50,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/ivMenuMe"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView

@@ -23,6 +23,15 @@ public class WashCardBean {
     private String platformTicket;//平台券
     private String qrCode;//二维码
     private String merchantName;//商家名称
+    private String end_date;
+
+    public String getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(String end_date) {
+        this.end_date = end_date;
+    }
 
     public String getMerchantName() {
         return merchantName;
@@ -198,6 +207,7 @@ public class WashCardBean {
                 ", platformTicket='" + platformTicket + '\'' +
                 ", qrCode='" + qrCode + '\'' +
                 ", merchantName='" + merchantName + '\'' +
+                ", end_date='" + end_date + '\'' +
                 '}';
     }
 }

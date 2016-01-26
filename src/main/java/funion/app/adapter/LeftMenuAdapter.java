@@ -2,6 +2,7 @@ package funion.app.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,7 @@ public class LeftMenuAdapter extends BaseAdapter {
             view=m_layoutInflater.inflate(R.layout.leftmenuitem,null);
             viewHolder.left_icon_im=(ImageView)view.findViewById(R.id.left_icon_im);
             viewHolder.left_menu_tv=(TextView)view.findViewById(R.id.left_menu_tv);
+            viewHolder.left_menu_re=(RelativeLayout)view.findViewById(R.id.left_menu_re);
             view.setTag(viewHolder);
         }else{
             viewHolder=(ViewHolder)view.getTag();
@@ -63,6 +65,8 @@ public class LeftMenuAdapter extends BaseAdapter {
             String name=leftMenuIconBeans.get(position).getTitle();
             viewHolder.left_icon_im.setImageBitmap(leftmenulist_.get(position));
             viewHolder.left_menu_tv.setText(name);
+        String backColor="#"+leftMenuIconBeans.get(position).getColor();
+        viewHolder.left_menu_re.setBackgroundColor(Color.parseColor(backColor));
 
         return view;
     }
@@ -70,5 +74,6 @@ public class LeftMenuAdapter extends BaseAdapter {
     public class ViewHolder{
         private ImageView left_icon_im;
         private TextView left_menu_tv;
+        private RelativeLayout left_menu_re;
     }
 }

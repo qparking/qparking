@@ -3,9 +3,12 @@ package funion.app.qparking.tools;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.TextView;
+
+import funion.app.qparking.R;
 
 /**
  * @author Administrator
@@ -19,6 +22,7 @@ public class Countdown {
     private long levaeTime;
     private String agr0;
     private boolean isDay;
+    private Context context;
 
     /**
      * 设置时间倒计时
@@ -28,12 +32,14 @@ public class Countdown {
      * @param agr0      秒
      * @param isDay
      */
-    public Countdown(TextView timeTv, long levaeTime, String agr0, Boolean isDay) {
+    public Countdown(TextView timeTv, long levaeTime, String agr0, Boolean isDay, Context context) {
         this.agr0 = agr0;
         this.timeTv = timeTv;
         this.levaeTime = levaeTime;
         this.isDay = isDay;
+        this.context = context;
         setLavetime(levaeTime);
+        timeTv.setClickable(false);
         if (!isTimerRun) {
             runTime();
         }
@@ -80,10 +86,10 @@ public class Countdown {
 
             if (mss == 0) {
                 timeTv.setText("重新获取");
-                timeTv.setTextColor(0xff4DA7FF);
+                timeTv.setTextColor(context.getResources().getColor(R.color.app_white));
                 timeTv.setClickable(true);
             } else {
-                timeTv.setTextColor(0xffA4A4A4);
+                timeTv.setTextColor(context.getResources().getColor(R.color.app_white));
                 timeTv.setText(mss + agr0);
             }
         }

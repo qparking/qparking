@@ -11,6 +11,7 @@ import java.util.List;
 
 import funion.app.qparking.R;
 import funion.app.qparking.tools.AppTools;
+import funion.app.qparking.tools.TransCoding;
 import funion.app.qparking.vo.MyOrderRecharge;
 
 /**
@@ -53,7 +54,7 @@ public class RechargeAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.time.setText(AppTools.getTimeformat(list.get(position).getAddtime()));
+        viewHolder.time.setText(TransCoding.strToDate(list.get(position).getAddtime()));
         viewHolder.payMoney.setText("¥:" + list.get(position).getAmount() + "元");
         viewHolder.payMethod.setText(AppTools.payMethod(list.get(position).getChannel()));
         return convertView;

@@ -47,7 +47,6 @@ public class RechargeFragment extends Fragment {
     private View rechargefragment;
     private EditText input_et;
     private int value;
-    private int select_value;
     private TextView show_balance;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -80,7 +79,6 @@ public class RechargeFragment extends Fragment {
 
     public void findViewId() {
         input_et = (EditText) rechargefragment.findViewById(R.id.recharge_price);
-        ((TextView) rechargefragment.findViewById(R.id.show_balance)).setText(balance);
         ((TextView) rechargefragment.findViewById(R.id.recharge_50)).setOnClickListener(onclick);
         ((TextView) rechargefragment.findViewById(R.id.recharge_100)).setOnClickListener(onclick);
         ((TextView) rechargefragment.findViewById(R.id.recharge_200)).setOnClickListener(onclick);
@@ -100,6 +98,7 @@ public class RechargeFragment extends Fragment {
 
             @Override
             public void onResponse(String result) {
+                Log.e("result",result.toString());
                 try {
                     JSONObject jsonObject=new JSONObject(result);
                     int code=(int)jsonObject.get("code");
@@ -110,6 +109,7 @@ public class RechargeFragment extends Fragment {
                         editor.putString("washtic", jsonObject.getString("washtic"));
                         editor.putString("parktic", jsonObject.getString("parktic"));
                         balance=jsonObject.getString("balance");
+                        ((TextView) rechargefragment.findViewById(R.id.show_balance)).setText(balance);
                         editor.commit();
                     }else{
                         QParkingApp.ToastTip(getActivity(), getResources().getString(R.string.getinfo_fail),-100);
@@ -139,6 +139,9 @@ public class RechargeFragment extends Fragment {
                     value = 4;
                     break;
                 case R.id.recharge_btn:
+                    if(!input_et.getText().toString().equals(null)||!input_et.getText().equals("")) {
+                        value=Integer.valueOf(input_et.getText().toString().trim());
+                    }
                     recharge(value);
                     break;
             }
@@ -148,7 +151,6 @@ public class RechargeFragment extends Fragment {
     private void recharge(int value) {
         selectPayModePop = new SelectPayModePop(getActivity(), itemsOnClick);
         selectPayModePop.showAtLocation(RechargeFragment.this.rechargefragment.findViewById(R.id.main), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-        select_value = value;
     }
 
     //为弹出窗口实现监听类
@@ -158,10 +160,10 @@ public class RechargeFragment extends Fragment {
             selectPayModePop.dismiss();
             switch (v.getId()) {
                 case R.id.wechat_btn:
-                    initpay(CHANNEL_WECHAT, select_value);
+                    initpay(CHANNEL_WECHAT, value);
                     break;
                 case R.id.alipay_btn:
-                    initpay(CHANNEL_ALIPAY, select_value);
+                    initpay(CHANNEL_ALIPAY, value);
                     break;
                 default:
                     break;

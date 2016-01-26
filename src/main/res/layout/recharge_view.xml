@@ -31,7 +31,6 @@
             android:textColor="@color/app_black"
             android:textSize="@dimen/text_size_20"
             android:layout_toRightOf="@id/textView1"
-            android:text="111"
             android:layout_centerVertical="true"
             />
     </RelativeLayout>

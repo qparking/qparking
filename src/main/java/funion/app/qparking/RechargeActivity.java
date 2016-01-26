@@ -41,7 +41,6 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
     private TextView title_tv,show_balance;
     private EditText input_et;
     private int value;
-    private int select_value;
     SharedPreferences sp;
     private static String URL ="http://qtc.luopan.net/api/createrecharge";
     private static final int REQUEST_CODE_PAYMENT = 1;
@@ -97,6 +96,9 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
                 value=4;
                 break;
             case R.id.recharge_btn:
+                if(!input_et.getText().toString().equals(null)||!input_et.getText().equals("")) {
+                    value=Integer.valueOf(input_et.getText().toString().trim());
+                }
                 recharge(value);
                 break;
             case R.id.include_iv_left:
@@ -109,7 +111,6 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
     private void recharge(int value) {
         selectPayModePop = new SelectPayModePop(context,itemsOnClick);
         selectPayModePop.showAtLocation(RechargeActivity.this.findViewById(R.id.main), Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL,0,0);
-        select_value=value;
 
     }
 
@@ -121,10 +122,10 @@ public class RechargeActivity extends Activity implements View.OnClickListener{
             selectPayModePop.dismiss();
             switch (v.getId()) {
                 case R.id.wechat_btn:
-                    initpay(CHANNEL_WECHAT,select_value);
+                    initpay(CHANNEL_WECHAT,value);
                     break;
                 case R.id.alipay_btn:
-                    initpay(CHANNEL_ALIPAY,select_value);
+                    initpay(CHANNEL_ALIPAY,value);
                     break;
                 default:
                     break;

@@ -337,6 +337,12 @@ android:configChanges="orientation|keyboardHidden"
         <activity
             android:name=".FeedBack"
             android:label="咨询反馈" />
+        <activity
+            android:name=".ParkingDetailsNewActivity"
+            android:label="新-车位详情" />
+        <activity
+            android:name=".UpdateParkingInfoActivity"
+            android:label="修改停车场信息" />
 	            <!-- Ping++ SDK 注册 -->
         <activity
             android:name="com.pingplusplus.android.PaymentActivity"

@@ -22,8 +22,10 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -50,11 +52,13 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.InfoWindow;
 import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MapViewLayoutParams;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationConfiguration;
@@ -90,6 +94,7 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.okhttp.Request;
@@ -112,6 +117,7 @@ import funion.app.qparking.tools.AppTools;
 import funion.app.qparking.tools.HttpUtil;
 import funion.app.qparking.tools.JsonParser;
 import funion.app.qparking.tools.OkHttpUtils;
+import funion.app.qparking.view.SildMenuView;
 import funion.app.qparking.vo.LeftMenuIconBean;
 import funion.app.qparking.vo.LocationPlace;
 import funion.app.qparking.vo.MyOrderRecharge;
@@ -133,6 +139,8 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     private LocationClient myLocation;
     private int locationCount;// 定位次数标记，逻辑上小于3时将重新定位
     private GeoCoder m_coderGeo = null;//反向geo
+    private ImageView lessee_arrow;
+    private ImageView ivCar;
     private ReverseGeoCodeResult.AddressComponent m_addressCur = null;
     // 离线地图服务
     private MKOfflineMap mapOffline = null;
@@ -170,6 +178,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     private ViewPager viewPager;
     ParkingInfoAdapter parkingInfoAdapter;
     private ArrayList<TagParkingItem1> tagParkingItem1ArrayList = new ArrayList<>();
+    private ArrayList<TagParkingItem1> tagParkingItem1s = new ArrayList<>();
     private ArrayList<MyServiceParkingInfo> myServiceParkingInfoList = new ArrayList<>();
     private String cityName;
     private String cityCode;
@@ -185,19 +194,11 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     /**
      * 侧滑布局参数以及控件
      */
-    private RelativeLayout login_re_;//未登录布局
-    private LinearLayout m_llMenu;//已登陆布局
-    private TextView phonenum_tv, balance,offline_tv,tvSuggestion,tvMenuSet;
-    private LinearLayout m_llMenuBar;//侧滑布局
-    private RelativeLayout m_rlMainUI;
-    private int m_iMainMenuLen;
-    private ListView leftmenu_lst;
-    final int MENU_ANIM_LEN = 50;
-    final int MENU_ANIM_INTERVAL = 20; // 菜单动画延迟
-    LeftMenuAdapter leftMenuAdapter;
-    private ImageView offline_iv,ivSuggestion,ivMenuSet;
+    private SildMenuView menu;
     //动画处理handler
     private Handler m_hAnimate = new Handler();
+    // 最近按下系统返回时间
+    private long m_lPressBackKeyTime;
     List<Bitmap> leftmenulist;
     List<Bitmap> toolbarlist;
     List<Bitmap> barItemlist;
@@ -205,7 +206,6 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     List<Bitmap> actionItemlist;
     private List<LeftMenuIconBean> leftMenuIconBeanList;
     private List<ToolBarBean> toolBarBeanList;
-
     //延迟显示菜单
     private Runnable m_raShowMenu = new Runnable() {
         @Override
@@ -271,44 +271,6 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                         mapView.getMap().addOverlay(optionOverlay);
                     }
                     break;
-                // 显示主菜单逻辑
-                case 5: {
-
-                    RelativeLayout.LayoutParams rllpMainUI = (RelativeLayout.LayoutParams) m_rlMainUI.getLayoutParams();
-                    int iChange = m_iMainMenuLen * MENU_ANIM_INTERVAL
-                            / MENU_ANIM_LEN;
-                    rllpMainUI.leftMargin += iChange;
-                    rllpMainUI.rightMargin -= iChange;
-                    m_rlMainUI.setLayoutParams(rllpMainUI);
-                    if (rllpMainUI.leftMargin < m_iMainMenuLen)
-                        m_hAnimate.postDelayed(m_raShowMenu, MENU_ANIM_INTERVAL);
-                    else {
-                        rllpMainUI.leftMargin = m_iMainMenuLen;
-                        rllpMainUI.rightMargin = -m_iMainMenuLen;
-                        m_rlMainUI.setLayoutParams(rllpMainUI);
-                    }
-                    break;
-                }
-                // 隐藏主菜单逻辑
-                case 6: {
-                    RelativeLayout.LayoutParams rllpMainUI = (RelativeLayout.LayoutParams) m_rlMainUI
-                            .getLayoutParams();
-                    int iChange = m_iMainMenuLen * MENU_ANIM_INTERVAL
-                            / MENU_ANIM_LEN;
-                    rllpMainUI.leftMargin -= iChange;
-                    rllpMainUI.rightMargin += iChange;
-                    m_rlMainUI.setLayoutParams(rllpMainUI);
-                    if (rllpMainUI.leftMargin > 0)
-                        m_hAnimate
-                                .postDelayed(m_raHideMenu, MENU_ANIM_INTERVAL);
-                    else {
-                        rllpMainUI.leftMargin = 0;
-                        rllpMainUI.rightMargin = 0;
-                        m_rlMainUI.setLayoutParams(rllpMainUI);
-                        m_llMenuBar.setVisibility(View.INVISIBLE);
-                    }
-                }
-                break;
                 case 10:
                     // 未下载离线地图
                     String strInfo = msg.peekData().getString("info");
@@ -323,22 +285,28 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (m_bIsMainMenu && ev.getRawX() > m_iMainMenuLen) {
-            RestoreMainUI();
-            return true;
-        }
+//        if (m_bIsMainMenu && ev.getRawX() > m_iMainMenuLen) {
+//            RestoreMainUI();
+//            return true;
+//        }
+        DisplayImageOptions options;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Rect rect, rect1;
                 if (tagParkingItem1ArrayList.size() == 0) {
                     return super.dispatchTouchEvent(ev);
                 }
-                ((TextView) findViewById(R.id.parking_title)).setText(tagParkingItem1ArrayList.get(selectPosition).getM_strName());
+                if (tagParkingItem1s.get(selectPosition).getM_iFreeNum() == -1) {
+                    ((TextView) findViewById(R.id.number_tv)).setText("未知");
+                } else {
+                    ((TextView) findViewById(R.id.number_tv)).setText(tagParkingItem1s.get(selectPosition).getM_iFreeNum() + "");
+                }
+                ((TextView) findViewById(R.id.parking_title)).setText(tagParkingItem1s.get(selectPosition).getM_strName());
                 ((TextView) findViewById(R.id.address_tv)).
-                        setText(AppTools.distance(tagParkingItem1ArrayList.get(selectPosition).getM_iDistance())
-                                + "|" + tagParkingItem1ArrayList.get(selectPosition).getM_strAddress());
-                DisplayImageOptions options = AppTools.confirgImgInfo(R.drawable.no_picture_img, R.drawable.no_picture_img);
-                ImageLoader.getInstance().displayImage(tagParkingItem1ArrayList.get(selectPosition)
+                        setText(AppTools.distance(tagParkingItem1s.get(selectPosition).getM_iDistance())
+                                + "|" + tagParkingItem1s.get(selectPosition).getM_strAddress());
+                options = AppTools.confirgImgInfo(R.drawable.no_picture_img, R.drawable.no_picture_img);
+                ImageLoader.getInstance().displayImage(tagParkingItem1s.get(selectPosition)
                         .getParking_img(), (ImageView) findViewById(R.id.parking_img_iv), options);
                 rect1 = new Rect(mapView.getLeft(), mapView.getTop(), mapView.getRight(), mapView.getBottom() - viewPager.getHeight());
                 if (rect1.contains((int) ev.getX(), (int) ev.getY())) {
@@ -434,19 +402,30 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                     findViewById(R.id.out_rl).setClickable(false);
                     mapView.setFocusable(true);
                 }
+                if(tagParkingItem1s.size()!=0){
+                if (tagParkingItem1s.get(selectPosition).getM_iFreeNum() == -1) {
+                    ((TextView) findViewById(R.id.number_tv)).setText("未知");
+                } else {
+                    ((TextView) findViewById(R.id.number_tv)).setText(tagParkingItem1s.get(selectPosition).getM_iFreeNum() + "");
+                }
+                ((TextView) findViewById(R.id.parking_title)).setText(tagParkingItem1s.get(selectPosition).getM_strName());
+                ((TextView) findViewById(R.id.address_tv)).
+                        setText(AppTools.distance(tagParkingItem1s.get(selectPosition).getM_iDistance())
+                                + "|" + tagParkingItem1s.get(selectPosition).getM_strAddress());
+                options = AppTools.confirgImgInfo(R.drawable.no_picture_img, R.drawable.no_picture_img);
+                ImageLoader.getInstance().displayImage(tagParkingItem1s.get(selectPosition)
+                        .getParking_img(), (ImageView) findViewById(R.id.parking_img_iv), options);
+                }
+                break;
         }
         return super.dispatchTouchEvent(ev);
     }
 
-    private void RestoreMainUI() {
-        m_bIsMainMenu = false;
-        m_hAnimate.postDelayed(m_raHideMenu, 300);
-    }
 
     @Override
     public void onClick(View view) {
         Intent intent;
-        String userId = sp.getString("userId", null);
+        String sign = sp.getString("sign", null);
         switch (view.getId()) {
             //关闭下载地图
             case R.id.ivOfflineMapClose:
@@ -462,94 +441,32 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 break;
             //是否弹出侧滑布局
             case R.id.btHomeMenu: {
-                m_bIsMainMenu = true;
-                m_llMenuBar.setVisibility(View.VISIBLE);
-                m_hAnimate.postDelayed(m_raShowMenu, MENU_ANIM_INTERVAL);
-            }
-            break;
-            //登陆状态
-            case R.id.rlMenuMe: {
-                if (userId != null) {
-                    ActivityTools.switchActivity(context, PersonalCenterActivity.class, null);
-                } else {
-                    intent = new Intent(context, LoginActivity.class);
-                    startActivityForResult(intent, 2);
+                if(sign==null){
+                    ActivityTools.switchActivity(context, LoginActivity.class, null);
+                }else{
+                    menu.openMenu();
                 }
             }
             break;
-            //我的钱包
-//            case R.id.my_wallet_form:
-//                if (userId != null) {
-//                    ActivityTools.switchActivity(context, MyWalletActivity.class, null);
-//                } else {
-//                    T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
-//                    ActivityTools.switchActivity(context, LoginActivity.class, null);
-//                }
-//                break;
-            //我的订单
-//            case R.id.my_order_form: {
-//                if (userId != null) {
-//                    ActivityTools.switchActivity(context, MyOrderActivity.class, null);
-//                } else {
-//                    T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
-//                    ActivityTools.switchActivity(context, LoginActivity.class, null);
-//                }
-//                break;
-//            }
-            //反向寻车
-//            case R.id.rlReverseParking:
-//                ActivityTools.switchActivity(context, MipcaActivityCapture.class, null);
-//                break;
-            //车位求租
-//            case R.id.rlLeaseParking:
-//                if (userId != null) {
-//                    appQParking = (QParkingApp) getApplicationContext();
-//                    appQParking.m_addressAdd = m_addressCur;
-//                    appQParking.m_llSubmit = appQParking.m_llMe;
-//                    ActivityTools.switchActivity(context, LesseeActivity.class, null);
-//                } else {
-//                    QParkingApp.ToastTip(context, getResources().getString(R.string.login_first), -100);
-//                    ActivityTools.switchActivity(context, LoginActivity.class, null);
-//                }
-//
-//                break;
-            //积分商城
-//            case R.id.rlIntegral_exchange:
-//                if (userId != null) {
-//                    ActivityTools.switchActivity(context, IntegralExChange.class, null);
-//                } else {
-//                    QParkingApp.ToastTip(context, getResources().getString(R.string.login_first), -100);
-//                    ActivityTools.switchActivity(context, LoginActivity.class, null);
-//                }
-//                break;
-            // 分享
-//            case R.id.rlShare: {
-//                appQParking = (QParkingApp) getApplicationContext();
-//                intent = new Intent();
-//                intent.setClass(context, RecommendActivity.class);
-//                startActivity(intent);
-//            }
-//            break;
-            //设置
-            case R.id.rlMenuSet: {
-                intent = new Intent();
-                intent.setClass(context, SetActivity.class);
-                startActivity(intent);
-            }
-            break;
+            //登陆状态
+            case R.id.rlMenuMe:
+                if (sign != null) {
+                    ActivityTools.switchActivity(context, PersonalCenterActivity.class, null);
+                } else {
+                    menu.openMenu();
+                    ActivityTools.switchActivity(context, LoginActivity.class, null);
+                }
+                break;
+                //设置
+            case R.id.rlMenuSet:
+                ActivityTools.switchActivity(context, SetActivity.class, null);
+                break;
             // 意见
-            case R.id.rlSuggestion: {
-                intent = new Intent();
-                intent.setClass(context,
-                        SuggestionActivity.class);
-                startActivity(intent);
-            }
-            break;
+            case R.id.rlSuggestion:
+                ActivityTools.switchActivity(context, SuggestionActivity.class, null);
+                break;
             case R.id.offline_rl:
-                intent = new Intent();
-                intent.setClass(context,
-                        OfflineMapActivity.class);
-                startActivity(intent);
+                ActivityTools.switchActivity(context, OfflineMapActivity.class, null);
                 break;
             //路况
             case R.id.btMainRoad:
@@ -574,7 +491,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 mapView.getMap().clear();
                 break;
             case R.id.ivParkingList:
-                if (userId != null) {
+                if (sign != null) {
                     ActivityTools.switchActivity(context, SelectPayActivity.class, null);
                 } else {
                     T.show(context, R.string.login_first, Toast.LENGTH_SHORT);
@@ -619,14 +536,14 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
             //打电话
             case R.id.call_tv:
 //                T.show(context, tagParkingItem1ArrayList.get(selectPosition).getPhone() + selectPosition, 2000);
-                if (tagParkingItem1ArrayList.get(selectPosition).getPhone().length() < 3) {
+                if (tagParkingItem1s.get(selectPosition).getPhone().length() < 3) {
                     T.show(context, "当前停车场暂无电话!", 2000);
                     return;
                 }
 //                try {
                 intent = new Intent(Intent.ACTION_DIAL, Uri
                         .parse("tel:"
-                                + tagParkingItem1ArrayList.get(selectPosition).getPhone()));
+                                + tagParkingItem1s.get(selectPosition).getPhone()));
                 startActivity(intent);
                 break;
             //入住
@@ -639,18 +556,45 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
             //抢车位
             case R.id.rush_parking_rl:
                 intent = new Intent(context, OrderParkingActivity.class);
-                intent.putExtra("title", tagParkingItem1ArrayList.get(selectPosition).getM_strName());
-                intent.putExtra("address", tagParkingItem1ArrayList.get(selectPosition).getM_strAddress());
+                intent.putExtra("title", tagParkingItem1s.get(selectPosition).getM_strName());
+                intent.putExtra("address", tagParkingItem1s.get(selectPosition).getM_strAddress());
                 startActivity(intent);
                 break;
             //去停车
             case R.id.go_parking_rl:
-                if (DistanceUtil.getDistance(appQParking.m_llMe, tagParkingItem1ArrayList.get(selectPosition).getM_llParking()) < 50) {
+                if (DistanceUtil.getDistance(appQParking.m_llMe, tagParkingItem1s.get(selectPosition).getM_llParking()) < 50) {
                     T.showShort(context, "起始位置离终点太近，请重新定位");
                     return;
                 }
-                intent = new Intent(context, NavigationActivity.class);
-                appQParking.m_itemParking.m_llParking = tagParkingItem1ArrayList.get(selectPosition).getM_llParking();
+                intent = new Intent(context, NavigationAct.class);
+//                appQParking.m_itemParking.m_llParking = tagParkingItem1ArrayList.get(selectPosition).getM_llParking();
+                intent.putExtra("lat", tagParkingItem1s.get(selectPosition).getM_llParking().latitude);
+                intent.putExtra("lon", tagParkingItem1s.get(selectPosition).getM_llParking().longitude);
+                intent.putExtra("pid", tagParkingItem1s.get(selectPosition).getM_strPid());
+                intent.putExtra("name", tagParkingItem1s.get(selectPosition).getM_strName());
+                intent.putExtra("address", tagParkingItem1s.get(selectPosition).getM_strAddress());
+                intent.putExtra("phone", tagParkingItem1s.get(selectPosition).getPhone());
+                intent.putExtra("img", tagParkingItem1s.get(selectPosition).getParking_img());
+                intent.putExtra("freeNum", tagParkingItem1s.get(selectPosition).getM_iFreeNum());
+                intent.putExtra("chargeNum", tagParkingItem1s.get(selectPosition).getM_iChargeNum());
+                intent.putExtra("praiseNum", tagParkingItem1s.get(selectPosition).getM_iPraiseNum());
+                intent.putExtra("despiseNum", tagParkingItem1s.get(selectPosition).getM_iDespiseNum());//ShareName
+                intent.putExtra("shareName", tagParkingItem1s.get(selectPosition).getM_strShareName());
+                intent.putExtra("locationType", tagParkingItem1s.get(selectPosition).getM_iLocationType());
+                intent.putExtra("distance", tagParkingItem1s.get(selectPosition).getM_iDistance());
+                startActivity(intent);
+                break;
+            case R.id.update_tv:
+                intent = new Intent(context, UpdateParkingInfoActivity.class);
+                intent.putExtra("address", tagParkingItem1s.get(selectPosition).getM_strAddress());
+                intent.putExtra("name", tagParkingItem1s.get(selectPosition).getM_strName());
+                intent.putExtra("phone", tagParkingItem1s.get(selectPosition).getPhone());
+                intent.putExtra("money", "未知");
+                intent.putExtra("freeNum", "未知");
+                intent.putExtra("longitude", tagParkingItem1s.get(selectPosition).getM_llParking().longitude + "");
+                intent.putExtra("latitude", tagParkingItem1s.get(selectPosition).getM_llParking().latitude + "");
+                intent.putExtra("img", tagParkingItem1s.get(selectPosition).getParking_img());
+                intent.putExtra("pid", tagParkingItem1s.get(selectPosition).getId());
                 startActivity(intent);
                 break;
             default:
@@ -658,6 +602,22 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 break;
         }
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if ((System.currentTimeMillis() - m_lPressBackKeyTime) > 2000) {
+                QParkingApp.ToastTip(this, "再按一次退出", Toast.LENGTH_SHORT);
+                m_lPressBackKeyTime = System.currentTimeMillis();
+
+                return true;
+            }
+
+            System.exit(0);
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
     // 听写字符缓冲区，onResult将在一次语音识别中回调多次，初始化不能写在回调函数中
@@ -699,11 +659,12 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         Intent intent=getIntent();
         leftMenuIconBeanList=intent.getParcelableArrayListExtra("leftmenu");
         toolBarBeanList=intent.getParcelableArrayListExtra("toolbar");
-        Log.e("map","size:"+toolBarBeanList.size()+"");
         sp = getSharedPreferences("mMessage", MODE_PRIVATE);
         editor = sp.edit();
         appQParking = (QParkingApp) getApplicationContext();
         initIcon();
+        menu=new SildMenuView();
+        menu.initSildingMenu(MainAct.this, leftMenuIconBeanList,toolBarBeanList,leftmenulist,toolbarlist);
         initSDK();
         initView();
         initDate();
@@ -713,6 +674,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         setListener();
 
     }
+
 
 
     private void initIcon() {
@@ -793,15 +755,8 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     };
 
     private void initView() {
-        login_re_ = (RelativeLayout) findViewById(R.id.login_re);
-        m_llMenu = (LinearLayout) findViewById(R.id.llMenuMe);
-        m_llMenuBar = (LinearLayout) findViewById(R.id.llMenuBar);
-        m_rlMainUI = (RelativeLayout) findViewById(R.id.rlMainUI);
-        phonenum_tv = (TextView) findViewById(R.id.tvMenuMe);
-        balance = (TextView) findViewById(R.id.tvBalance);
 
         viewPager = (ViewPager) findViewById(R.id.parking_info_vp);
-
         findViewById(R.id.call_tv).setOnClickListener(this);
         findViewById(R.id.add_tv).setOnClickListener(this);
         findViewById(R.id.rush_parking_rl).setOnClickListener(this);
@@ -816,39 +771,16 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         findViewById(R.id.btMainLocation).setOnClickListener(this);
         findViewById(R.id.ivParkingList).setOnClickListener(this);
         findViewById(R.id.etAddress).setOnClickListener(this);
-        //侧滑页初始化
-        offline_iv=(ImageView)findViewById(R.id.offline_iv);
-        ivSuggestion=(ImageView)findViewById(R.id.ivSuggestion);
-        ivMenuSet=(ImageView)findViewById(R.id.ivMenuSet);
-        leftmenu_lst=(ListView)findViewById(R.id.left_menu_lst);
-        offline_tv=(TextView)findViewById(R.id.offline_tv);
-        tvSuggestion=(TextView)findViewById(R.id.tvSuggestion);
-        tvMenuSet=(TextView)findViewById(R.id.tvMenuSet);
-        offline_tv.setText(toolBarBeanList.get(0).getTitle());
-        offline_iv.setImageBitmap(toolbarlist.get(0));
-        tvSuggestion.setText(toolBarBeanList.get(1).getTitle());
-        ivSuggestion.setImageBitmap(toolbarlist.get(1));
-        tvMenuSet.setText(toolBarBeanList.get(2).getTitle());
-        ivMenuSet.setImageBitmap(toolbarlist.get(2));
-        leftMenuAdapter=new LeftMenuAdapter(context,leftMenuIconBeanList,leftmenulist);
-        leftmenu_lst.setAdapter(leftMenuAdapter);
-        leftmenu_lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                QParkingApp.ToastTip(context, i + "", -100);
-            }
-        });
-//        int color=Integer.valueOf(toolBarBeanList.get(0).getColor());
-//        findViewById(R.id.bottomset_ll).setBackgroundColor(color);
         findViewById(R.id.rlMenuSet).setOnClickListener(this);
         findViewById(R.id.rlSuggestion).setOnClickListener(this);
         findViewById(R.id.offline_rl).setOnClickListener(this);
-        login_re_.setOnClickListener(this);
-
+//        login_re_.setOnClickListener(this);
+        lessee_arrow=(ImageView)findViewById(R.id.lessee_arrow);
+        lessee_arrow.setImageBitmap(mapItemlist.get(2));
         m_btRoadState = (Button) findViewById(R.id.btMainRoad);
 
         m_btRoadState.setOnClickListener(this);
-        m_llMenu.setOnClickListener(this);
+//        m_llMenu.setOnClickListener(this);
     }
 
 
@@ -890,8 +822,8 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         locationCount = 0;
         m_bIsMainMenu = false;
         // 变量初始化
-        m_iMainMenuLen = (int) (getWindowManager().getDefaultDisplay()
-                .getWidth() * 0.8);
+//        m_iMainMenuLen = (int) (getWindowManager().getDefaultDisplay()
+//                .getWidth() * 0.8);
         // 初始化全局 bitmap 信息，不用时及时 recycle
         m_bmpParkFree = BitmapDescriptorFactory
                 .fromResource(R.drawable.park_free);
@@ -974,8 +906,10 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                     .latitude(location.getLatitude())
                     .longitude(location.getLongitude()).build();
             mapView.getMap().setMyLocationData(locData);
+
             appQParking.m_llMe = new LatLng(location.getLatitude(),
                     location.getLongitude());//地理坐标基本数据结构类
+//            mapView.getMap().setMapStatus(MapStatusUpdateFactory.newLatLng(appQParking.m_llMe));
             // 容错判断，获得三次（0,0）坐标将停止检索，设置定位最多3次
             if (appQParking.m_llMe.latitude == 0
                     && appQParking.m_llMe.longitude == 0) {
@@ -1142,6 +1076,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
             mapView.getMap().clear();
             tagParkingItem1ArrayList.clear();
             myServiceParkingInfoList.clear();
+            tagParkingItem1s.clear();
             appQParking.m_listParking.clear();
             int iCount = result.getAllPoi().size();
             for (int i = 0; i < iCount; i++) {
@@ -1162,7 +1097,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 itemInfo.m_iPraiseNum = 0;
                 itemInfo.m_iDespiseNum = 0;
                 appQParking.m_listParking.add(itemInfo);
-
+                tagParkingItem1.setId("0");
                 tagParkingItem1.setM_strPid(infoPoi.uid);
                 tagParkingItem1.setM_strName(infoPoi.name);
                 tagParkingItem1.setM_llParking(infoPoi.location);
@@ -1187,6 +1122,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
         for (int i = 0; i < list.size(); i++) {
             for (int j = 0; j < tagList.size(); j++) {
                 if (list.get(i).getMarker_id().equals(tagList.get(j).getM_strPid())) {
+                    tagList.get(j).setId(list.get(i).getId());
                     tagList.get(j).setM_strName(list.get(i).getName());
                     LatLng latLng = new LatLng(Double.parseDouble(list.get(i).getLatitude()), Double.parseDouble(list.get(i).getLongitude()));
                     tagList.get(j).setM_llParking(latLng);
@@ -1207,6 +1143,7 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
             if (list.get(i).getMarker_id().equals("")) {
                 TagParkingItem1 info = new TagParkingItem1();
                 info.setM_strName(list.get(i).getName());
+                info.setId(list.get(i).getId());
                 LatLng latLng = new LatLng(Double.parseDouble(list.get(i).getLatitude()), Double.parseDouble(list.get(i).getLongitude()));
                 info.setM_llParking(latLng);
                 info.setM_strAddress(list.get(i).getAddress());
@@ -1221,7 +1158,8 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                 tagList.add(info);
             }
         }
-        parkingInfoAdapter = new ParkingInfoAdapter(context, tagList);
+        tagParkingItem1s.addAll(tagList);
+        parkingInfoAdapter = new ParkingInfoAdapter(context, tagList,actionItemlist);
         viewPager.setAdapter(parkingInfoAdapter);
         parkingInfoAdapter.notifyDataSetChanged();
         addOptionOverlay1(tagList);
@@ -1403,23 +1341,6 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
                         mapView.getMap().animateMapStatus(MapStatusUpdateFactory.newLatLng(latLng));
                     }
                     break;
-                case 2:
-                    String userId = sp.getString("userId", null);
-                    if (userId != null) {
-                        login_re_.setVisibility(View.GONE);
-                        m_llMenu.setVisibility(View.VISIBLE);
-                        phonenum_tv.setText(sp.getString("username", null));
-                        balance.setText(sp.getString("balance", null));
-                        DisplayImageOptions options = AppTools.confirgImgInfo(R.drawable.headimage_default, R.drawable.headimage_default);
-                        ImageLoader.getInstance().displayImage(sp.getString("avatar", ""),
-                                ((ImageView) findViewById(R.id.ivMenuMe)), options);
-                    } else {
-                        login_re_.setVisibility(View.VISIBLE);
-                        m_llMenu.setVisibility(View.GONE);
-                    }
-                    m_llMenuBar.setVisibility(View.VISIBLE);
-                    break;
-
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -1429,19 +1350,6 @@ public class MainAct extends Activity implements View.OnClickListener, MKOffline
     public void onResume() {
         MobclickAgent.onResume(this);
         mapView.onResume();
-        String userId = sp.getString("userId", null);
-        if (userId != null) {
-            login_re_.setVisibility(View.GONE);
-            m_llMenu.setVisibility(View.VISIBLE);
-            phonenum_tv.setText(sp.getString("username", null));
-            balance.setText(sp.getString("balance", null));
-            DisplayImageOptions options = AppTools.confirgImgInfo(R.drawable.headimage_default, R.drawable.headimage_default);
-            ImageLoader.getInstance().displayImage(sp.getString("avatar", ""),
-                    ((ImageView) findViewById(R.id.ivMenuMe)), options);
-        } else {
-            login_re_.setVisibility(View.VISIBLE);
-            m_llMenu.setVisibility(View.GONE);
-        }
         super.onResume();
     }
 

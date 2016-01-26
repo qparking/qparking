@@ -4080,13 +4080,15 @@
     <string name="about_balance">您的余额:¥</string>
     <string name="integral">积分</string>
     <string name="account_balance">账户余额</string>
-    <string name="integral_">积分</string>
+    <string name="integral_">我的积分</string>
     <string name="parking_vouchers">停车券</string>
     <string name="washing_vouchers">洗车券</string>
     <string name="exit_success">您已退出登录</string>
     <string name="my_integral">当前我的积分</string>
     <string name="integral_explain">积分说明</string>
-    <string name="integral_explain_text">每消费1元,可以赚取1积分,一定的积分可以兑换指定商品,说不定以后做停车费哦，敬请期待~</string>
+    <string name="integral_explain_text">每消费1元,可以赚取1积分</string>
+    <string name="integral_exchange">一定的积分可以兑换指定的商品</string>
+    <string name="integral_deduction">更有机会抵扣停车费，敬请期待~</string>
     <string name="enter_old_pwd">请输入原密码</string>
     <string name="enter_new_pwd">请输入新密码</string>
     <string name="makesure_new_pwd">请确认新密码</string>
@@ -4098,6 +4100,8 @@
     <string name="one_hundred">100元</string>
     <string name="two_hundred">200元</string>
     <string name="eight_hundred">800元</string>
+    <string name="deduction">抵扣券</string>
+    <string name="freetime">免时券</string>
     <string name="enter_money">请输入充值金额</string>
     <string name="makesure_recharge">确认充值</string>
     <string name="wechat_paymode">微信支付</string>

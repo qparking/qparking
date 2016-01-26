@@ -5,6 +5,7 @@ package funion.app.qparking;
  */
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,31 +19,32 @@ import com.squareup.okhttp.Request;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import funion.app.adapter.ParkingVolumeAdapter;
+import funion.app.adapter.WrashCarVolumeAdapter;
 import funion.app.qparking.tools.OkHttpUtils;
 import funion.app.qparking.vo.WashCardBean;
 
 public class WrashCarVolumeActivity extends Activity implements View.OnClickListener {
     private ListView listView;
-    private ParkingVolumeAdapter adapter;
+    private WrashCarVolumeAdapter adapter;
     private List<WashCardBean> list;
     private Context context = WrashCarVolumeActivity.this;
     SharedPreferences sp;
+    private ProgressDialog m_dlgProgress = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_parking_volume);
         sp=getSharedPreferences("mMessage",MODE_PRIVATE);
+        m_dlgProgress = ProgressDialog.show(WrashCarVolumeActivity.this, null,
+                "正在获取信息... ", true, true);
         initTitle();
-        initData();
         initView();
+        initData();
     }
 
     private void initData() {
@@ -62,10 +64,9 @@ public class WrashCarVolumeActivity extends Activity implements View.OnClickList
             @Override
             public void onResponse(String result) {
                 try {
-                    Log.e("map",result.toString());
                     JSONObject jsonObject=new JSONObject(result);
-                    int count=(int)jsonObject.get("count");
-                    if(count!=0){
+                    String count=(String)jsonObject.get("count");
+                    if(!count.equals(0)){
                         JSONArray jsonArray=jsonObject.getJSONArray("data");
                         for(int i=0;i<jsonArray.length();i++){
                             WashCardBean washCardBean=new WashCardBean();
@@ -82,8 +83,15 @@ public class WrashCarVolumeActivity extends Activity implements View.OnClickList
                             washCardBean.setCouponNumber(object.getString("couponNumber"));
                             washCardBean.setMerchantName(object.getString("merchantName"));
                             washCardBean.setQrCode(object.getString("qrCode"));
+                            washCardBean.setEnd_date(object.getString("end_date"));
                             list.add(washCardBean);
                         }
+                        adapter = new WrashCarVolumeAdapter(context,list);
+                        listView.setAdapter(adapter);
+                        m_dlgProgress.dismiss();
+                    }else{
+                        m_dlgProgress.dismiss();
+                        QParkingApp.ToastTip(WrashCarVolumeActivity.this, "暂无数据", -100);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -94,20 +102,18 @@ public class WrashCarVolumeActivity extends Activity implements View.OnClickList
 
     private void initView() {
         listView = (ListView) findViewById(R.id.parking_volume_lv);
-        adapter = new ParkingVolumeAdapter(context,list);
-        listView.setAdapter(adapter);
     }
 
     private void initTitle() {
-        findViewById(R.id.include_iv_left).setBackgroundResource(R.drawable.come_back);
-        findViewById(R.id.include_iv_left).setOnClickListener(this);
+        findViewById(R.id.include_iv_left).setBackgroundResource(R.drawable.top_back_btn);
+        findViewById(R.id.include_back_left_ll).setOnClickListener(this);
         ((TextView) findViewById(R.id.include_tv_title)).setText("我的洗车卷");
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.include_iv_left:
+            case R.id.include_back_left_ll:
                 finish();
                 break;
         }

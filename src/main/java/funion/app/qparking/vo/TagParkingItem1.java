@@ -15,6 +15,16 @@ public class TagParkingItem1 implements Serializable {
     public String m_strAddress;
     private String phone;
     private String parking_img;
+    //对应我们服务器上ID
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void setParking_img(String parking_img) {
         this.parking_img = parking_img;

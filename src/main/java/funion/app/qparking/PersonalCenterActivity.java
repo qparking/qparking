@@ -163,6 +163,7 @@ public class PersonalCenterActivity extends Activity implements OnClickListener 
             }
             break;
             case R.id.personalCenter_myPlate_rl: {
+                //管理车牌
                 ActivityTools.switchActivity(context, CarLicenceManagerActivity.class, null);
             }
             break;
@@ -174,6 +175,7 @@ public class PersonalCenterActivity extends Activity implements OnClickListener 
                 ActivityTools.switchActivity(context, RechargeActivity.class, null);
                 break;
             case R.id.integral_ll:
+                //积分
                 ActivityTools.switchActivity(context, ScoreActivity.class, null);
                 break;
             case R.id.parking_card_ll:

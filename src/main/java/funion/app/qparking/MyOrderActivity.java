@@ -6,6 +6,7 @@ package funion.app.qparking;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -93,11 +94,13 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
     private long rechargeLastUpt;
     private int current;//偏移量
     private int lastPosition;//viewpager上一次位置
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_my_order);
+        sp = getSharedPreferences("mMessage", MODE_PRIVATE);
         myOrderRequest(myOrderPage, num);
         myOrderConsumption(consumptionPage, num);
         myOrderRecharge(rechargePage, num);
@@ -115,7 +118,7 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
      */
     private void myOrderRequest(int currentPage, int num) {
         Map<String, String> param = new HashMap<String, String>();
-        param.put("sign", "343b1c4a3ea748121b2d640fc8700db0f36");
+        param.put("sign", sp.getString("userId", ""));
         param.put("ps", num + "");
         param.put("pn", currentPage + "");
         OkHttpUtils.getInstance().post(QParkingApp.URL, new OkHttpUtils.ResultCallback() {
@@ -157,7 +160,7 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
      */
     private void myOrderConsumption(int currentPage, int num) {
         Map<String, String> param = new HashMap<String, String>();
-        param.put("sign", "343b1c4a3ea748121b2d640fc8700db0f36");
+        param.put("sign", sp.getString("userId", ""));
         param.put("ps", num + "");
         param.put("pn", currentPage + "");
         OkHttpUtils.getInstance().post(QParkingApp.URL, new OkHttpUtils.ResultCallback() {
@@ -201,7 +204,7 @@ public class MyOrderActivity extends Activity implements View.OnClickListener {
      */
     private void myOrderRecharge(int currentPage, int num) {
         Map<String, String> param = new HashMap<String, String>();
-        param.put("sign", "343b1c4a3ea748121b2d640fc8700db0f36");
+        param.put("sign", sp.getString("userId", ""));
         param.put("ps", num + "");
         param.put("pn", currentPage + "");
         OkHttpUtils.getInstance().post(QParkingApp.URL, new OkHttpUtils.ResultCallback() {
